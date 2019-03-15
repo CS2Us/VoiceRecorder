@@ -1,0 +1,20 @@
+PODS:
+  - BonMot (5.3)
+  - SnapKit (4.2.0)
+
+DEPENDENCIES:
+  - BonMot
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - BonMot
+    - SnapKit
+
+SPEC CHECKSUMS:
+  BonMot: 0104d1b4eda54f4a4b7393d6559539ef25498fbd
+  SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+
+PODFILE CHECKSUM: 2607fa7cd2c59c1b1d5e4d01cbdafd1714a5cc51
+
+COCOAPODS: 1.5.3

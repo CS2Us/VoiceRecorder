@@ -12,6 +12,7 @@ import AVFoundation
 class RKAudioInputStream: InputStream {
 	var microphone: RKMicrophone?
 	var audioConverter: RKAudioConverter?
+	var asrerConverter: RKAudioConverter?
 	var asrer: RKASRer?
 	var player: AVAudioPlayer?
 	var status: InputStream.Status! {
@@ -50,6 +51,7 @@ class RKAudioInputStream: InputStream {
 		let inputStream = RKAudioInputStream()
 		inputStream.microphone = RKMicrophone.microphone(inputStream)
 		inputStream.audioConverter = RKAudioConverter.converter(inputStream)
+		inputStream.asrerConverter = RKAudioConverter.converter(inputStream)
 		inputStream.asrer = RKASRer.asrer(RecordKit.default)
 		return inputStream
 	}
@@ -57,8 +59,9 @@ class RKAudioInputStream: InputStream {
 	private func _openInputStream() {
 		do {
 			try audioConverter?.prepare(inRealtime: true)
-//			try asrer?.audioStreamRecognition(inputStream: self)
+			try asrerConverter?.prepare(inRealtime: true)
 //			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "16k_test", ofType: "pcm")!)
+//			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "test", ofType: "wav")!)
 			try microphone?.startIOUnit()
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
@@ -69,6 +72,12 @@ class RKAudioInputStream: InputStream {
 		do {
 			try microphone?.stopIOUnit()
 			try audioConverter?.disposeConvert()
+			try asrerConverter?.disposeConvert()
+			try asrer?.fileRecognition()
+			try player = AVAudioPlayer(contentsOf: RKSettings.asrFileDst.url)
+			player?.delegate = RecordKit.default
+			player?.prepareToPlay()
+			player?.play()
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
 		}
@@ -175,7 +184,7 @@ extension RKAudioInputStream: RKMicrophoneDelegate {
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)
 		audioData.mDataFrames = (bufferList, numberOfFrames)
 		try? audioConverter?.convert(inputStream: self)
-		try? asrer?.audioStreamRecognition(inputStream: self)
+		try? asrerConverter?.convert(inputStream: self)
 	}
 }
 

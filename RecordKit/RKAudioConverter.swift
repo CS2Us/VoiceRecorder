@@ -222,7 +222,8 @@ extension RKAudioConverter {
 				try RKTry({
 					switch parent.outputFormat.formatID {
 					case kAudioFormatLinearPCM:
-						cltASBD = dstASBD
+//						cltASBD = dstASBD
+						cltASBD = RKSettings.IOFormat.lpcm32
 					default:
 						cltASBD = RKSettings.IOFormat.lpcm32
 					}

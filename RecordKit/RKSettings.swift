@@ -52,7 +52,8 @@ public class RKSettings {
 			fatalError()
 		}
 	}
-	public static var sampleRate: Double = /** 44_100 **/ 16000
+	public static var sampleRate: Double = 44_100
+	public static var asrFileDst: Destination = .temp(url: "bsd_asr.wav")
 	public static var bufferLength: BufferLength = .veryLong
 	public static var interleaved: Bool = false
 	public static var enableLogging: Bool = true
@@ -69,7 +70,7 @@ private func ioFormat(desc: UnsafeMutablePointer<AudioStreamBasicDescription>,
 		var wordsize: UInt32
 		$0.mSampleRate = iof.sampleRate
 		$0.mFormatID = iof.formatID
-		//				$0.mFormatFlags = AudioFormatFlags(kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked)
+		$0.mFormatFlags = AudioFormatFlags(kAudioFormatFlagsNativeEndian | kAudioFormatFlagIsPacked)
 		$0.mFramesPerPacket = 1
 		$0.mBytesPerFrame = 0
 		$0.mBytesPerPacket = 0

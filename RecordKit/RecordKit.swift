@@ -40,6 +40,9 @@ public class RecordKit: NSObject {
 		inputStream?.audioConverter?.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
 		inputStream?.audioConverter?.outputUrl = destinationURL.url
 		inputStream?.audioConverter?.outputFileType = outputFileType
+		inputStream?.asrerConverter?.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
+		inputStream?.asrerConverter?.outputUrl = RKSettings.asrFileDst.url
+		inputStream?.asrerConverter?.outputFileType = kAudioFileWAVEType
 		RKLog("outputUrl: \(destinationURL.url)")
 		
 		inputStream?.status = .open

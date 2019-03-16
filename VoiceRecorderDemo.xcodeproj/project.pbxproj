@@ -27,7 +27,6 @@
 		089C3227223B935600D5E47E /* 8k_test.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 089C3226223B935600D5E47E /* 8k_test.pcm */; };
 		089C323D223BA67300D5E47E /* libstdc++.6.0.9.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C322C223B9FE500D5E47E /* libstdc++.6.0.9.tbd */; };
 		089C323E223BA67900D5E47E /* libiconv.2.4.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C323B223BA48000D5E47E /* libiconv.2.4.0.tbd */; };
-		089C3249223BA74B00D5E47E /* test.m in Sources */ = {isa = PBXBuildFile; fileRef = 089C3248223BA74B00D5E47E /* test.m */; };
 		089C3252223BA8E700D5E47E /* BDSWakeupParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C211462236AAD2009E91B4 /* BDSWakeupParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C3253223BA8E700D5E47E /* BDSASRParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C211472236AAD2009E91B4 /* BDSASRParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C3254223BA8E700D5E47E /* BDSEventManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C211482236AAD2009E91B4 /* BDSEventManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -36,6 +35,8 @@
 		089C3259223BA8E700D5E47E /* BDSWakeupDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114D2236AAD2009E91B4 /* BDSWakeupDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C325B223BB3C700D5E47E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */; };
 		089C325C223BB3EC00D5E47E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */; };
+		089C325E223CD48100D5E47E /* bsd_asr.wav in Resources */ = {isa = PBXBuildFile; fileRef = 089C325D223CD48100D5E47E /* bsd_asr.wav */; };
+		089C3262223CDBFF00D5E47E /* test.wav in Resources */ = {isa = PBXBuildFile; fileRef = 089C3261223CDBFF00D5E47E /* test.wav */; };
 		08AB782A223A2E69001E4E8C /* RKAudioInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */; };
 		08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112D2236A844009E91B4 /* libc++.tbd */; };
@@ -125,9 +126,9 @@
 		089C322C223B9FE500D5E47E /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		089C3232223BA02200D5E47E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		089C323B223BA48000D5E47E /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
-		089C3247223BA74B00D5E47E /* test.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = test.h; sourceTree = "<group>"; };
-		089C3248223BA74B00D5E47E /* test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = test.m; sourceTree = "<group>"; };
 		089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
+		089C325D223CD48100D5E47E /* bsd_asr.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = bsd_asr.wav; sourceTree = "<group>"; };
+		089C3261223CDBFF00D5E47E /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = "<group>"; };
 		08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioInputStream.swift; sourceTree = "<group>"; };
 		08C2112D2236A844009E91B4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -295,8 +296,6 @@
 				087879112215121200A8662E /* Info.plist */,
 				08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */,
 				08CE6B4F22356AFC00AE08E4 /* sourcePCM.aif */,
-				089C3247223BA74B00D5E47E /* test.h */,
-				089C3248223BA74B00D5E47E /* test.m */,
 			);
 			path = VoiceRecorderDemo;
 			sourceTree = "<group>";
@@ -314,6 +313,8 @@
 			children = (
 				0897211022378274008A4ECF /* BDSClientLib */,
 				08C211442236AAD2009E91B4 /* BDSClientHeaders */,
+				089C3261223CDBFF00D5E47E /* test.wav */,
+				089C325D223CD48100D5E47E /* bsd_asr.wav */,
 				089C3226223B935600D5E47E /* 8k_test.pcm */,
 				089C3224223B934D00D5E47E /* 16k_test.pcm */,
 				089C3212223B87C000D5E47E /* bds_easr_basic_model.dat */,
@@ -569,7 +570,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				089C3262223CDBFF00D5E47E /* test.wav in Resources */,
 				089C3221223B8C2D00D5E47E /* bds_easr_basic_model.dat in Resources */,
+				089C325E223CD48100D5E47E /* bsd_asr.wav in Resources */,
 				089C3227223B935600D5E47E /* 8k_test.pcm in Resources */,
 				089C3225223B934D00D5E47E /* 16k_test.pcm in Resources */,
 			);
@@ -657,7 +660,6 @@
 				0878791822153D2800A8662E /* AudioViewController.swift in Sources */,
 				087879062215121100A8662E /* AppDelegate.swift in Sources */,
 				08DFE64A222560790077E66A /* UIFont+Extension.swift in Sources */,
-				089C3249223BA74B00D5E47E /* test.m in Sources */,
 				08CE6B462233700200AE08E4 /* RollingOutputView.swift in Sources */,
 				0878A89E22269A1500569B4E /* Notification+Extension.swift in Sources */,
 				08DFE64E222560E40077E66A /* UIView+Doable.swift in Sources */,

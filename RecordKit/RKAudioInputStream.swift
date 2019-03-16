@@ -60,6 +60,7 @@ class RKAudioInputStream: InputStream {
 		do {
 			try audioConverter?.prepare(inRealtime: true)
 			try asrerConverter?.prepare(inRealtime: true)
+			try asrer?.audioStreamRecognition(inputStream: self)
 //			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "16k_test", ofType: "pcm")!)
 //			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "test", ofType: "wav")!)
 			try microphone?.startIOUnit()
@@ -73,7 +74,7 @@ class RKAudioInputStream: InputStream {
 			try microphone?.stopIOUnit()
 			try audioConverter?.disposeConvert()
 			try asrerConverter?.disposeConvert()
-			try asrer?.fileRecognition()
+//			try asrer?.fileRecognition()
 			try player = AVAudioPlayer(contentsOf: RKSettings.asrFileDst.url)
 			player?.delegate = RecordKit.default
 			player?.prepareToPlay()

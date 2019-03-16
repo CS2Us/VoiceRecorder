@@ -41,26 +41,19 @@ class RKASRer: NSObject {
 	}
 	
 	func audioStreamRecognition(inputStream: RKAudioInputStream) throws {
-		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
+		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 		_asrEventManager.setParameter(inputStream, forKey: BDS_ASR_AUDIO_INPUT_STREAM)
 		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_FILE_PATH)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
 	
 	func fileRecognition(_ filePath: String = RKSettings.asrFileDst.url.absoluteString) throws {
-		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
+		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 		_asrEventManager.setParameter(filePath, forKey: BDS_ASR_AUDIO_FILE_PATH)
 		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_INPUT_STREAM)
-		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
-	}
-	
-	func longSpeechRecognition() throws {
-		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
 		_asrEventManager.setParameter(false, forKey:BDS_ASR_NEED_CACHE_AUDIO)
 		_asrEventManager.setParameter(true, forKey:BDS_ASR_ENABLE_LONG_SPEECH)
 		_asrEventManager.setParameter(true, forKey:BDS_ASR_ENABLE_LOCAL_VAD)
-		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_FILE_PATH)
-		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_INPUT_STREAM)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
 	

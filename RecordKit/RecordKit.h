@@ -16,8 +16,7 @@ FOUNDATION_EXPORT const unsigned char RecordKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <RecordKit/PublicHeader.h>
 #import "ExceptionCatcher.h"
-#import "RKRollingPlotService.h"
-#import "RKRollingPlotSetting.h"
+#import "EZAudio.h"
 
 // 百度语音识别
 #import "BDSEventManager.h"

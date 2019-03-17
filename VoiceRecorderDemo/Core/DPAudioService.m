@@ -1,48 +1,69 @@
 //
-//  RKRollingPloat.m
-//  RecordKit
+//  AudioService.m
+//  Equalizers
 //
-//  Created by guoyiyuan on 2019/3/9.
-//  Copyright © 2019 guoyiyuan. All rights reserved.
+//  Created by Zhixuan Lai on 8/2/14. Modified by Michael Liptuga on 07.03.17.
+//  Copyright © 2017 Agilie. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "DPAudioService.h"
 #import <Accelerate/Accelerate.h>
-#import <UIKit/UIKit.h>
 
 const UInt32 kMaxFrames = 2048;
+
 const Float32 kAdjust0DB = 1.5849e-13;
+
 const NSInteger kFrameInterval = 1; // Alter this to draw more or less often
+
 const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 
-#import "RKRollingPlotService.h"
-
-@interface RKRollingPlotService()
+@interface DPAudioService () {
+	FFTSetup fftSetup;
+	
+	COMPLEX_SPLIT complexSplit;
+	
+	int log2n, n, nOver2;
+	
+	float sampleRate;
+	
+	size_t bufferCapacity, index;
+	
+	// buffers
+	float *speeds, *times, *tSqrts, *vts, *deltaHeights, *dataBuffer, *heightsByFrequency;
+}
 
 @property (strong, nonatomic) CADisplayLink *displaylink;
+
+@property (strong, nonatomic) DPEqualizerSettings *settings;
+
 @property (strong, nonatomic) NSMutableArray *heightsByTime;
 
 @end
 
-@implementation RKRollingPlotService {
-	FFTSetup fftSetup;
-	float sampleRate;
-	COMPLEX_SPLIT complexSplit;
-	size_t bufferCapacity, index;
-	float *speeds, *times, *tSqrts, *vts, *deltaHeights, *dataBuffer, *heightsByFrequency;
-	int log2n, n, nOver2;
+@implementation DPAudioService
+
+@synthesize numOfBins;
+@synthesize plotType = _plotType;
+
++ (instancetype) serviceWith : (DPEqualizerSettings*) audioSettings
+{
+	DPAudioService *sharedService= [[super alloc] initUniqueInstanceWith: audioSettings];
+	return sharedService;
 }
 
-- (void)setSetting:(RKRollingPlotSetting *)setting {
-	_setting = setting;
-	_displaylink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateHeightsByTime)];
-	[_displaylink addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
-	[self prepare];
+- (instancetype) initUniqueInstanceWith : (DPEqualizerSettings*) audioSettings
+{
+	if (self = [super init])
+	{
+		self.settings = audioSettings;
+		[self setNumOfBins: audioSettings.numOfBins];
+		self.plotType = audioSettings.plotType;
+		[self setup];
+	}
+	return self;
 }
 
-- (void)prepare {
-	NSUInteger numOfBins = _setting.numOfBins;
-	
+- (void)setup {
 	//Configure Data buffer and setup FFT
 	dataBuffer = (float *)malloc(kMaxFrames * sizeof(float));
 	
@@ -57,7 +78,50 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 	complexSplit.realp = (float *)malloc(nOver2 * sizeof(float));
 	complexSplit.imagp = (float *)malloc(nOver2 * sizeof(float));
 	
-	[self freeBuffers];
+	fftSetup = vDSP_create_fftsetup(log2n, FFT_RADIX2);
+	
+	//Create and configure audio session
+	AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+	sampleRate = audioSession.sampleRate;
+	
+	//Start timer
+	self.displaylink = [CADisplayLink displayLinkWithTarget: self
+												   selector: @selector(updateHeights)];
+	
+//	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+//		self.displaylink.preferredFramesPerSecond = kFramesPerSecond;
+//	} else {
+//		self.displaylink.frameInterval = kFrameInterval;
+//	}
+	
+	[self.displaylink addToRunLoop: [NSRunLoop currentRunLoop]
+						   forMode: NSRunLoopCommonModes];
+	
+}
+
+- (float*) frequencyHeights {
+	return heightsByFrequency;
+}
+
+- (NSMutableArray*) timeHeights {
+	return self.heightsByTime;
+}
+
+- (void)dealloc {
+	[self.displaylink invalidate];
+	self.displaylink = nil;
+	[self freeBuffersIfNeeded];
+}
+
+#pragma mark - Properties
+
+- (void) setNumOfBins:(NSUInteger) binsNumber {
+	
+	//Set new value for numOfBins property
+	numOfBins = MAX(1, binsNumber);
+	self.settings.numOfBins = binsNumber;
+	
+	[self freeBuffersIfNeeded];
 	
 	//Create buffers
 	heightsByFrequency = (float *)calloc(sizeof(float), numOfBins);
@@ -74,13 +138,12 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 	}
 }
 
-- (void)updateHeightsByTime {
-	NSUInteger numOfBins = _setting.numOfBins;
-	float gravity = _setting.gravity;
+#pragma mark - Timer Callback
+- (void)updateHeights {
 	
 	//Delay from last frame
 	float delay;
-	if (@available(iOS 11.0, *)) {
+	if (@available(iOS 10.0, *)) {
 		delay = self.displaylink.duration * self.displaylink.preferredFramesPerSecond;
 	} else {
 		delay = self.displaylink.duration * self.displaylink.frameInterval;
@@ -94,7 +157,7 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 	vDSP_vclip(times, 1, &timeMin, &timeMax, times, 1, numOfBins);
 	
 	// increment speed
-	float g = gravity * delay;
+	float g = self.settings.gravity * delay;
 	vDSP_vsma(times, 1, &g, speeds, 1, speeds, 1, numOfBins);
 	
 	// increment height
@@ -106,11 +169,12 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 			  
 			  deltaHeights, 1, deltaHeights, 1, numOfBins);
 	vDSP_vadd(heightsByFrequency, 1, deltaHeights, 1, heightsByFrequency, 1, numOfBins);
+	
+	[self p_refreshEqualizerDisplay];
 }
 
 #pragma mark - Update Buffers
 - (void)setSampleData:(float *)data length:(int)length {
-	NSUInteger numOfBins = _setting.numOfBins;
 	// fill the buffer with our sampled data. If we fill our buffer, run the FFT
 	int inNumberFrames = length;
 	int read = (int)(bufferCapacity - index);
@@ -138,8 +202,8 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 		
 		// aux
 		float mul = (sampleRate / bufferCapacity) / 2;
-		int minFrequencyIndex = self.setting.minFrequency / mul;
-		int maxFrequencyIndex = self.setting.maxFrequency / mul;
+		int minFrequencyIndex = self.settings.minFrequency / mul;
+		int maxFrequencyIndex = self.settings.maxFrequency / mul;
 		int numDataPointsPerColumn =
 		(maxFrequencyIndex - minFrequencyIndex) / numOfBins;
 		float maxHeight = 0;
@@ -151,7 +215,8 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 					   i * numDataPointsPerColumn,
 					   1, &avg, numDataPointsPerColumn);
 			
-			CGFloat columnHeight = MIN(avg * self.setting.gain, self.setting.maxBinHeight);
+			
+			CGFloat columnHeight = MIN(avg * self.settings.gain, self.settings.maxBinHeight);
 			
 			maxHeight = MAX(maxHeight, columnHeight);
 			// set column height, speed and time if needed
@@ -170,11 +235,12 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 	}
 }
 
-- (void)update:(float *)buffer with:(UInt32)bufferSize {
+- (void)updateBuffer:(float *)buffer withBufferSize:(UInt32)bufferSize {
 	[self setSampleData:buffer length:bufferSize];
 }
 
-- (void)freeBuffers {
+
+- (void)freeBuffersIfNeeded {
 	if (heightsByFrequency) {
 		free(heightsByFrequency);
 	}
@@ -195,10 +261,10 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 	}
 }
 
-- (void)dealloc {
-	[_displaylink invalidate];
-	_displaylink = nil;
-	[self freeBuffers];
+- (void) p_refreshEqualizerDisplay {
+	if ([self.delegate respondsToSelector:@selector(refreshEqualizerDisplay)]) {
+		[self.delegate refreshEqualizerDisplay];
+	}
 }
 
 @end

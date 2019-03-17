@@ -60,9 +60,7 @@ class RKAudioInputStream: InputStream {
 		do {
 			try audioConverter?.prepare(inRealtime: true)
 			try asrerConverter?.prepare(inRealtime: true)
-			try asrer?.audioStreamRecognition(inputStream: self)
 //			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "16k_test", ofType: "pcm")!)
-//			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "test", ofType: "wav")!)
 			try microphone?.startIOUnit()
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
@@ -74,11 +72,11 @@ class RKAudioInputStream: InputStream {
 			try microphone?.stopIOUnit()
 			try audioConverter?.disposeConvert()
 			try asrerConverter?.disposeConvert()
-//			try asrer?.fileRecognition()
-			try player = AVAudioPlayer(contentsOf: RKSettings.asrFileDst.url)
-			player?.delegate = RecordKit.default
-			player?.prepareToPlay()
-			player?.play()
+			try asrer?.fileRecognition()
+//			try player = AVAudioPlayer(contentsOf: RKSettings.asrFileDst.url)
+//			player?.delegate = RecordKit.default
+//			player?.prepareToPlay()
+//			player?.play()
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
 		}
@@ -174,8 +172,8 @@ extension RKAudioInputStream.AudioDataQueue {
 
 
 extension RKAudioInputStream: RKMicrophoneDelegate {
-	func microphone(_ microphone: RKMicrophone, audioReceived buffer: UnsafePointer<UnsafePointer<Float>>, bufferSize: UInt32) {
-		NotificationCenter.default.post(name: .microphoneFloatBuffer, object: nil, userInfo: ["buffer":buffer[0], "bufferSize":bufferSize])
+	func microphone(_ microphone: RKMicrophone, audioReceived buffer: UnsafePointer<Float>, bufferSize: UInt32) {
+		NotificationCenter.default.post(name: .microphoneFloatBuffer, object: nil, userInfo: ["buffer":buffer, "bufferSize":bufferSize])
 	}
 	
 	func microphone(_ microphone: RKMicrophone, audioReceived bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {

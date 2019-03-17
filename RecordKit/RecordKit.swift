@@ -9,11 +9,11 @@
 import Foundation
 import AVFoundation
 
-extension Notification.Name {
-	static let microphoneBufferList: Notification.Name = Notification.Name("microphoneBufferList")
-	static let microphoneFloatBuffer: Notification.Name = Notification.Name("microphoneFloatBuffer")
-	static let audioFileConvertComplete: Notification.Name = Notification.Name("audioFileConvertDidComplete")
-	static let audioFileConvertError: Notification.Name = Notification.Name("audioFileConvertError")
+public extension Notification.Name {
+	public static let microphoneBufferList: Notification.Name = Notification.Name("microphoneBufferList")
+	public static let microphoneFloatBuffer: Notification.Name = Notification.Name("microphoneFloatBuffer")
+	public static let audioFileConvertComplete: Notification.Name = Notification.Name("audioFileConvertDidComplete")
+	public static let audioFileConvertError: Notification.Name = Notification.Name("audioFileConvertError")
 }
 
 public class RecordKit: NSObject {

@@ -41,10 +41,6 @@ class AudioViewController: UIViewController {
 }
 
 fileprivate class MaskViewController: UIViewController {
-	var audioDidUpdate: ((AudioRecordUpdateNotification.UpdateInfo?) -> ())?
-	var audioDidFinish: ((AudioRecordFinishNotification.FinishInfo?) -> ())?
-	var audioDidFail: ((AudioRecordFailNotification.FailInfo?) -> ())?
-	
 	private lazy var maskView: UIView = {
 		let maskView = UIView(frame: UIScreen.main.bounds)
 		maskView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
@@ -55,18 +51,14 @@ fileprivate class MaskViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.addSubview(maskView)
-		audioDidUpdate = { [weak self] _ in self?.maskView.isHidden = false }
-		audioDidFail = { [weak self] _ in self?.maskView.isHidden = true }
-		audioDidFinish = { [weak self] _ in self?.maskView.isHidden = true }
 	}
 }
 
 fileprivate class MainViewController: UIViewController {
 	private let recordButton: UIButton = UIButton(frame: .zero)
-	private let rollingOutputView: RollingOutputView = RollingOutputView()
+	private let rollingOutputView: RollingOutputView = RollingOutputView(frame: .zero)
 	private let infoView: (container: UIView, recordTypeLabel: UILabel, recordTimeLabel: UILabel) = (UIView(), UILabel(), UILabel())
 	private let visualBlurView: UIVisualEffectView = UIVisualEffectView(frame: .zero)
-	private var meterDisplayLink: CADisplayLink?
 	private lazy var panViewGesture: UIPanGestureRecognizer = {
 		let panGesture = UIPanGestureRecognizer()
 		panGesture.addTarget(self, action: #selector(panViewGesture(sender:)))
@@ -100,8 +92,8 @@ fileprivate class MainViewController: UIViewController {
 			recordButton.addTarget(self, action: #selector(clickRecordButton), for: .touchDown)
 		}
 		
-		func initrollingOutputView() {
-			rollingOutputView.backgroundColor = UIColor.clear
+		func initRollingOutputView() {
+			rollingOutputView.backgroundColor = UIColor.red
 		}
 		
 		func initInfoView() {
@@ -143,7 +135,7 @@ fileprivate class MainViewController: UIViewController {
 		
 		initVisualBlurView()
 		initRecordButton()
-		initrollingOutputView()
+		initRollingOutputView()
 		initInfoView()
 		
 		recordButton.translatesAutoresizingMaskIntoConstraints = false
@@ -195,22 +187,22 @@ fileprivate class MainViewController: UIViewController {
 	@IBAction private func clickRecordButton() {
 		recordButton.isSelected = !recordButton.isSelected
 		if recordButton.isSelected {
-			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
 				self.view.frame = CGRect(origin: origin, size: size)
 				self.view.setNeedsLayout()
 				self.view.layoutIfNeeded()
+				RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			})
 		} else {
-			RecordKit.default.recordEndup()
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)
 				self.view.frame = CGRect(origin: origin, size: size)
 				self.view.setNeedsLayout()
 				self.view.layoutIfNeeded()
+				RecordKit.default.recordEndup()
 			})
 		}
 	}

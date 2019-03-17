@@ -35,7 +35,7 @@ private let RecordKit_RenderCallback: AURenderCallback = {(inRefCon,
 }
 
 protocol RKMicrophoneDelegate {
-	func microphone(_ microphone: RKMicrophone, audioReceived buffer: UnsafePointer<UnsafePointer<Float>>, bufferSize: UInt32)
+	func microphone(_ microphone: RKMicrophone, audioReceived buffer: UnsafePointer<Float>, bufferSize: UInt32)
 	
 	func microphone(_ microphone: RKMicrophone, audioReceived bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32)
 }
@@ -43,6 +43,8 @@ protocol RKMicrophoneDelegate {
 class RKMicrophone: RKNode {
 	private var _rioUnit: AudioUnit? = nil
 	private var _delegate: RKMicrophoneDelegate? = nil
+	private var _audioFloatConverter: EZAudioFloatConverter? = nil
+	private var _floatData: UnsafeMutablePointer<UnsafeMutablePointer<Float>?>? = nil
 	
 	var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 	
@@ -54,6 +56,8 @@ class RKMicrophone: RKNode {
 	
 	public override init() {
 		super.init()
+		_audioFloatConverter = EZAudioFloatConverter(inputFormat: inputFormat.asbd)
+		_floatData = EZAudioUtilities.floatBuffers(withNumberOfFrames: RKSettings.bufferLength.samplesCount, numberOfChannels: inputFormat.channelCount)
 		setupIOUnit()
 	}
 	
@@ -77,7 +81,14 @@ extension RKMicrophone: AURenderCallbackDelegate {
 							   inNumberFrames,
 							   &bufferList)
 		
+		
+		_audioFloatConverter?.convertData(from: &bufferList, withNumberOfFrames: inNumberFrames, toFloatBuffers: _floatData)
+		if let monoFloatData = _floatData?.pointee {
+			_delegate?.microphone(self, audioReceived: monoFloatData, bufferSize: inNumberFrames)
+		}
+
 		_delegate?.microphone(self, audioReceived: &bufferList, numberOfFrames: inNumberFrames)
+		
 
 		return result
 	}

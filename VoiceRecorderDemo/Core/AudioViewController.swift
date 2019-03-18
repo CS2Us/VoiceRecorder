@@ -35,7 +35,7 @@ class AudioViewController: UIViewController {
 		
 		mainVc.view.layer.cornerRadius = 6
 		mainVc.view.layer.masksToBounds = true
-		mainVc.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//		mainVc.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 		mainVc.view.backgroundColor = UIColor.white.withAlphaComponent(0.94)
 	}
 }

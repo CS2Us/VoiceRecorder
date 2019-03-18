@@ -45,7 +45,7 @@ public class RKSettings {
 	}
 	
 	public static var resources: Bundle {
-		if let bundlePath = Bundle.main.path(forResource: "Resources", ofType: "bundle"),
+		if let bundlePath = Bundle.main.path(forResource: "Frameworks/RecordKit.framework/Resources", ofType: "bundle"),
 			let bundle = Bundle(path: bundlePath) {
 			return bundle
 		} else {

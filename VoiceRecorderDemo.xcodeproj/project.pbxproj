@@ -6,6 +6,20 @@
 	objectVersion = 50;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		08411DEF223F6EFB00739903 /* Aggregate */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 08411DF0223F6EFB00739903 /* Build configuration list for PBXAggregateTarget "Aggregate" */;
+			buildPhases = (
+				08411DF3223F6F0100739903 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Aggregate;
+			productName = Aggregate;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		08098EE9223258C000B0FA81 /* RKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08098EE8223258C000B0FA81 /* RKNode.swift */; };
 		08120C8E223E6D07000E0E85 /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120C6B223E6D07000E0E85 /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -40,6 +54,7 @@
 		08120CCF223E742C000E0E85 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120CCE223E742C000E0E85 /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		082C29B02231839600710E15 /* RKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29AF2231839600710E15 /* RKMicrophone.swift */; };
 		082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29B1223183A500710E15 /* RKAudioFile.swift */; };
+		08411DEB223F6C3500739903 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
 		08779C2B222F7EEF0055CCB9 /* RecordKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 08779C29222F7EEF0055CCB9 /* RecordKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; };
 		087879062215121100A8662E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087879052215121100A8662E /* AppDelegate.swift */; };
@@ -49,7 +64,6 @@
 		087879102215121200A8662E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0878790E2215121200A8662E /* LaunchScreen.storyboard */; };
 		0878791822153D2800A8662E /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0878791722153D2700A8662E /* AudioViewController.swift */; };
 		08972113223782E3008A4ECF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08972112223782E3008A4ECF /* libsqlite3.tbd */; };
-		089C3220223B8B8700D5E47E /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
 		089C3221223B8C2D00D5E47E /* bds_easr_basic_model.dat in Resources */ = {isa = PBXBuildFile; fileRef = 089C3212223B87C000D5E47E /* bds_easr_basic_model.dat */; };
 		089C3225223B934D00D5E47E /* 16k_test.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 089C3224223B934D00D5E47E /* 16k_test.pcm */; };
 		089C3227223B935600D5E47E /* 8k_test.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 089C3226223B935600D5E47E /* 8k_test.pcm */; };
@@ -61,7 +75,6 @@
 		089C3257223BA8E700D5E47E /* BDSASRDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114B2236AAD2009E91B4 /* BDSASRDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C3258223BA8E700D5E47E /* BDSUploaderParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114C2236AAD2009E91B4 /* BDSUploaderParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C3259223BA8E700D5E47E /* BDSWakeupDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114D2236AAD2009E91B4 /* BDSWakeupDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		089C325B223BB3C700D5E47E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */; };
 		089C325C223BB3EC00D5E47E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */; };
 		08AB782A223A2E69001E4E8C /* RKAudioInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */; };
 		08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -92,7 +105,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		089C3222223B8C4800D5E47E /* PBXContainerItemProxy */ = {
+		08411DED223F6C6200739903 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 087878FA2215121100A8662E /* Project object */;
 			proxyType = 1;
@@ -262,7 +275,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				089C325B223BB3C700D5E47E /* libBaiduSpeechSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,7 +565,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				089C3223223B8C4800D5E47E /* PBXTargetDependency */,
+				08411DEE223F6C6200739903 /* PBXTargetDependency */,
 			);
 			name = RecordKit;
 			productName = RecordKit;
@@ -610,6 +622,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = guoyiyuan;
 				TargetAttributes = {
+					08411DEF223F6EFB00739903 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					08779C26222F7EEF0055CCB9 = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
@@ -639,6 +654,7 @@
 				087879012215121100A8662E /* VoiceRecorderDemo */,
 				08779C26222F7EEF0055CCB9 /* RecordKit */,
 				089C3216223B88D100D5E47E /* Resources */,
+				08411DEF223F6EFB00739903 /* Aggregate */,
 			);
 		};
 /* End PBXProject section */
@@ -648,6 +664,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08411DEB223F6C3500739903 /* Resources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,7 +672,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				089C3220223B8B8700D5E47E /* Resources.bundle in Resources */,
 				08CE6B5022356AFC00AE08E4 /* sourcePCM.aif in Resources */,
 				08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */,
 				087879102215121200A8662E /* LaunchScreen.storyboard in Resources */,
@@ -677,6 +693,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		08411DF3223F6F0100739903 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${ACTION}\" = \"build\" ]\nthen\nFMK_NAME=\"RecordKit\"\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\nDEVICE_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\n\nSIMULATOR_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#ditto \"${DEVICE_DIR}/Headers\" \"${INSTALL_DIR}/Headers\"\n\n# 使用lipo命令将其合并成一个通用framework  \n# 最后将生成的通用framework放置在工程根目录下新建的Products目录下  \nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\n#open \"${DEVICE_DIR}\"\nopen \"${SRCROOT}/Products\"\nfi\n";
+		};
 		0BBF3AE92F9A13BB255B15C6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -783,10 +816,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		089C3223223B8C4800D5E47E /* PBXTargetDependency */ = {
+		08411DEE223F6C6200739903 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 089C3216223B88D100D5E47E /* Resources */;
-			targetProxy = 089C3222223B8C4800D5E47E /* PBXContainerItemProxy */;
+			targetProxy = 08411DED223F6C6200739903 /* PBXContainerItemProxy */;
 		};
 		08AB7830223ADF2C001E4E8C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -815,9 +848,29 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		08411DF1223F6EFB00739903 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WQDFMNJ7TD;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		08411DF2223F6EFB00739903 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WQDFMNJ7TD;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		08779C2D222F7EEF0055CCB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -841,6 +894,7 @@
 					"$(PROJECT_DIR)/Resources/BDSClientLib",
 				);
 				MACH_O_TYPE = mh_dylib;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.RecordKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -855,6 +909,7 @@
 		08779C2E222F7EEF0055CCB9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
@@ -939,7 +994,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -994,7 +1049,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1009,8 +1064,10 @@
 			baseConfigurationReference = 08C7FCA0E0ABE5A216045FF1 /* Pods-VoiceRecorderDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WQDFMNJ7TD;
 				INFOPLIST_FILE = VoiceRecorderDemo/Info.plist;
@@ -1022,8 +1079,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VoiceRecorderDemo/BDSClientLib",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorderDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VoiceRecorderDemo/VoiceRecorderDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -1036,8 +1095,10 @@
 			baseConfigurationReference = E096C491DB455138DAA1F6C2 /* Pods-VoiceRecorderDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WQDFMNJ7TD;
 				INFOPLIST_FILE = VoiceRecorderDemo/Info.plist;
@@ -1049,8 +1110,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/VoiceRecorderDemo/BDSClientLib",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorderDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VoiceRecorderDemo/VoiceRecorderDemo-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1060,7 +1123,8 @@
 		089C321B223B88D100D5E47E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = WQDFMNJ7TD;
@@ -1071,8 +1135,10 @@
 					"$(PROJECT_DIR)/Resources/BDSClientLib",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.Resources;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1082,7 +1148,8 @@
 		089C321C223B88D100D5E47E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = WQDFMNJ7TD;
@@ -1095,6 +1162,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.Resources;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
@@ -1104,6 +1172,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		08411DF0223F6EFB00739903 /* Build configuration list for PBXAggregateTarget "Aggregate" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08411DF1223F6EFB00739903 /* Debug */,
+				08411DF2223F6EFB00739903 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		08779C2C222F7EEF0055CCB9 /* Build configuration list for PBXNativeTarget "RecordKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

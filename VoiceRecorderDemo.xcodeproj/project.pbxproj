@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */; };
+		0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */; };
 		08098EE9223258C000B0FA81 /* RKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08098EE8223258C000B0FA81 /* RKNode.swift */; };
 		08120C8E223E6D07000E0E85 /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120C6B223E6D07000E0E85 /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08120C90223E6D07000E0E85 /* EZAudioUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120C6D223E6D07000E0E85 /* EZAudioUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -136,6 +138,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakObjectSet.swift; sourceTree = "<group>"; };
+		0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftNotificationCenter.swift; sourceTree = "<group>"; };
 		08098EE8223258C000B0FA81 /* RKNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKNode.swift; sourceTree = "<group>"; };
 		08120C6B223E6D07000E0E85 /* EZPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZPlot.h; sourceTree = "<group>"; };
 		08120C6D223E6D07000E0E85 /* EZAudioUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioUtilities.h; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 				08098EE8223258C000B0FA81 /* RKNode.swift */,
 				08C211722236AD08009E91B4 /* RKASRer.swift */,
 				08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */,
+				0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */,
+				0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */,
 			);
 			path = RecordKit;
 			sourceTree = "<group>";
@@ -767,6 +773,7 @@
 				08C211732236AD08009E91B4 /* RKASRer.swift in Sources */,
 				08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */,
 				08120CAD223E6D07000E0E85 /* EZAudioPlotGL.m in Sources */,
+				0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */,
 				08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */,
 				08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */,
 				08098EE9223258C000B0FA81 /* RKNode.swift in Sources */,
@@ -781,6 +788,7 @@
 				08DB4F7F223018CD00267ACD /* ExceptionCatcher.m in Sources */,
 				082C29B02231839600710E15 /* RKMicrophone.swift in Sources */,
 				08120CAB223E6D07000E0E85 /* EZAudioDisplayLink.m in Sources */,
+				0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */,
 				08120C93223E6D07000E0E85 /* EZAudioFloatData.m in Sources */,
 				082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */,
 			);
@@ -870,6 +878,7 @@
 		08779C2D222F7EEF0055CCB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -909,6 +918,7 @@
 		08779C2E222F7EEF0055CCB9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1080,7 +1090,7 @@
 					"$(PROJECT_DIR)/VoiceRecorderDemo/BDSClientLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorderDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VoiceRecorderDemo/VoiceRecorderDemo-Bridging-Header.h";
@@ -1111,7 +1121,7 @@
 					"$(PROJECT_DIR)/VoiceRecorderDemo/BDSClientLib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorderDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VoiceRecorderDemo/VoiceRecorderDemo-Bridging-Header.h";

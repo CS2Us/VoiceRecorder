@@ -9,14 +9,15 @@
 import Foundation
 import AudioToolbox
 
-protocol RKAudioConverterDelegate {
-	func audioFileConvert(_ converter: RKAudioConverter, didCompleteWithURL url: URL)
-	
-	func audioFileConvert(_ converter: RKAudioConverter, didEncounterError error: NSError)
+@objc
+public protocol RKAudioConverterHandle {
+	@objc(audioConvertCompleted:)
+	optional func audioConvertCompleted(_ converter: RKAudioConverter)
+	@objc(audioConvertError)
+	optional func audioConvertError()
 }
 
-class RKAudioConverter: RKNode {
-	private var _delegate: RKAudioConverterDelegate?
+public class RKAudioConverter: RKNode {
 	private var _sourceFile: ExtAudioFileRef?
 	private var _destinationFile: ExtAudioFileRef?
 	private var _queue: DispatchQueue
@@ -24,14 +25,13 @@ class RKAudioConverter: RKNode {
 	private var _audioConvertInfo: AudioConvertInfo?
 	private var _inRealtime: Bool!
 	
-	var inputUrl: URL = URL(fileURLWithPath: "")
-	var outputUrl: URL = URL(fileURLWithPath: "")
-	var outputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
-	var outputFileType: AudioFileTypeID = kAudioFileAIFFType
+	public var inputUrl: Destination = .none
+	public var outputUrl: Destination = .none
+	public var outputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
+	public var outputFileType: AudioFileTypeID = kAudioFileAIFFType
 	
-	static func converter(_ delegate: RKAudioConverterDelegate) -> RKAudioConverter {
+	public static func converter() -> RKAudioConverter {
 		let converter = RKAudioConverter()
-		converter._delegate = delegate
 		return converter
 	}
 	
@@ -41,7 +41,7 @@ class RKAudioConverter: RKNode {
 		super.init()
 	}
 	
-	func prepare(inRealtime: Bool) throws {
+	public func prepare(inRealtime: Bool) throws {
 		_inRealtime = inRealtime
 		if _inRealtime {
 			RKLog("Converting In Realtime...\n")
@@ -81,7 +81,7 @@ class RKAudioConverter: RKNode {
 		}
 	}
 	
-	func convert(inputStream: RKAudioInputStream) throws {
+	public func convert(inputStream: RKAudioInputStream) throws {
 		do {
 			if _inRealtime {
 				try RKTry({
@@ -142,7 +142,6 @@ class RKAudioConverter: RKNode {
 				
 				try disposeConvert()
 				if error == noErr {
-					_delegate?.audioFileConvert(self, didCompleteWithURL: outputUrl)
 					RKLog("RKAudioConverter Done")
 				}
 			}
@@ -152,7 +151,7 @@ class RKAudioConverter: RKNode {
 		}
 	}
 	
-	func disposeConvert() throws {
+	public func disposeConvert() throws {
 		do {
 			try RKTry({
 				if self._sourceFile != nil {
@@ -169,6 +168,10 @@ class RKAudioConverter: RKNode {
 					ExtAudioFileDispose(self._audioConvertInfo!._crt!)
 				}
 			}, "_audioConvertInfo?._crt dispose error")
+			
+			Broadcaster.notify(RKAudioConverterHandle.self, block: { observer in
+				observer.audioConvertCompleted?(self)
+			})
 		} catch let ex {
 			RKLog("failed to dispose")
 			throw ex
@@ -188,7 +191,7 @@ extension RKAudioConverter {
 				
 				if !parent._inRealtime {
 					try RKTry({
-						ExtAudioFileOpenURL(parent.inputUrl as CFURL, &parent._sourceFile)
+						ExtAudioFileOpenURL(parent.inputUrl.url as CFURL, &parent._sourceFile)
 					}, "failed for sourceFile with URL: %@")
 				}
 				
@@ -215,7 +218,7 @@ extension RKAudioConverter {
 				}, "couldn't fill out the destination data format")
 				
 				try RKTry({
-					ExtAudioFileCreateWithURL(parent.outputUrl as CFURL, parent.outputFileType, &dstASBD, nil, AudioFileFlags.eraseFile.rawValue, &parent._destinationFile)
+					ExtAudioFileCreateWithURL(parent.outputUrl.url as CFURL, parent.outputFileType, &dstASBD, nil, AudioFileFlags.eraseFile.rawValue, &parent._destinationFile)
 				}, "failed to create the destination audio file")
 				
 				var cltASBD = AudioStreamBasicDescription()

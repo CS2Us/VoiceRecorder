@@ -28,6 +28,7 @@
     CGFloat actualPadding = MAX(0, (columnWidth - actualWidth) / 2);
     
     for (NSUInteger i = 0; i < self.equalizerSettings.numOfBins; i++) {
+//		if ([[self.audioService timeHeights] count] <= 0) { return; }
         CGFloat columnHeight = [[self.audioService timeHeights][i] floatValue] / 2;
         
         if (columnHeight <= 0)

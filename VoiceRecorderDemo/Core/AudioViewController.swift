@@ -25,6 +25,7 @@ class AudioViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		initComponent()
+		initObserver()
 	}
 	
 	private func initComponent() {
@@ -37,6 +38,10 @@ class AudioViewController: UIViewController {
 		mainVc.view.layer.masksToBounds = true
 //		mainVc.view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
 		mainVc.view.backgroundColor = UIColor.white.withAlphaComponent(0.94)
+	}
+	
+	private func initObserver() {
+		Broadcaster.register(RKASRerHandle.self, observer: self)
 	}
 }
 
@@ -93,7 +98,7 @@ fileprivate class MainViewController: UIViewController {
 		}
 		
 		func initRollingOutputView() {
-			rollingOutputView.backgroundColor = UIColor.red
+//			rollingOutputView.backgroundColor = UIColor.red
 		}
 		
 		func initInfoView() {
@@ -161,6 +166,8 @@ fileprivate class MainViewController: UIViewController {
 	}
 	
 	private func initObserver() {
+		Broadcaster.register(RKMicrophoneHandle.self, observer: rollingOutputView)
+		Broadcaster.register(RKAudioConverterHandle.self, observer: rollingOutputView)
 	}
 	
 	override func willMove(toParent parent: UIViewController?) {
@@ -187,23 +194,38 @@ fileprivate class MainViewController: UIViewController {
 	@IBAction private func clickRecordButton() {
 		recordButton.isSelected = !recordButton.isSelected
 		if recordButton.isSelected {
+			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
 				self.view.frame = CGRect(origin: origin, size: size)
 				self.view.setNeedsLayout()
 				self.view.layoutIfNeeded()
-				RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			})
 		} else {
+			RecordKit.default.recordEndup()
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)
 				self.view.frame = CGRect(origin: origin, size: size)
 				self.view.setNeedsLayout()
 				self.view.layoutIfNeeded()
-				RecordKit.default.recordEndup()
 			})
 		}
+	}
+}
+
+
+extension AudioViewController: RKASRerHandle {
+	func asrRecognitionFlushing(_ asr: RKASRer) {
+		print("fileID: \(asr.speechId!)")
+	}
+	
+	func asrRecognitionCompleted(_ asr: RKASRer) {
+		print("识别结束 fileID: \(asr.speechId!), words: \(asr.finalResult ?? asr.chunkResult ?? asr.flushResult!)")
+	}
+	
+	func asrRecognitionError() {
+		print("识别错误")
 	}
 }

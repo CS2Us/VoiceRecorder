@@ -34,33 +34,28 @@ private let RecordKit_RenderCallback: AURenderCallback = {(inRefCon,
 	return result
 }
 
-protocol RKMicrophoneDelegate {
-	func microphone(_ microphone: RKMicrophone, audioReceived buffer: UnsafePointer<Float>, bufferSize: UInt32)
-	
-	func microphone(_ microphone: RKMicrophone, audioReceived bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32)
+@objc
+public protocol RKMicrophoneHandle {
+	@objc(microphoneWorking:bufferList:numberOfFrames:)
+	optional func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32)
+	@objc(microphoneStop:)
+	optional func microphoneStop(_ microphone: RKMicrophone)
 }
 
-class RKMicrophone: RKNode {
+public class RKMicrophone: RKNode {
 	private var _rioUnit: AudioUnit? = nil
-	private var _delegate: RKMicrophoneDelegate? = nil
-	private var _audioFloatConverter: EZAudioFloatConverter? = nil
-	private var _floatData: UnsafeMutablePointer<UnsafeMutablePointer<Float>?>? = nil
 	
-	var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
+	public var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 	
-	static func microphone(_ delegate: RKMicrophoneDelegate) -> RKMicrophone {
+	public static func microphone() -> RKMicrophone {
 		let microphone = RKMicrophone()
-		microphone._delegate = delegate
 		return microphone
 	}
 	
 	public override init() {
 		super.init()
-		_audioFloatConverter = EZAudioFloatConverter(inputFormat: inputFormat.asbd)
-		_floatData = EZAudioUtilities.floatBuffers(withNumberOfFrames: RKSettings.bufferLength.samplesCount, numberOfChannels: inputFormat.channelCount)
 		setupIOUnit()
 	}
-	
 }
 
 extension RKMicrophone: AURenderCallbackDelegate {
@@ -81,15 +76,10 @@ extension RKMicrophone: AURenderCallbackDelegate {
 							   inNumberFrames,
 							   &bufferList)
 		
+		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
+		})
 		
-		_audioFloatConverter?.convertData(from: &bufferList, withNumberOfFrames: inNumberFrames, toFloatBuffers: _floatData)
-		if let monoFloatData = _floatData?.pointee {
-			_delegate?.microphone(self, audioReceived: monoFloatData, bufferSize: inNumberFrames)
-		}
-
-		_delegate?.microphone(self, audioReceived: &bufferList, numberOfFrames: inNumberFrames)
-		
-
 		return result
 	}
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class RKNode {
+public class RKNode: NSObject {
 	
 	
 }

@@ -12,36 +12,38 @@ import RecordKit
 
 class RollingOutputView: UIView {
 	private var _rollingEqualizerView: DPRollingEqualizerView? = nil
-	
-	override init(frame: CGRect) {
-		super.init(frame: .zero)
-		
-		NotificationCenter.default.addObserver(self, selector: #selector(receivedFloatBuffer), name: Notification.Name.microphoneFloatBuffer, object: nil)
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-	
+	private var _floatData: UnsafeMutablePointer<UnsafeMutablePointer<Float>?>? = nil
+	private var _audioFloatConverter: EZAudioFloatConverter? = nil
+
 	override func layoutSubviews() {
 		super.layoutSubviews()
-		
 		if _rollingEqualizerView == nil, bounds.height != 0 {
 			_rollingEqualizerView = DPRollingEqualizerView(frame: bounds, andSettings: DPEqualizerSettings.create(by: .rolling))
 			addSubview(_rollingEqualizerView!)
 		}
 	}
+}
 
-	deinit {
-		NotificationCenter.default.removeObserver(self)
+extension RollingOutputView: RKMicrophoneHandle {
+	func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
+		if _audioFloatConverter == nil {
+			_audioFloatConverter = EZAudioFloatConverter(inputFormat: microphone.inputFormat.asbd)
+			_floatData = EZAudioUtilities.floatBuffers(withNumberOfFrames: RKSettings.bufferLength.samplesCount, numberOfChannels: microphone.inputFormat.channelCount)
+		}
+		_audioFloatConverter?.convertData(from: UnsafeMutablePointer<AudioBufferList>(mutating: bufferList), withNumberOfFrames: numberOfFrames, toFloatBuffers: _floatData)
+		if let monoFloatData = _floatData?.pointee {
+			_rollingEqualizerView?.updateBuffer(monoFloatData, withBufferSize: numberOfFrames)
+		}
 	}
-	
-	@objc func receivedFloatBuffer(_ notification: Notification) {
-		guard let buffer = UnsafeMutablePointer<Float>.init(mutating: notification.userInfo?["buffer"] as? UnsafePointer<Float>), let bufferSize = notification.userInfo?["bufferSize"] as? UInt32 else { return }
-		_rollingEqualizerView?.updateBuffer(buffer, withBufferSize: bufferSize)
-	}
+}
 
-	override func draw(_ rect: CGRect) {
-		super.draw(rect)
+extension RollingOutputView: RKAudioConverterHandle {
+	func audioConvertCompleted(_ converter: RKAudioConverter) {
+//		print("录音录制完成 fileExt: \(converter.outputUrl.fileExt)")
+//		print("录音录制完成 fileName: \(converter.outputUrl.fileName)")
+//		print("录音录制完成 mimeType: \(converter.outputUrl.mimeType!)")
+//		print("录音录制完成 directoryPath: \(converter.outputUrl.directoryPath)")
+//		print("录音录制完成 fileID: \(converter.outputUrl.fileId) \n")
+//		print("录音录制完成 fileNamePlusExtension: \(converter.outputUrl.fileNamePlusExtension)")
 	}
 }

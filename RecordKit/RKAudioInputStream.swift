@@ -9,12 +9,11 @@
 import Foundation
 import AVFoundation
 
-class RKAudioInputStream: InputStream {
+open class RKAudioInputStream: InputStream {
 	var microphone: RKMicrophone?
 	var audioConverter: RKAudioConverter?
 	var asrerConverter: RKAudioConverter?
 	var asrer: RKASRer?
-	var player: AVAudioPlayer?
 	var status: InputStream.Status! {
 		didSet {
 			switch status! {
@@ -47,21 +46,26 @@ class RKAudioInputStream: InputStream {
 		}
 	}
 	
-	static func inputStream() -> RKAudioInputStream {
+	public static func inputStream() -> RKAudioInputStream {
 		let inputStream = RKAudioInputStream()
-		inputStream.microphone = RKMicrophone.microphone(inputStream)
-		inputStream.audioConverter = RKAudioConverter.converter(inputStream)
-		inputStream.asrerConverter = RKAudioConverter.converter(inputStream)
-		inputStream.asrer = RKASRer.asrer(RecordKit.default)
+		inputStream.microphone = RKMicrophone.microphone()
+		inputStream.audioConverter = RKAudioConverter.converter()
+		inputStream.asrerConverter = RKAudioConverter.converter()
+		inputStream.asrer = RKASRer.asrer()
+		inputStream.initObserver()
 		return inputStream
+	}
+	
+	public func initObserver() {
+		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
 	}
 	
 	private func _openInputStream() {
 		do {
 			try audioConverter?.prepare(inRealtime: true)
 			try asrerConverter?.prepare(inRealtime: true)
-//			try asrer?.fileRecognition(RKSettings.resources.path(forResource: "16k_test", ofType: "pcm")!)
 			try microphone?.startIOUnit()
+			try asrer?.longSpeechRecognition((audioConverter?.outputUrl)!)
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
 		}
@@ -72,19 +76,15 @@ class RKAudioInputStream: InputStream {
 			try microphone?.stopIOUnit()
 			try audioConverter?.disposeConvert()
 			try asrerConverter?.disposeConvert()
-			try asrer?.fileRecognition()
-//			try player = AVAudioPlayer(contentsOf: RKSettings.asrFileDst.url)
-//			player?.delegate = RecordKit.default
-//			player?.prepareToPlay()
-//			player?.play()
+			try asrer?.endRecognition()
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
 		}
 	}
 	
-	override func open() {}
-	override func close() {}
-	override func read(_ buffer: UnsafeMutablePointer<UInt8>, maxLength len: Int) -> Int {
+	override open func open() {}
+	override open func close() {}
+	override open func read(_ buffer: UnsafeMutablePointer<UInt8>, maxLength len: Int) -> Int {
 		objc_sync_enter(self)
 		defer {
 			objc_sync_exit(self)
@@ -93,15 +93,15 @@ class RKAudioInputStream: InputStream {
 		
 	}
 	
-	override func getBuffer(_ buffer: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, length len: UnsafeMutablePointer<Int>) -> Bool {
+	override open func getBuffer(_ buffer: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, length len: UnsafeMutablePointer<Int>) -> Bool {
 		return false
 	}
 	
-	override var hasBytesAvailable: Bool {
+	override open var hasBytesAvailable: Bool {
 		return true
 	}
 	
-	override var streamStatus: Stream.Status {
+	override open var streamStatus: Stream.Status {
 		return status
 	}
 }
@@ -170,37 +170,13 @@ extension RKAudioInputStream.AudioDataQueue {
 	}
 }
 
-
-extension RKAudioInputStream: RKMicrophoneDelegate {
-	func microphone(_ microphone: RKMicrophone, audioReceived buffer: UnsafePointer<Float>, bufferSize: UInt32) {
-		NotificationCenter.default.post(name: .microphoneFloatBuffer, object: nil, userInfo: ["buffer":buffer, "bufferSize":bufferSize])
-	}
-	
-	func microphone(_ microphone: RKMicrophone, audioReceived bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
-		NotificationCenter.default.post(name: .microphoneBufferList, object: nil, userInfo: ["bufferList":bufferList[0], "numberOfFrames":numberOfFrames])
+extension RKAudioInputStream: RKMicrophoneHandle {
+	public func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
 		var intByteSize: Int = Int(bufferList.pointee.mBuffers.mDataByteSize)
 		var uInt8Buffer: UnsafePointer<UInt8> = UnsafePointer(bufferList.pointee.mBuffers.mData!.bindMemory(to: UInt8.self, capacity: intByteSize))
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)
 		audioData.mDataFrames = (bufferList, numberOfFrames)
 		try? audioConverter?.convert(inputStream: self)
 		try? asrerConverter?.convert(inputStream: self)
-	}
-}
-
-extension RKAudioInputStream: RKAudioConverterDelegate {
-	func audioFileConvert(_ converter: RKAudioConverter, didCompleteWithURL url: URL) {
-		NotificationCenter.default.post(name: .audioFileConvertComplete, object: nil, userInfo: ["url": url])
-		do {
-			try player = AVAudioPlayer(contentsOf: url)
-			player?.delegate = RecordKit.default
-			player?.prepareToPlay()
-			player?.play()
-		} catch {
-			RKLog("player got some problems")
-		}
-	}
-	
-	func audioFileConvert(_ converter: RKAudioConverter, didEncounterError error: NSError) {
-		NotificationCenter.default.post(name: .audioFileConvertComplete, object: nil, userInfo: ["error": error])
 	}
 }

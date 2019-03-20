@@ -22,11 +22,11 @@ public class RKSettings {
 	}
 	
 	public struct IOFormat {
-		let channelCount: UInt32
-		let formatID: AudioFormatID
-		let bitDepth: CommonFormat
-		let sampleRate: Double
-		var asbd: AudioStreamBasicDescription {
+		public	let channelCount: UInt32
+		public let formatID: AudioFormatID
+		public let bitDepth: CommonFormat
+		public let sampleRate: Double
+		public var asbd: AudioStreamBasicDescription {
 			var value = AudioStreamBasicDescription()
 			ioFormat(desc: &value, iof: {
 				RKSettings.IOFormat(formatID: formatID, bitDepth: bitDepth,
@@ -35,7 +35,7 @@ public class RKSettings {
 			return value
 		}
 		
-		init(formatID: AudioFormatID, bitDepth: CommonFormat,
+		public init(formatID: AudioFormatID, bitDepth: CommonFormat,
 			 channelCount: UInt32 = 1, sampleRate: Double = RKSettings.sampleRate) {
 			self.formatID = formatID
 			self.bitDepth = bitDepth
@@ -53,14 +53,13 @@ public class RKSettings {
 		}
 	}
 	public static var sampleRate: Double = 44_100
-	public static var asrFileDst: Destination = .temp(url: "bsd_asr.wav")
 	public static var bufferLength: BufferLength = .veryLong
 	public static var interleaved: Bool = false
 	public static var enableLogging: Bool = true
 	public static var maxDuration: TimeInterval = TimeInterval(2 * 60)
-	public static var ASRAppID: String = "15731062"
-	public static var ASRApiKey: String = "rbKB6zVhL0fAc7fn0lKGYiPn"
-	public static var ASRSecretKey: String = "Un2QyGl2HS942MOa2GjCKFN4HOQrHUaX"
+	public static var ASRAppID: String = /** "15731062" **/ "15807927"
+	public static var ASRApiKey: String = /** "rbKB6zVhL0fAc7fn0lKGYiPn" **/ "DavSgp7gxiBbbqxdWFQpvGO0"
+	public static var ASRSecretKey: String = /** "Un2QyGl2HS942MOa2GjCKFN4HOQrHUaX" **/ "GAXG2t82pT7UWzIXiB4kIkbbD6fwWlK8"
 }
 
 private func ioFormat(desc: UnsafeMutablePointer<AudioStreamBasicDescription>,
@@ -113,7 +112,7 @@ private func ioFormat(desc: UnsafeMutablePointer<AudioStreamBasicDescription>,
 }
 
 extension RKSettings.IOFormat {
-	static var lpcm16: AudioStreamBasicDescription {
+	public static var lpcm16: AudioStreamBasicDescription {
 		var asbd = AudioStreamBasicDescription()
 		ioFormat(desc: &asbd, iof: {
 			RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16)
@@ -121,7 +120,7 @@ extension RKSettings.IOFormat {
 		return asbd
 	}
 	
-	static var lpcm32: AudioStreamBasicDescription {
+	public static var lpcm32: AudioStreamBasicDescription {
 		var asbd = AudioStreamBasicDescription()
 		ioFormat(desc: &asbd, iof: {
 			RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
@@ -129,7 +128,7 @@ extension RKSettings.IOFormat {
 		return asbd
 	}
 	
-	enum CommonFormat: UInt32 {
+	public enum CommonFormat: UInt32 {
 		case float32 = 1
 		case int16 = 2
 		case fixed824 = 3

@@ -57,6 +57,7 @@
 		082C29B02231839600710E15 /* RKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29AF2231839600710E15 /* RKMicrophone.swift */; };
 		082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29B1223183A500710E15 /* RKAudioFile.swift */; };
 		08411DEB223F6C3500739903 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
+		085022AA2243378A001F31E2 /* ASRTempFile_1553133607.wav in Resources */ = {isa = PBXBuildFile; fileRef = 085022A92243378A001F31E2 /* ASRTempFile_1553133607.wav */; };
 		08779C2B222F7EEF0055CCB9 /* RecordKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 08779C29222F7EEF0055CCB9 /* RecordKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; };
 		087879062215121100A8662E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087879052215121100A8662E /* AppDelegate.swift */; };
@@ -174,6 +175,7 @@
 		08120CCE223E742C000E0E85 /* EZAudioDisplayLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDisplayLink.h; sourceTree = "<group>"; };
 		082C29AF2231839600710E15 /* RKMicrophone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKMicrophone.swift; sourceTree = "<group>"; };
 		082C29B1223183A500710E15 /* RKAudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioFile.swift; sourceTree = "<group>"; };
+		085022A92243378A001F31E2 /* ASRTempFile_1553133607.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ASRTempFile_1553133607.wav; sourceTree = "<group>"; };
 		08779C27222F7EEF0055CCB9 /* RecordKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RecordKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08779C29222F7EEF0055CCB9 /* RecordKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordKit.h; sourceTree = "<group>"; };
 		08779C2A222F7EEF0055CCB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				087879112215121200A8662E /* Info.plist */,
 				08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */,
 				08CE6B4F22356AFC00AE08E4 /* sourcePCM.aif */,
+				085022A92243378A001F31E2 /* ASRTempFile_1553133607.wav */,
 				08120CB1223E6EF8000E0E85 /* VoiceRecorderDemo-Bridging-Header.h */,
 			);
 			path = VoiceRecorderDemo;
@@ -679,6 +682,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08CE6B5022356AFC00AE08E4 /* sourcePCM.aif in Resources */,
+				085022AA2243378A001F31E2 /* ASRTempFile_1553133607.wav in Resources */,
 				08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */,
 				087879102215121200A8662E /* LaunchScreen.storyboard in Resources */,
 				0878790D2215121200A8662E /* Assets.xcassets in Resources */,

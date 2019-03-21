@@ -21,11 +21,14 @@ fileprivate let infoPreferContentHeight: CGFloat = 60
 class AudioViewController: UIViewController {
 	private var maskVc: MaskViewController = MaskViewController()
 	private var mainVc: MainViewController = MainViewController()
+	private var asrer: RKASRer = RKASRer.asrer()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		initComponent()
 		initObserver()
+		let path = Destination.main(name: "ASRTempFile_1553133607", type: "wav").url
+		try? asrer.fileRecognition(Destination.main(name: "ASRTempFile_1553133607", type: "wav"))
 	}
 	
 	private func initComponent() {

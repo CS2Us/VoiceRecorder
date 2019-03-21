@@ -58,9 +58,9 @@ public struct Destination {
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
 			return URL(fileURLWithPath: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + url))
 		case .main(let name, let type):
-			return URL(fileURLWithPath: Bundle.main.path(forResource: name, ofType: type)!)
+			return URL(string: Bundle.main.path(forResource: name, ofType: type)!)!
 		case .resource(let name, let type):
-			return URL(fileURLWithPath: RKSettings.resources.path(forResource: name, ofType: type)!)
+			return URL(string: RKSettings.resources.path(forResource: name, ofType: type)!)!
 		case .none:
 			return URL(fileURLWithPath: (NSTemporaryDirectory() + "_\(timeSuffix)"))
 		}

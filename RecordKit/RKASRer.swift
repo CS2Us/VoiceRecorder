@@ -42,7 +42,7 @@ public class RKASRer: NSObject {
 		_asrEventManager.setParameter([RKSettings.ASRApiKey, RKSettings.ASRSecretKey], forKey: BDS_ASR_API_SECRET_KEYS)
 		_asrEventManager.setParameter(RKSettings.ASRAppID, forKey: BDS_ASR_OFFLINE_APP_CODE)
 		_asrEventManager.setParameter(EVoiceRecognitionRecordSampleRate16K, forKey: BDS_ASR_SAMPLE_RATE)
-		_asrEventManager.setParameter(EVoiceRecognitionLanguageEnglish, forKey: BDS_ASR_LANGUAGE)
+		_asrEventManager.setParameter(EVoiceRecognitionLanguageChinese, forKey: BDS_ASR_LANGUAGE)
 		//		_asrEventManager.setParameter(RKSettings.maxDuration * 1000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
 		
 		
@@ -63,7 +63,7 @@ public class RKASRer: NSObject {
 		speechId = filePath.fileId
 		_longSpeech = false
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
-		_asrEventManager.setParameter(filePath, forKey: BDS_ASR_AUDIO_FILE_PATH)
+		_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
 		_asrEventManager.setParameter(1000000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}

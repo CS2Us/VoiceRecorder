@@ -10,6 +10,26 @@ import Foundation
 import AVFoundation
 
 public struct Destination {
+	public enum MimeType: CustomStringConvertible {
+		case wav, caf, aif, m4r, m4a, mp4, m2a, aac, mp3
+		case unknown
+		
+		public var description: String {
+			switch self {
+			case .wav: return "audio/wav"
+			case .caf: return "audio/x-caf"
+			case .aif: return "audio/aiff"
+			case .m4r: return "audio/x-m4r"
+			case .m4a: return "audio/x-m4a"
+			case .mp4: return "audio/mp4"
+			case .m2a: return "audio/mpeg"
+			case .aac: return "audio/aac"
+			case .mp3: return "audio/mpeg3"
+			default:
+				return "unknown"
+			}
+		}
+	}
 	private enum _Type {
 		case temp(url: String)
 		case cache(url: String)
@@ -97,28 +117,21 @@ public struct Destination {
 		return String(describing: url)
 	}
 	
-	public var mimeType: String? {
+	public var mimeType: MimeType {
 		switch fileExt.lowercased() {
-		case "wav":
-			return "audio/wav"
-		case "caf":
-			return "audio/x-caf"
+		case "wav": return .wav
+		case "caf": return .caf
 		case "aif", "aiff", "aifc":
-			return "audio/aiff"
-		case "m4r":
-			return "audio/x-m4r"
-		case "m4a":
-			return "audio/x-m4a"
-		case "mp4":
-			return "audio/mp4"
+			return .aif
+		case "m4r": return .m4r
+		case "m4a": return .m4a
+		case "mp4": return .mp4
 		case "m2a", "mp2":
-			return "audio/mpeg"
-		case "aac":
-			return "audio/aac"
-		case "mp3":
-			return "audio/mpeg3"
+			return .m2a
+		case "aac": return .aac
+		case "mp3": return .mp3
 		default:
-			return nil
+			return .unknown
 		}
 	}
 	

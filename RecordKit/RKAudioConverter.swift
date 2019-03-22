@@ -151,7 +151,7 @@ public class RKAudioConverter: RKNode {
 		}
 	}
 	
-	public func disposeConvert() throws {
+	internal func disposeConvert() throws {
 		do {
 			try RKTry({
 				if self._sourceFile != nil {

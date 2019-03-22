@@ -199,6 +199,7 @@ fileprivate class MainViewController: UIViewController {
 		if recordButton.isSelected {
 			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			rollingOutputView.beginRolling()
+//			ImportExternalFileService.shared.importRecordFile(url: Destination.main(name: "ASRTempFile_1553133607", type: "wav").url)
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
@@ -209,6 +210,7 @@ fileprivate class MainViewController: UIViewController {
 		} else {
 			RecordKit.default.recordEndup()
 			rollingOutputView.endUpRolling()
+//			ImportExternalFileService.shared.disposeImport()
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)
@@ -232,5 +234,105 @@ extension AudioViewController: RKASRerHandle {
 	
 	func asrRecognitionError() {
 		print("识别错误")
+	}
+}
+
+// 外部导入音频测试
+class ImportExternalFileService {
+	class ImportExternalStream: RKAudioInputStream {
+		private var asrer: RKASRer?
+		private var audioConverter: RKAudioConverter?
+		
+		static func externalStream() -> ImportExternalStream {
+			let stream = ImportExternalStream()
+			stream.asrer = RKASRer.asrer()
+			stream.audioConverter = RKAudioConverter.converter()
+			stream.audioConverter?.outputFileType = kAudioFileWAVEType
+			stream.audioConverter?.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
+			stream.audioConverter?.outputUrl = Destination.temp(url: "External.wav")
+			stream.initObserver()
+			return stream
+		}
+		
+		override func initObserver() {
+			Broadcaster.register(RKAudioConverterHandle.self, observer: self)
+			Broadcaster.register(RKASRerHandle.self, observer: self)
+		}
+		
+		func read(url: URL) {
+			audioConverter?.inputUrl = Destination.custom(url: url)
+			do {
+				try audioConverter?.prepare(inRealtime: false)
+				try audioConverter?.convert(inputStream: RKAudioInputStream.inputStream())
+			} catch {
+				alertImportError()
+			}
+		}
+	}
+	
+	private var externalStream: ImportExternalStream?
+	static let shared = ImportExternalFileService()
+	
+	func importRecordFile(url: URL) {
+		externalStream = ImportExternalStream.externalStream()
+		externalStream?.read(url: url)
+	}
+	
+	func disposeImport() {
+		externalStream?.disposeImport()
+	}
+}
+
+extension ImportExternalFileService.ImportExternalStream: RKAudioConverterHandle {
+	func audioConvertCompleted(_ converter: RKAudioConverter) {
+		do {
+			try asrer?.fileRecognition(converter.outputUrl)
+		} catch {
+			alertImportError()
+		}
+	}
+	func audioConvertError() { alertImportError() }
+}
+
+extension ImportExternalFileService.ImportExternalStream: RKASRerHandle {
+	func asrRecognitionCompleted(_ asr: RKASRer) {
+		upload(url: asr.inputUrl.url, recognizeResult: asr.finalResult ?? asr.chunkResult ?? asr.flushResult ?? "")
+	}
+	func asrRecognitionError(_ asr: RKASRer) {
+		upload(url: asr.inputUrl.url, recognizeResult: asr.finalResult ?? asr.chunkResult ?? asr.flushResult ?? "")
+	}
+}
+
+extension ImportExternalFileService.ImportExternalStream {
+	private func alertImportError() {
+		let alert = UIAlertController(title: nil, message: "音频导入失败，请重试", preferredStyle: .alert)
+		let action = UIAlertAction(title: "我知道了", style: .cancel, handler: nil)
+		alert.addAction(action)
+		UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: {
+			self.disposeImport()
+		})
+	}
+	
+	private func alertImportSuccess() {
+		let alert = UIAlertController(title: nil, message: "音频导入成功", preferredStyle: .alert)
+		let cancleAction = UIAlertAction(title: "我知道了", style: .cancel, handler: nil)
+		let checkAction = UIAlertAction(title: "查看音频", style: .default, handler: { _ in
+			
+		})
+		alert.addAction(cancleAction)
+		alert.addAction(checkAction)
+		UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true, completion: {
+			self.disposeImport()
+		})
+	}
+	
+	private func upload(url: URL, recognizeResult: String) {
+		print("上传结果未可知")
+		disposeImport()
+	}
+	
+	func disposeImport() {
+		audioConverter = nil
+		asrer = nil
 	}
 }

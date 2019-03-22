@@ -44,7 +44,7 @@ public class RKASRer: NSObject {
 		_asrEventManager.setParameter(RKSettings.ASRAppID, forKey: BDS_ASR_OFFLINE_APP_CODE)
 		_asrEventManager.setParameter(EVoiceRecognitionRecordSampleRate16K, forKey: BDS_ASR_SAMPLE_RATE)
 		_asrEventManager.setParameter(EVoiceRecognitionLanguageChinese, forKey: BDS_ASR_LANGUAGE)
-		//		_asrEventManager.setParameter(RKSettings.maxDuration * 1000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
+		_asrEventManager.setParameter(RKSettings.maxDuration * 1000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
 		
 		
 		enableModelVAD() /** 开启端点检测 **/
@@ -65,8 +65,8 @@ public class RKASRer: NSObject {
 		inputUrl = filePath
 		_longSpeech = false
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
+		_asrEventManager.setDelegate(self)
 		_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
-		_asrEventManager.setParameter(1000000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
 	
@@ -80,7 +80,7 @@ public class RKASRer: NSObject {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
 	
-	public func endRecognition() throws {
+	internal func endRecognition() throws {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
 		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
 			Broadcaster.notify(RKASRerHandle.self, block: { observer in

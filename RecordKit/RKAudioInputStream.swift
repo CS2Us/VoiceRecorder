@@ -56,7 +56,7 @@ open class RKAudioInputStream: InputStream {
 		return inputStream
 	}
 	
-	public func initObserver() {
+	open func initObserver() {
 		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
 	}
 	
@@ -171,7 +171,7 @@ extension RKAudioInputStream.AudioDataQueue {
 }
 
 extension RKAudioInputStream: RKMicrophoneHandle {
-	public func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
+	open func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
 		var intByteSize: Int = Int(bufferList.pointee.mBuffers.mDataByteSize)
 		var uInt8Buffer: UnsafePointer<UInt8> = UnsafePointer(bufferList.pointee.mBuffers.mData!.bindMemory(to: UInt8.self, capacity: intByteSize))
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)

@@ -55,10 +55,10 @@ public struct Destination {
 		switch type {
 		case .temp(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(string: (NSTemporaryDirectory() + url))!
+			return URL(string: (NSTemporaryDirectory() + "/" + url))!
 		case .cache(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(string: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + url))!
+			return URL(string: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + "/" + url))!
 		case .custom(url: let url):
 			return url
 		case .documents(var url):
@@ -69,7 +69,7 @@ public struct Destination {
 		case .resource(let name, let type):
 			return URL(string: RKSettings.resources.path(forResource: name, ofType: type)!)!
 		case .none:
-			return URL(string: (NSTemporaryDirectory() + "_\(timeSuffix)"))!
+			return URL(string: (NSTemporaryDirectory() + "/" + "None_\(timeSuffix)"))!
 		}
 	}
 	

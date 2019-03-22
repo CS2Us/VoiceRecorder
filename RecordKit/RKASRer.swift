@@ -14,7 +14,7 @@ public protocol RKASRerHandle {
 	@objc(asrRecognitionWorking:)
 	optional func asrRecognitionFlushing(_ asr: RKASRer)
 	@objc(asrRecognitionError:)
-	optional func asrRecognitionError(_ error: NSError)
+	optional func asrRecognitionError(_ asr: RKASRer)
 	@objc(asrRecognitionCompleted:)
 	optional func asrRecognitionCompleted(_ asr: RKASRer)
 }
@@ -28,6 +28,7 @@ public class RKASRer: NSObject {
 	public var chunkResult: String?
 	public var finalResult: String?
 	public var speechId: String?
+	public var inputUrl: Destination = .none
 	
 	public static func asrer() -> RKASRer {
 		let asrer = RKASRer()
@@ -61,6 +62,7 @@ public class RKASRer: NSObject {
 	
 	public func fileRecognition(_ filePath: Destination) throws {
 		speechId = filePath.fileId
+		inputUrl = filePath
 		_longSpeech = false
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 		_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
@@ -70,6 +72,7 @@ public class RKASRer: NSObject {
 	
 	public func longSpeechRecognition(_ filePath: Destination) throws {
 		speechId = filePath.fileId
+		inputUrl = filePath
 		_longSpeech = true
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 		_asrEventManager.setParameter(true, forKey:BDS_ASR_ENABLE_LONG_SPEECH)
@@ -79,8 +82,10 @@ public class RKASRer: NSObject {
 	
 	public func endRecognition() throws {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
-		Broadcaster.notify(RKASRerHandle.self, block: { observer in
-			observer.asrRecognitionCompleted?(self)
+		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+			Broadcaster.notify(RKASRerHandle.self, block: { observer in
+				observer.asrRecognitionCompleted?(self)
+			})
 		})
 	}
 }
@@ -133,10 +138,11 @@ extension RKASRer: BDSClientASRDelegate {
 			}
 			RKLog("CALLBACK: final result - \(String(describing: parseDicDescription(data: aObj)))")
 		case EVoiceRecognitionClientWorkStatusError:
-			RKLog("CALLBACK: encount error - \(aObj as! NSError)")
+			originalObj = aObj
 			Broadcaster.notify(RKASRerHandle.self, block: { observer in
-				observer.asrRecognitionError?(aObj as! NSError)
+				observer.asrRecognitionError?(self)
 			})
+			RKLog("CALLBACK: encount error - \(aObj as! NSError)")
 		case EVoiceRecognitionClientWorkStatusCancel:
 			RKLog("CALLBACK: user press cancel.\n")
 		case EVoiceRecognitionClientWorkStatusRecorderEnd:

@@ -13,9 +13,9 @@ const UInt32 kMaxFrames = 2048;
 
 const Float32 kAdjust0DB = 1.5849e-13;
 
-const NSInteger kFrameInterval = 1; // Alter this to draw more or less often
+const NSInteger kFrameInterval = 10; // Alter this to draw more or less often
 
-const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
+const NSInteger kFramesPerSecond = 100; // Alter this to draw more or less often
 
 @interface DPAudioService () {
 	FFTSetup fftSetup;
@@ -88,11 +88,11 @@ const NSInteger kFramesPerSecond = 20; // Alter this to draw more or less often
 	self.displaylink = [CADisplayLink displayLinkWithTarget: self
 												   selector: @selector(updateHeights)];
 	
-//	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
-//		self.displaylink.preferredFramesPerSecond = kFramesPerSecond;
-//	} else {
-//		self.displaylink.frameInterval = kFrameInterval;
-//	}
+	if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"10.0")) {
+		self.displaylink.preferredFramesPerSecond = kFramesPerSecond;
+	} else {
+		self.displaylink.frameInterval = kFrameInterval;
+	}
 	
 	[self.displaylink addToRunLoop: [NSRunLoop currentRunLoop]
 						   forMode: NSRunLoopCommonModes];

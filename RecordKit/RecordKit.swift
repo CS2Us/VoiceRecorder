@@ -28,7 +28,7 @@ public class RecordKit: NSObject {
 	
 	open func recordStart(destinationURL: Destination, outputFileType: AudioFileTypeID, outputFormat: AudioFormatID) {
 		inputStream = RKAudioInputStream.inputStream()
-		inputStream?.microphone?.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16)
+		inputStream?.microphone?.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 		inputStream?.audioConverter?.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
 		inputStream?.audioConverter?.outputUrl = destinationURL
 		inputStream?.audioConverter?.outputFileType = outputFileType

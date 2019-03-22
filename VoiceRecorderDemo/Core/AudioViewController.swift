@@ -27,8 +27,8 @@ class AudioViewController: UIViewController {
 		super.viewDidLoad()
 		initComponent()
 		initObserver()
-		let path = Destination.main(name: "ASRTempFile_1553133607", type: "wav").url
-		try? asrer.fileRecognition(Destination.main(name: "ASRTempFile_1553133607", type: "wav"))
+//		let path = Destination.main(name: "ASRTempFile_1553139209", type: "wav").url
+//		try? asrer.fileRecognition(Destination.main(name: "ASRTempFile_1553139209", type: "wav"))
 	}
 	
 	private func initComponent() {
@@ -198,6 +198,7 @@ fileprivate class MainViewController: UIViewController {
 		recordButton.isSelected = !recordButton.isSelected
 		if recordButton.isSelected {
 			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
+			rollingOutputView.beginRolling()
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
@@ -207,6 +208,7 @@ fileprivate class MainViewController: UIViewController {
 			})
 		} else {
 			RecordKit.default.recordEndup()
+			rollingOutputView.endUpRolling()
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)
@@ -225,7 +227,7 @@ extension AudioViewController: RKASRerHandle {
 	}
 	
 	func asrRecognitionCompleted(_ asr: RKASRer) {
-		print("识别结束 fileID: \(asr.speechId!), words: \(asr.finalResult ?? asr.chunkResult ?? asr.flushResult!)")
+//		print("识别结束 fileID: \(asr.speechId!), words: \(asr.finalResult ?? asr.chunkResult ?? asr.flushResult!)")
 	}
 	
 	func asrRecognitionError() {

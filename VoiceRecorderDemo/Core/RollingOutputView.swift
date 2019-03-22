@@ -15,12 +15,15 @@ class RollingOutputView: UIView {
 	private var _floatData: UnsafeMutablePointer<UnsafeMutablePointer<Float>?>? = nil
 	private var _audioFloatConverter: EZAudioFloatConverter? = nil
 
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		if _rollingEqualizerView == nil, bounds.height != 0 {
-			_rollingEqualizerView = DPRollingEqualizerView(frame: bounds, andSettings: DPEqualizerSettings.create(by: .rolling))
-			addSubview(_rollingEqualizerView!)
-		}
+	func beginRolling() {
+		_rollingEqualizerView = DPRollingEqualizerView(frame: CGRect(origin: CGPoint.zero, size: CGSize(width: UIScreen.main.bounds.width, height: 100)), andSettings: DPEqualizerSettings.create(by: .rolling))
+		addSubview(_rollingEqualizerView!)
+	}
+	
+	func endUpRolling() {
+		_rollingEqualizerView?.removeFromSuperview()
+		_floatData = nil
+		_audioFloatConverter = nil
 	}
 }
 

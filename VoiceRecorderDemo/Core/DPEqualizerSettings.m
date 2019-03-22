@@ -79,12 +79,12 @@
     DPEqualizerSettings *audioSettings = [DPEqualizerSettings create];
     
         audioSettings.equalizerType = DPRolling;
-        audioSettings.numOfBins = 50;
+        audioSettings.numOfBins = 70;
         audioSettings.plotType = DPPlotTypeRolling;
-        audioSettings.padding = 0.3;
+        audioSettings.padding = 0.5;
 
         audioSettings.equalizerBackgroundColors = [[NSMutableArray alloc] initWithObjects: [UIColor colorWithRed: 36.0/255.0 green: 41.0/255.0 blue: 50.0/255.0 alpha: 1.0], nil];
-        audioSettings.equalizerBinColors = [[NSMutableArray alloc] initWithObjects: /** [UIColor colorWithRed: 255.0/255.0  green: 219.0/255.0 blue: 114.0/255.0 alpha:1.0], **/ [UIColor redColor], nil];
+        audioSettings.equalizerBinColors = [[NSMutableArray alloc] initWithObjects: /** [UIColor colorWithRed: 255.0/255.0  green: 219.0/255.0 blue: 114.0/255.0 alpha:1.0], **/ [UIColor colorWithRed:80/255.0 green:200/255.0 blue:120/255.0 alpha:1.0], nil];
     
     return audioSettings;
 

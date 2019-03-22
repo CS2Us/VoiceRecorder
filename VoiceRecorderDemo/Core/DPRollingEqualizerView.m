@@ -21,41 +21,37 @@
     
     [(UIColor *)self.backgroundColor set];
     UIRectFill(frame);
-    
-    CGFloat columnWidth = (rect.size.width / 2) / (self.equalizerSettings.numOfBins - 1);
+	
+    CGFloat columnWidth = CGRectGetWidth(frame) / (self.equalizerSettings.numOfBins - 1);
     
     CGFloat actualWidth = MAX(1, columnWidth * (1 - 2 * self.equalizerSettings.padding));
     CGFloat actualPadding = MAX(0, (columnWidth - actualWidth) / 2);
     
     for (NSUInteger i = 0; i < self.equalizerSettings.numOfBins; i++) {
-//		if ([[self.audioService timeHeights] count] <= 0) { return; }
         CGFloat columnHeight = [[self.audioService timeHeights][i] floatValue] / 2;
         
-        if (columnHeight <= 0)
+		if (columnHeight <= 5) {
 			columnHeight = 5.0;
-        CGFloat columnX = i * columnWidth;
-        
+			[[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0] setFill];
+			[[UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0] setStroke];
+		} else {
+			[self.equalizerBinColor setFill];
+			[self.equalizerBinColor setStroke];
+		}
+		
+		CGFloat columnX = i * columnWidth;
         UIBezierPath *rollingPath = [[UIBezierPath alloc] init];
         rollingPath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(columnX + actualPadding,
                                                                         CGRectGetHeight(frame)/2 - columnHeight/2,
                                                                         actualWidth,
                                                                         columnHeight)
                                                  cornerRadius: actualWidth];
-        
-        [self.equalizerBinColor setFill];
-        
         [rollingPath fill];
+		
     }
     
-    [self.equalizerBinColor setStroke];
-
-    UIBezierPath *linePath = [UIBezierPath bezierPath];
-
-        linePath.lineWidth = 2.0;
-        [linePath moveToPoint: CGPointMake(CGRectGetWidth(rect) / 2 + actualPadding, CGRectGetHeight(rect) / 2)];
-        [linePath addLineToPoint: CGPointMake(CGRectGetWidth(rect), CGRectGetHeight(rect) / 2)];
-        [linePath stroke];
-
+	
+	
     CGContextRestoreGState(ctx);
 }
 

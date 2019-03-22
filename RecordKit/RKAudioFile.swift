@@ -13,6 +13,7 @@ public struct Destination {
 	private enum _Type {
 		case temp(url: String)
 		case cache(url: String)
+		case custom(url: URL)
 		case documents(url: String)
 		case main(name: String, type: String)
 		case resource(name: String, type: String)
@@ -33,6 +34,10 @@ public struct Destination {
 		let destination = Destination(type: .cache(url: url))
 		return destination
 	}
+	public static func custom(url: URL) -> Destination {
+		let destination = Destination(type: .custom(url: url))
+		return destination
+	}
 	public static func documents(url: String) -> Destination {
 		let destination = Destination(type: .documents(url: url))
 		return destination
@@ -48,12 +53,14 @@ public struct Destination {
 	
 	public var url: URL {
 		switch type {
-		case .cache(var url):
-			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(fileURLWithPath: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + url))
 		case .temp(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
 			return URL(fileURLWithPath: (NSTemporaryDirectory() + url))
+		case .cache(var url):
+			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
+			return URL(fileURLWithPath: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + url))
+		case .custom(url: let url):
+			return url
 		case .documents(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
 			return URL(fileURLWithPath: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + url))

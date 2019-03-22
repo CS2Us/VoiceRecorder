@@ -55,21 +55,21 @@ public struct Destination {
 		switch type {
 		case .temp(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(fileURLWithPath: (NSTemporaryDirectory() + url))
+			return URL(string: (NSTemporaryDirectory() + url))!
 		case .cache(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(fileURLWithPath: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + url))
+			return URL(string: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + url))!
 		case .custom(url: let url):
 			return url
 		case .documents(var url):
 			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(fileURLWithPath: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + url))
+			return URL(string: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + url))!
 		case .main(let name, let type):
 			return URL(string: Bundle.main.path(forResource: name, ofType: type)!)!
 		case .resource(let name, let type):
 			return URL(string: RKSettings.resources.path(forResource: name, ofType: type)!)!
 		case .none:
-			return URL(fileURLWithPath: (NSTemporaryDirectory() + "_\(timeSuffix)"))
+			return URL(string: (NSTemporaryDirectory() + "_\(timeSuffix)"))!
 		}
 	}
 	

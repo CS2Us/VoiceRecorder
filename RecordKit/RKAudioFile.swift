@@ -122,5 +122,10 @@ public struct Destination {
 		}
 	}
 	
-	
+	public var duration: TimeInterval {
+		let options = [AVURLAssetPreferPreciseDurationAndTimingKey:true]
+		let audioAsset = AVURLAsset(url: URL(fileURLWithPath: url.absoluteString), options: options)
+		let audioDuration: CMTime = audioAsset.duration
+		return audioDuration.seconds
+	}
 }

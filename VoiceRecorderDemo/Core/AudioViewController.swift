@@ -55,10 +55,30 @@ fileprivate class MaskViewController: UIViewController {
 		maskView.isHidden = true
 		return maskView
 	}()
+	private lazy var button: UIButton = {
+		let button = UIButton(type: .custom)
+		button.addTarget(self, action: #selector(testFileRecoginition), for: .touchDown)
+		button.setTitle("Test File Recognition", for: .normal)
+		button.setTitleColor(UIColor.red, for: .normal)
+		button.layer.borderColor = UIColor.red.cgColor
+		button.layer.borderWidth = 1
+		return button
+	}()
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.addSubview(maskView)
+		view.addSubview(button)
+		button.frame = CGRect(x: 180, y: 300, width: 240, height: 60)
+	}
+	
+	@IBAction func testFileRecoginition() {
+		button.isSelected = !button.isSelected
+		if button.isSelected {
+			ImportExternalFileService.shared.importRecordFile(url: Destination.main(name: "ASRTempFile_1553133607", type: "wav").url)
+		} else {
+			ImportExternalFileService.shared.disposeImport()
+		}
 	}
 }
 
@@ -199,7 +219,6 @@ fileprivate class MainViewController: UIViewController {
 		if recordButton.isSelected {
 			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			rollingOutputView.beginRolling()
-//			ImportExternalFileService.shared.importRecordFile(url: Destination.main(name: "ASRTempFile_1553133607", type: "wav").url)
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
@@ -210,7 +229,6 @@ fileprivate class MainViewController: UIViewController {
 		} else {
 			RecordKit.default.recordEndup()
 			rollingOutputView.endUpRolling()
-//			ImportExternalFileService.shared.disposeImport()
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)

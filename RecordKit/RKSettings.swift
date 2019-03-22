@@ -57,6 +57,7 @@ public class RKSettings {
 	public static var interleaved: Bool = false
 	public static var enableLogging: Bool = true
 	public static var maxDuration: TimeInterval = TimeInterval(2 * 60)
+	public static var ASRLimitDuration: TimeInterval = TimeInterval(60)
 	public static var ASRAppID: String = /** "15731062" **/ "15807927"
 	public static var ASRApiKey: String = /** "rbKB6zVhL0fAc7fn0lKGYiPn" **/ "DavSgp7gxiBbbqxdWFQpvGO0"
 	public static var ASRSecretKey: String = /** "Un2QyGl2HS942MOa2GjCKFN4HOQrHUaX" **/ "GAXG2t82pT7UWzIXiB4kIkbbD6fwWlK8"

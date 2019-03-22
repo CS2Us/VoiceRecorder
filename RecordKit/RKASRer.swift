@@ -44,7 +44,7 @@ public class RKASRer: NSObject {
 		_asrEventManager.setParameter(RKSettings.ASRAppID, forKey: BDS_ASR_OFFLINE_APP_CODE)
 		_asrEventManager.setParameter(EVoiceRecognitionRecordSampleRate16K, forKey: BDS_ASR_SAMPLE_RATE)
 		_asrEventManager.setParameter(EVoiceRecognitionLanguageChinese, forKey: BDS_ASR_LANGUAGE)
-		_asrEventManager.setParameter(RKSettings.maxDuration * 1000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
+		_asrEventManager.setParameter(RKSettings.maxDuration * 1000000, forKey: BDS_ASR_MFE_MAX_WAIT_DURATION)
 		
 		
 		enableModelVAD() /** 开启端点检测 **/
@@ -55,7 +55,7 @@ public class RKASRer: NSObject {
 	public func audioStreamRecognition(inputStream: RKAudioInputStream) throws {
 		speechId = inputStream.audioConverter?.outputUrl.fileId
 		_longSpeech = false
-		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
+		resetRecognition()
 		_asrEventManager.setParameter(inputStream, forKey: BDS_ASR_AUDIO_INPUT_STREAM)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
@@ -63,18 +63,25 @@ public class RKASRer: NSObject {
 	public func fileRecognition(_ filePath: Destination) throws {
 		speechId = filePath.fileId
 		inputUrl = filePath
-		_longSpeech = false
-		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
+		resetRecognition()
 		_asrEventManager.setDelegate(self)
-		_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
-		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
+		if filePath.duration >= RKSettings.ASRLimitDuration {
+			_longSpeech = true
+			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
+			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
+			try longSpeechRecognition(filePath)
+		} else {
+			_longSpeech = false
+			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
+			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
+		}
 	}
 	
 	public func longSpeechRecognition(_ filePath: Destination) throws {
 		speechId = filePath.fileId
 		inputUrl = filePath
 		_longSpeech = true
-		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
+		resetRecognition()
 		_asrEventManager.setParameter(true, forKey:BDS_ASR_ENABLE_LONG_SPEECH)
 		_asrEventManager.setParameter(true, forKey:BDS_ASR_ENABLE_LOCAL_VAD)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
@@ -87,6 +94,14 @@ public class RKASRer: NSObject {
 				observer.asrRecognitionCompleted?(self)
 			})
 		})
+	}
+	
+	internal func resetRecognition() {
+		_asrEventManager.setParameter(false, forKey:BDS_ASR_ENABLE_LONG_SPEECH)
+		_asrEventManager.setParameter(false, forKey:BDS_ASR_ENABLE_LOCAL_VAD)
+		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_FILE_PATH)
+		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_INPUT_STREAM)
+		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 	}
 }
 

@@ -96,6 +96,8 @@
 		08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */; };
 		08CE6B5022356AFC00AE08E4 /* sourcePCM.aif in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B4F22356AFC00AE08E4 /* sourcePCM.aif */; };
 		08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */; };
+		08D6CC8D2248BB8B00574485 /* RKAudioCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6CC8C2248BB8B00574485 /* RKAudioCache.swift */; };
+		08D6CC8F2248BCF000574485 /* RKFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6CC8E2248BCF000574485 /* RKFileManager.swift */; };
 		08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F782230162500267ACD /* RecordKitHelpers.swift */; };
 		08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F7A2230166C00267ACD /* RKSettings.swift */; };
 		08DB4F7D2230189B00267ACD /* ExceptionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F7C2230189B00267ACD /* ExceptionTracker.swift */; };
@@ -236,6 +238,8 @@
 		08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioConverter.swift; sourceTree = "<group>"; };
 		08CE6B4F22356AFC00AE08E4 /* sourcePCM.aif */ = {isa = PBXFileReference; lastKnownFileType = file; path = sourcePCM.aif; sourceTree = "<group>"; };
 		08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HappyBirthdaySong.mp3; sourceTree = "<group>"; };
+		08D6CC8C2248BB8B00574485 /* RKAudioCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioCache.swift; sourceTree = "<group>"; };
+		08D6CC8E2248BCF000574485 /* RKFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKFileManager.swift; sourceTree = "<group>"; };
 		08DB4F782230162500267ACD /* RecordKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKitHelpers.swift; sourceTree = "<group>"; };
 		08DB4F7A2230166C00267ACD /* RKSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKSettings.swift; sourceTree = "<group>"; };
 		08DB4F7C2230189B00267ACD /* ExceptionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionTracker.swift; sourceTree = "<group>"; };
@@ -345,6 +349,8 @@
 				08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */,
 				0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */,
 				0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */,
+				08D6CC8C2248BB8B00574485 /* RKAudioCache.swift */,
+				08D6CC8E2248BCF000574485 /* RKFileManager.swift */,
 			);
 			path = RecordKit;
 			sourceTree = "<group>";
@@ -783,6 +789,7 @@
 				08120CAD223E6D07000E0E85 /* EZAudioPlotGL.m in Sources */,
 				0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */,
 				08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */,
+				08D6CC8F2248BCF000574485 /* RKFileManager.swift in Sources */,
 				08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */,
 				08098EE9223258C000B0FA81 /* RKNode.swift in Sources */,
 				08120CA5223E6D07000E0E85 /* EZAudio.m in Sources */,
@@ -799,6 +806,7 @@
 				0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */,
 				08120C93223E6D07000E0E85 /* EZAudioFloatData.m in Sources */,
 				082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */,
+				08D6CC8D2248BB8B00574485 /* RKAudioCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -867,9 +875,11 @@
 		08411DF1223F6EFB00739903 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = marker;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WQDFMNJ7TD;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-fembed-bitcode-marker";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -877,8 +887,10 @@
 		08411DF2223F6EFB00739903 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BITCODE_GENERATION_MODE = bitcode;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WQDFMNJ7TD;
+				OTHER_CFLAGS = "-fembed-bitcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -912,6 +924,7 @@
 				);
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.RecordKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -951,6 +964,7 @@
 					"$(PROJECT_DIR)/Resources/BDSClientLib",
 				);
 				MACH_O_TYPE = mh_dylib;
+				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.RecordKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

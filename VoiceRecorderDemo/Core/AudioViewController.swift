@@ -219,6 +219,7 @@ fileprivate class MainViewController: UIViewController {
 		if recordButton.isSelected {
 			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			rollingOutputView.beginRolling()
+			print("cache: \(RKFileManager.default.allFilesSize)")
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
@@ -229,6 +230,7 @@ fileprivate class MainViewController: UIViewController {
 		} else {
 			RecordKit.default.recordEndup()
 			rollingOutputView.endUpRolling()
+			print("cache: \(RKFileManager.default.allFilesSize)")
 			UIView.animate(withDuration: 0.3, animations: {
 				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
 				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)

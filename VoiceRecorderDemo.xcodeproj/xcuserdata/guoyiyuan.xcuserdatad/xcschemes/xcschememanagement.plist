@@ -12,26 +12,36 @@
 		<key>Aggregate.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>2</integer>
 		</dict>
 		<key>RecordKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Resources.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>6</integer>
 		</dict>
 		<key>VoiceRecorderDemo.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>08411DEF223F6EFB00739903</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>08779C26222F7EEF0055CCB9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>087879012215121100A8662E</key>
 		<dict>
 			<key>primary</key>

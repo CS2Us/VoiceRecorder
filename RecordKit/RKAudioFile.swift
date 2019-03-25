@@ -10,6 +10,10 @@ import Foundation
 import AVFoundation
 
 public struct Destination {
+	private struct _Folder {
+		static let audio: String = "RecordKit_AudioFiles"
+		static let video: String = "RecordKit_VideoFiles"
+	}
 	public enum MimeType: CustomStringConvertible {
 		case wav, caf, aif, m4r, m4a, mp4, m2a, aac, mp3
 		case unknown
@@ -72,25 +76,34 @@ public struct Destination {
 	}
 	
 	public var url: URL {
-		switch type {
-		case .temp(var url):
-			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(string: (NSTemporaryDirectory() + "/" + url))!
-		case .cache(var url):
-			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(string: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + "/" + url))!
-		case .custom(url: let url):
-			return url
-		case .documents(var url):
-			url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
-			return URL(string: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] + "/" + url))!
-		case .main(let name, let type):
-			return URL(string: Bundle.main.path(forResource: name, ofType: type)!)!
-		case .resource(let name, let type):
-			return URL(string: RKSettings.resources.path(forResource: name, ofType: type)!)!
-		case .none:
-			return URL(string: (NSTemporaryDirectory() + "/" + "None_\(timeSuffix)"))!
+		func determineUrl() -> URL {
+			switch type {
+			case .temp(var url):
+				url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
+				return URL(string: (NSTemporaryDirectory() + "/" + _Folder.audio + "/" + url))!
+			case .cache(var url):
+				url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
+				return URL(string: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + "/" + _Folder.audio + "/" + url))!
+			case .custom(url: let url):
+				return url
+			case .documents(var url):
+				url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
+				return URL(string: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! + "/" + _Folder.audio + "/" + url))!
+			case .main(let name, let type):
+				return URL(string: Bundle.main.path(forResource: name, ofType: type)!)!
+			case .resource(let name, let type):
+				return URL(string: RKSettings.resources.path(forResource: name, ofType: type)!)!
+			case .none:
+				return URL(string: (NSTemporaryDirectory() + "/" + _Folder.audio + "/" + "None_\(timeSuffix)"))!
+			}
 		}
+		let determinedFileUrl = determineUrl()
+		let determinedFileUrlDirectory: URL = URL(fileURLWithPath: determinedFileUrl.deletingLastPathComponent().absoluteString)
+		var isDirectory: ObjCBool = ObjCBool(true)
+		if !FileManager.default.fileExists(atPath: determinedFileUrlDirectory.absoluteString, isDirectory: &isDirectory) {
+			try? FileManager.default.createDirectory(at: determinedFileUrlDirectory, withIntermediateDirectories: true, attributes: nil)
+		}
+		return determinedFileUrl
 	}
 	
 	public var directoryPath: URL {
@@ -140,5 +153,12 @@ public struct Destination {
 		let audioAsset = AVURLAsset(url: URL(fileURLWithPath: url.absoluteString), options: options)
 		let audioDuration: CMTime = audioAsset.duration
 		return audioDuration.seconds
+	}
+	
+	public var audioSize: Int64 {
+		let audioAsset = AVURLAsset(url: URL(fileURLWithPath: url.absoluteString), options: nil)
+		let exporter = AVAssetExportSession(asset: audioAsset, presetName: AVAssetExportPresetPassthrough)
+		let audioSize: Int64 = exporter?.estimatedOutputFileLength ?? 0
+		return audioSize
 	}
 }

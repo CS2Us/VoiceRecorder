@@ -65,16 +65,16 @@ public class RKASRer: NSObject {
 		inputUrl = filePath
 		resetRecognition()
 		_asrEventManager.setDelegate(self)
-		if filePath.duration >= RKSettings.ASRLimitDuration {
-			_longSpeech = true
-			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
-			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
-			try longSpeechRecognition(filePath)
-		} else {
+//		if filePath.duration >= RKSettings.ASRLimitDuration {
+//			_longSpeech = true
+//			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
+//			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
+//			try longSpeechRecognition(filePath)
+//		} else {
 			_longSpeech = false
 			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
 			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
-		}
+//		}
 	}
 	
 	public func longSpeechRecognition(_ filePath: Destination) throws {
@@ -89,6 +89,7 @@ public class RKASRer: NSObject {
 	
 	internal func endRecognition() throws {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
+		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
 			Broadcaster.notify(RKASRerHandle.self, block: { observer in
 				observer.asrRecognitionCompleted?(self)

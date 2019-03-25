@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import AVFoundation
-import BonMot
 import RecordKit
 
 fileprivate let maxPreferContentHeight: CGFloat = UIScreen.main.bounds.height - 20
@@ -129,19 +128,19 @@ fileprivate class MainViewController: UIViewController {
 			let recordTimeLabel = infoView.recordTimeLabel
 			infoView.container.addSubview(recordTypeLabel)
 			infoView.container.addSubview(recordTimeLabel)
-			recordTimeLabel.do {
-				$0.translatesAutoresizingMaskIntoConstraints = false
-				$0.textAlignment = .center
-				let c0Style = StringStyle([.font(UIFont.pingFangSCRegular(fontSize: 14)),
-											  .color(UIColor.Gray.c0)])
-				let c2Style = StringStyle([.font(UIFont.pingFangSCRegular(fontSize: 13)),
-											.color(UIColor.Gray.c2)])
-				let finalStyle = StringStyle(.xmlRules([
-					.style("c0", c0Style),
-					.style("c2", c2Style)]))
-				$0.attributedText = "<c0>65秒</c0> <c2>/ 120秒</c2>".styled(with: finalStyle)
+//			recordTimeLabel.do {
+//				$0.translatesAutoresizingMaskIntoConstraints = false
+//				$0.textAlignment = .center
+//				let c0Style = StringStyle([.font(UIFont.pingFangSCRegular(fontSize: 14)),
+//											  .color(UIColor.Gray.c0)])
+//				let c2Style = StringStyle([.font(UIFont.pingFangSCRegular(fontSize: 13)),
+//											.color(UIColor.Gray.c2)])
+//				let finalStyle = StringStyle(.xmlRules([
+//					.style("c0", c0Style),
+//					.style("c2", c2Style)]))
+//				$0.attributedText = "<c0>65秒</c0> <c2>/ 120秒</c2>".styled(with: finalStyle)
 				
-			}
+//			}
 			recordTypeLabel.do {
 				$0.translatesAutoresizingMaskIntoConstraints = false
 				$0.textColor = UIColor.Gray.c0

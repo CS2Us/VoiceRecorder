@@ -10,8 +10,8 @@ import Foundation
 
 public class RKFileManager: RKNode {
 	public static let `default` = RKFileManager()
-	public var allFilesSize: String {
-		return sizeOfFolder(Destination.documents(url: "Temp.m4a")) ?? "0"
+	public var allFilesSize: Int64 {
+		return sizeOfFolder(Destination.documents(url: "Temp.m4a"))
 	}
 	
 	public func clearFile(url: URL) {
@@ -36,19 +36,20 @@ public class RKFileManager: RKNode {
 		}
 	}
 	
-	func sizeOfFile(_ filePath: Destination) -> String? {
+	func sizeOfFile(_ filePath: Destination) -> Int64 {
 		do {
 			let fileAttributes = try FileManager.default.attributesOfItem(atPath: filePath.url.absoluteString)
 			let folderSize = fileAttributes[FileAttributeKey.size] as? Int64 ?? 0
-			let fileSizeStr = ByteCountFormatter.string(fromByteCount: folderSize, countStyle: ByteCountFormatter.CountStyle.file)
-			return fileSizeStr
+//			let fileSizeStr = ByteCountFormatter.string(fromByteCount: folderSize, countStyle: ByteCountFormatter.CountStyle.file)
+//			return fileSizeStr
+			return folderSize
 		} catch let ex {
 			RKLog("sizeOfFile: \(ex)")
-			return nil
+			return 0
 		}
 	}
 	
-	func sizeOfFolder(_ folderPath: Destination) -> String? {
+	func sizeOfFolder(_ folderPath: Destination) -> Int64 {
 		do {
 			let contents = try FileManager.default.contentsOfDirectory(atPath: folderPath.directoryPath.absoluteString)
 			var folderSize: Int64 = 0
@@ -61,12 +62,13 @@ public class RKFileManager: RKNode {
 					continue
 				}
 			}
-			let fileSizeStr = ByteCountFormatter.string(fromByteCount: folderSize, countStyle: ByteCountFormatter.CountStyle.file)
-			return fileSizeStr
+//			let fileSizeStr = ByteCountFormatter.string(fromByteCount: folderSize, countStyle: ByteCountFormatter.CountStyle.file)
+//			return fileSizeStr
+			return folderSize
 			
 		} catch let ex {
 			RKLog("sizeOfFolder: \(ex)")
-			return nil
+			return 0
 		}
 	}
 }

@@ -42,5 +42,9 @@ public class RecordKit: NSObject {
 	open func recordEndup() {
 		inputStream?.status = .closed
 	}
+	
+	open func recordCancle() {
+		inputStream = nil
+	}
 }
 

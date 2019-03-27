@@ -55,6 +55,8 @@
 		08120CCD223E711E000E0E85 /* UIImage+DPGradientImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 08120CCB223E711E000E0E85 /* UIImage+DPGradientImage.m */; };
 		08120CCF223E742C000E0E85 /* EZAudioDisplayLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120CCE223E742C000E0E85 /* EZAudioDisplayLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0822ACDF2249371B00F10A18 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
+		0824B164224B446F002AABC3 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0824B163224B446F002AABC3 /* libBaiduSpeechSDK.a */; };
+		0824B165224B4482002AABC3 /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0824B163224B446F002AABC3 /* libBaiduSpeechSDK.a */; };
 		082C29B02231839600710E15 /* RKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29AF2231839600710E15 /* RKMicrophone.swift */; };
 		082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29B1223183A500710E15 /* RKAudioFile.swift */; };
 		08411DEB223F6C3500739903 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
@@ -80,7 +82,6 @@
 		089C3257223BA8E700D5E47E /* BDSASRDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114B2236AAD2009E91B4 /* BDSASRDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C3258223BA8E700D5E47E /* BDSUploaderParameters.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114C2236AAD2009E91B4 /* BDSUploaderParameters.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		089C3259223BA8E700D5E47E /* BDSWakeupDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114D2236AAD2009E91B4 /* BDSWakeupDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		089C325C223BB3EC00D5E47E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */; };
 		08AB782A223A2E69001E4E8C /* RKAudioInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */; };
 		08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112D2236A844009E91B4 /* libc++.tbd */; };
@@ -176,6 +177,7 @@
 		08120CCA223E711E000E0E85 /* UIImage+DPGradientImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DPGradientImage.h"; sourceTree = "<group>"; };
 		08120CCB223E711E000E0E85 /* UIImage+DPGradientImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DPGradientImage.m"; sourceTree = "<group>"; };
 		08120CCE223E742C000E0E85 /* EZAudioDisplayLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioDisplayLink.h; sourceTree = "<group>"; };
+		0824B163224B446F002AABC3 /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		082C29AF2231839600710E15 /* RKMicrophone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKMicrophone.swift; sourceTree = "<group>"; };
 		082C29B1223183A500710E15 /* RKAudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioFile.swift; sourceTree = "<group>"; };
 		085022A92243378A001F31E2 /* ASRTempFile_1553133607.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ASRTempFile_1553133607.wav; sourceTree = "<group>"; };
@@ -200,7 +202,6 @@
 		089C322C223B9FE500D5E47E /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
 		089C3232223BA02200D5E47E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		089C323B223BA48000D5E47E /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
-		089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioInputStream.swift; sourceTree = "<group>"; };
 		08C2112D2236A844009E91B4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
@@ -258,7 +259,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				089C325C223BB3EC00D5E47E /* libBaiduSpeechSDK.a in Frameworks */,
 				089C323E223BA67900D5E47E /* libiconv.2.4.0.tbd in Frameworks */,
 				089C323D223BA67300D5E47E /* libstdc++.6.0.9.tbd in Frameworks */,
 				08972113223782E3008A4ECF /* libsqlite3.tbd in Frameworks */,
@@ -271,6 +271,7 @@
 				08C211322236A870009E91B4 /* AudioToolbox.framework in Frameworks */,
 				08C211302236A84F009E91B4 /* libz.1.2.5.tbd in Frameworks */,
 				08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */,
+				0824B165224B4482002AABC3 /* libBaiduSpeechSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +287,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0824B164224B446F002AABC3 /* libBaiduSpeechSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +401,7 @@
 		0897211022378274008A4ECF /* BDSClientLib */ = {
 			isa = PBXGroup;
 			children = (
-				089C325A223BB3C700D5E47E /* libBaiduSpeechSDK.a */,
+				0824B163224B446F002AABC3 /* libBaiduSpeechSDK.a */,
 			);
 			path = BDSClientLib;
 			sourceTree = "<group>";

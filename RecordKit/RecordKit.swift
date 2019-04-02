@@ -17,7 +17,7 @@ public class RecordKit: NSObject {
 	public override init() {
 		super.init()
 		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth])
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [.defaultToSpeaker])
 			try AVAudioSession.sharedInstance().setActive(true, options: [])
 			try AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
 			try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(RKSettings.bufferLength.duration)

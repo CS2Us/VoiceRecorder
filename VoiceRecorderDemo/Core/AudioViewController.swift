@@ -216,7 +216,7 @@ fileprivate class MainViewController: UIViewController {
 	@IBAction private func clickRecordButton() {
 		recordButton.isSelected = !recordButton.isSelected
 		if recordButton.isSelected {
-			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
+			RecordKit.default.recordStart(destinationURL: .documents(url: "二郎.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
 			rollingOutputView.beginRolling()
 			print("cache: \(RKFileManager.default.allFilesSize)")
 			UIView.animate(withDuration: 0.3, animations: {

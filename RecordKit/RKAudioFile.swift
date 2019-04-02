@@ -79,14 +79,17 @@ public struct Destination {
 		func determineUrl() -> URL {
 			switch type {
 			case .temp(var url):
+				url = url.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
 				url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
 				return URL(string: (NSTemporaryDirectory() + "/" + _Folder.audio + "/" + url))!
 			case .cache(var url):
+				url = url.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
 				url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
 				return URL(string: (NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first! + "/" + _Folder.audio + "/" + url))!
 			case .custom(url: let url):
 				return url
 			case .documents(var url):
+				url = url.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)!
 				url = url.split(separator: ".").first! + "_\(timeSuffix)" + "." + url.split(separator: ".").last!
 				return URL(string: (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first! + "/" + _Folder.audio + "/" + url))!
 			case .main(let name, let type):
@@ -106,20 +109,28 @@ public struct Destination {
 		return determinedFileUrl
 	}
 	
+	public var fileUrl: URL {
+		if url.absoluteString.contains("file://") {
+			return url
+		} else {
+			return URL(fileURLWithPath: url.absoluteString)
+		}
+	}
+	
 	public var directoryPath: URL {
-		return url.deletingLastPathComponent()
+		return fileUrl.deletingLastPathComponent()
 	}
 	
 	public var fileNamePlusExtension: String {
-		return url.lastPathComponent
+		return fileUrl.lastPathComponent
 	}
 	
 	public var fileName: String {
-		return url.deletingPathExtension().lastPathComponent
+		return fileUrl.deletingPathExtension().lastPathComponent
 	}
 	
 	public var fileExt: String {
-		return url.pathExtension
+		return fileUrl.pathExtension
 	}
 	
 	public var fileId: String {
@@ -150,15 +161,12 @@ public struct Destination {
 	
 	public var duration: TimeInterval {
 		let options = [AVURLAssetPreferPreciseDurationAndTimingKey:true]
-		let audioAsset = AVURLAsset(url: URL(fileURLWithPath: url.absoluteString), options: options)
+		let audioAsset = AVURLAsset(url: fileUrl, options: options)
 		let audioDuration: CMTime = audioAsset.duration
 		return audioDuration.seconds
 	}
 	
 	public var audioSize: Int64 {
-		let audioAsset = AVURLAsset(url: URL(fileURLWithPath: url.absoluteString), options: nil)
-		let exporter = AVAssetExportSession(asset: audioAsset, presetName: AVAssetExportPresetPassthrough)
-		let audioSize: Int64 = exporter?.estimatedOutputFileLength ?? 0
-		return audioSize
+		return RKFileManager.default.sizeOfFile(self)
 	}
 }

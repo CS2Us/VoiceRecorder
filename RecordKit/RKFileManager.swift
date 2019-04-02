@@ -38,7 +38,7 @@ public class RKFileManager: RKNode {
 	
 	func sizeOfFile(_ filePath: Destination) -> Int64 {
 		do {
-			let fileAttributes = try FileManager.default.attributesOfItem(atPath: filePath.url.absoluteString)
+			let fileAttributes = try FileManager.default.attributesOfItem(atPath: filePath.fileUrl.absoluteString)
 			let folderSize = fileAttributes[FileAttributeKey.size] as? Int64 ?? 0
 //			let fileSizeStr = ByteCountFormatter.string(fromByteCount: folderSize, countStyle: ByteCountFormatter.CountStyle.file)
 //			return fileSizeStr

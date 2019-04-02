@@ -49,7 +49,7 @@ public class RKSettings {
 			let bundle = Bundle(path: bundlePath) {
 			return bundle
 		} else {
-			fatalError()
+			return Bundle.main
 		}
 	}
 	public static var sampleRate: Double = 44_100

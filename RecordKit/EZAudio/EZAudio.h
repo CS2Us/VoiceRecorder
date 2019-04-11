@@ -35,27 +35,20 @@ FOUNDATION_EXPORT const unsigned char EZAudioVersionString[];
 #pragma mark - Core Components
 //------------------------------------------------------------------------------
 
-#import "EZAudioDevice.h"
-#import "EZAudioFile.h"
-#import "EZMicrophone.h"
-#import "EZOutput.h"
-#import "EZRecorder.h"
-#import "EZAudioPlayer.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Interface Components
 //------------------------------------------------------------------------------
 
 #import "EZPlot.h"
-#import "EZAudioDisplayLink.h"
 #import "EZAudioPlot.h"
 #import "EZAudioPlotGL.h"
+#import "EZAudioDisplayLink.h"
 
 //------------------------------------------------------------------------------
 #pragma mark - Utility Components
 //------------------------------------------------------------------------------
 
-#import "EZAudioFFT.h"
 #import "EZAudioFloatConverter.h"
 #import "EZAudioFloatData.h"
 #import "EZAudioUtilities.h"

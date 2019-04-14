@@ -39,6 +39,8 @@
 		08120CC9223E70BD000E0E85 /* DPConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120CBC223E7016000E0E85 /* DPConstants.h */; };
 		08120CCC223E711E000E0E85 /* UIImage+DPGradientImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 08120CCA223E711E000E0E85 /* UIImage+DPGradientImage.h */; };
 		08120CCD223E711E000E0E85 /* UIImage+DPGradientImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 08120CCB223E711E000E0E85 /* UIImage+DPGradientImage.m */; };
+		081E4F1922617026007F9E1B /* RecordKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; };
+		081E4F1B2261704F007F9E1B /* DSPKit_Ns.mm in Sources */ = {isa = PBXBuildFile; fileRef = 081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */; };
 		0820CCCC225F06210058CF91 /* string_view.h in Headers */ = {isa = PBXBuildFile; fileRef = 0820CCCA225F06210058CF91 /* string_view.h */; };
 		0820CCCD225F06210058CF91 /* string_view.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0820CCCB225F06210058CF91 /* string_view.cc */; };
 		0820CCD2225F06530058CF91 /* memutil.h in Headers */ = {isa = PBXBuildFile; fileRef = 0820CCD0225F06520058CF91 /* memutil.h */; };
@@ -106,6 +108,14 @@
 		087879102215121200A8662E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0878790E2215121200A8662E /* LaunchScreen.storyboard */; };
 		0878791822153D2800A8662E /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0878791722153D2700A8662E /* AudioViewController.swift */; };
 		08972113223782E3008A4ECF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08972112223782E3008A4ECF /* libsqlite3.tbd */; };
+		0897DA9D22606C90002310DF /* NoisySpeech-44k_mono.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0897DA9C22606C90002310DF /* NoisySpeech-44k_mono.m4a */; };
+		0897DA9F22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0897DA9E22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav */; };
+		0897DAAF226070B0002310DF /* sparse_fir_filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0897DAA6226070B0002310DF /* sparse_fir_filter.h */; };
+		0897DAB0226070B0002310DF /* splitting_filter.c in Sources */ = {isa = PBXBuildFile; fileRef = 0897DAA7226070B0002310DF /* splitting_filter.c */; };
+		0897DAB1226070B0002310DF /* three_band_filter_bank.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0897DAA8226070B0002310DF /* three_band_filter_bank.cc */; };
+		0897DAB2226070B0002310DF /* splitting_filter.h in Headers */ = {isa = PBXBuildFile; fileRef = 0897DAA9226070B0002310DF /* splitting_filter.h */; };
+		0897DAB3226070B0002310DF /* sparse_fir_filter.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0897DAAA226070B0002310DF /* sparse_fir_filter.cc */; };
+		0897DAB4226070B0002310DF /* three_band_filter_bank.h in Headers */ = {isa = PBXBuildFile; fileRef = 0897DAAB226070B0002310DF /* three_band_filter_bank.h */; };
 		089C3221223B8C2D00D5E47E /* bds_easr_basic_model.dat in Resources */ = {isa = PBXBuildFile; fileRef = 089C3212223B87C000D5E47E /* bds_easr_basic_model.dat */; };
 		089C3225223B934D00D5E47E /* 16k_test.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 089C3224223B934D00D5E47E /* 16k_test.pcm */; };
 		089C3227223B935600D5E47E /* 8k_test.pcm in Resources */ = {isa = PBXBuildFile; fileRef = 089C3226223B935600D5E47E /* 8k_test.pcm */; };
@@ -119,6 +129,8 @@
 		089C3259223BA8E700D5E47E /* BDSWakeupDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 08C2114D2236AAD2009E91B4 /* BDSWakeupDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08AB782A223A2E69001E4E8C /* RKAudioInputStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */; };
 		08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		08ABEC5F22609311004F18E6 /* audio_util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 08ABEC5E22609310004F18E6 /* audio_util.cc */; };
+		08ABEC6122609373004F18E6 /* audio_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 08ABEC6022609373004F18E6 /* audio_util.h */; };
 		08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112D2236A844009E91B4 /* libc++.tbd */; };
 		08C211302236A84F009E91B4 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */; };
 		08C211322236A870009E91B4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C211312236A870009E91B4 /* AudioToolbox.framework */; };
@@ -236,6 +248,7 @@
 		08120CC2223E708A000E0E85 /* DPAudioService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPAudioService.h; sourceTree = "<group>"; };
 		08120CCA223E711E000E0E85 /* UIImage+DPGradientImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+DPGradientImage.h"; sourceTree = "<group>"; };
 		08120CCB223E711E000E0E85 /* UIImage+DPGradientImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+DPGradientImage.m"; sourceTree = "<group>"; };
+		081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKit_Ns.mm; sourceTree = "<group>"; };
 		0820CCCA225F06210058CF91 /* string_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = string_view.h; sourceTree = "<group>"; };
 		0820CCCB225F06210058CF91 /* string_view.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = string_view.cc; sourceTree = "<group>"; };
 		0820CCD0225F06520058CF91 /* memutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memutil.h; sourceTree = "<group>"; };
@@ -290,6 +303,7 @@
 		084A8491225DC7C600F5629B /* EZAudioPlotGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlotGL.m; sourceTree = "<group>"; };
 		085022A92243378A001F31E2 /* ASRTempFile_1553133607.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ASRTempFile_1553133607.wav; sourceTree = "<group>"; };
 		085022B022433E1F001F31E2 /* ASRTempFile_1553139209.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ASRTempFile_1553139209.wav; sourceTree = "<group>"; };
+		086D4A382261E68900ADF988 /* DSPKit_Ns.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSPKit_Ns.h; sourceTree = "<group>"; };
 		08779C27222F7EEF0055CCB9 /* RecordKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RecordKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08779C29222F7EEF0055CCB9 /* RecordKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordKit.h; sourceTree = "<group>"; };
 		08779C2A222F7EEF0055CCB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -302,6 +316,14 @@
 		087879112215121200A8662E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0878791722153D2700A8662E /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 		08972112223782E3008A4ECF /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		0897DA9C22606C90002310DF /* NoisySpeech-44k_mono.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NoisySpeech-44k_mono.m4a"; sourceTree = "<group>"; };
+		0897DA9E22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "NoisySpeech-16k_16bit_stereo.wav"; sourceTree = "<group>"; };
+		0897DAA6226070B0002310DF /* sparse_fir_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sparse_fir_filter.h; sourceTree = "<group>"; };
+		0897DAA7226070B0002310DF /* splitting_filter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = splitting_filter.c; sourceTree = "<group>"; };
+		0897DAA8226070B0002310DF /* three_band_filter_bank.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = three_band_filter_bank.cc; sourceTree = "<group>"; };
+		0897DAA9226070B0002310DF /* splitting_filter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = splitting_filter.h; sourceTree = "<group>"; };
+		0897DAAA226070B0002310DF /* sparse_fir_filter.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sparse_fir_filter.cc; sourceTree = "<group>"; };
+		0897DAAB226070B0002310DF /* three_band_filter_bank.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = three_band_filter_bank.h; sourceTree = "<group>"; };
 		089C3212223B87C000D5E47E /* bds_easr_basic_model.dat */ = {isa = PBXFileReference; lastKnownFileType = file; path = bds_easr_basic_model.dat; sourceTree = "<group>"; };
 		089C3217223B88D100D5E47E /* Resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Resources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		089C3219223B88D100D5E47E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -311,6 +333,8 @@
 		089C3232223BA02200D5E47E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		089C323B223BA48000D5E47E /* libiconv.2.4.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.2.4.0.tbd; path = usr/lib/libiconv.2.4.0.tbd; sourceTree = SDKROOT; };
 		08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioInputStream.swift; sourceTree = "<group>"; };
+		08ABEC5E22609310004F18E6 /* audio_util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio_util.cc; sourceTree = "<group>"; };
+		08ABEC6022609373004F18E6 /* audio_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_util.h; sourceTree = "<group>"; };
 		08C2112D2236A844009E91B4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		08C211312236A870009E91B4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -401,6 +425,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				081E4F1922617026007F9E1B /* RecordKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,9 +507,14 @@
 				08FF5D33225EEBE7000251AE /* signal_processing_library.h */,
 				08FF5D30225EEA5A000251AE /* checks.cc */,
 				08FF5D2F225EEA59000251AE /* checks.h */,
+				08ABEC6022609373004F18E6 /* audio_util.h */,
+				08ABEC5E22609310004F18E6 /* audio_util.cc */,
 				08FF5D11225EEA29000251AE /* ns */,
+				0897DAA4226070B0002310DF /* splitting_filter */,
 				08050EF9225DF5C00001C085 /* DSPKit.h */,
 				08050EFA225DF5C00001C085 /* Info.plist */,
+				081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */,
+				086D4A382261E68900ADF988 /* DSPKit_Ns.h */,
 			);
 			path = DSPKit;
 			sourceTree = "<group>";
@@ -613,6 +643,8 @@
 				08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */,
 				085022A92243378A001F31E2 /* ASRTempFile_1553133607.wav */,
 				085022B022433E1F001F31E2 /* ASRTempFile_1553139209.wav */,
+				0897DA9C22606C90002310DF /* NoisySpeech-44k_mono.m4a */,
+				0897DA9E22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav */,
 				08120CB1223E6EF8000E0E85 /* VoiceRecorderDemo-Bridging-Header.h */,
 			);
 			path = VoiceRecorderDemo;
@@ -624,6 +656,19 @@
 				08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */,
 			);
 			path = BDSClientLib;
+			sourceTree = "<group>";
+		};
+		0897DAA4226070B0002310DF /* splitting_filter */ = {
+			isa = PBXGroup;
+			children = (
+				0897DAA6226070B0002310DF /* sparse_fir_filter.h */,
+				0897DAA7226070B0002310DF /* splitting_filter.c */,
+				0897DAA8226070B0002310DF /* three_band_filter_bank.cc */,
+				0897DAA9226070B0002310DF /* splitting_filter.h */,
+				0897DAAA226070B0002310DF /* sparse_fir_filter.cc */,
+				0897DAAB226070B0002310DF /* three_band_filter_bank.h */,
+			);
+			path = splitting_filter;
 			sourceTree = "<group>";
 		};
 		089C3218223B88D100D5E47E /* Resources */ = {
@@ -774,6 +819,7 @@
 				08FF5D2D225EEA29000251AE /* nsx_defines.h in Headers */,
 				0820CCF7225F33EC0058CF91 /* signal_processing_library.h in Headers */,
 				0820CCDC225F07E20058CF91 /* port.h in Headers */,
+				0897DAAF226070B0002310DF /* sparse_fir_filter.h in Headers */,
 				08FF5D25225EEA29000251AE /* noise_suppression.h in Headers */,
 				0820CCDD225F07E20058CF91 /* macros.h in Headers */,
 				0820CCEB225F08CA0058CF91 /* atomic_hook.h in Headers */,
@@ -783,6 +829,7 @@
 				08FF5D38225EEC5E000251AE /* dot_product_with_scale.h in Headers */,
 				0820CD02225F384F0058CF91 /* complex_fft_tables.h in Headers */,
 				0820CCEF225F08D70058CF91 /* log_severity.h in Headers */,
+				0897DAB4226070B0002310DF /* three_band_filter_bank.h in Headers */,
 				0820CD04225F387E0058CF91 /* arch.h in Headers */,
 				08FF5D56225EEECF000251AE /* type_traits.h in Headers */,
 				0820CCD7225F07B70058CF91 /* throw_delegate.h in Headers */,
@@ -798,6 +845,7 @@
 				0820CCF1225F094A0058CF91 /* optimization.h in Headers */,
 				08FF5D46225EED26000251AE /* real_fft.h in Headers */,
 				0820CCE2225F08410058CF91 /* raw_logging.h in Headers */,
+				0897DAB2226070B0002310DF /* splitting_filter.h in Headers */,
 				08FF5D54225EEE7C000251AE /* safe_conversions_impl.h in Headers */,
 				08FF5D3D225EECD3000251AE /* fft4g.h in Headers */,
 				08FF5D41225EECE2000251AE /* spl_sqrt_floor.h in Headers */,
@@ -808,6 +856,7 @@
 				08FF5D52225EEE45000251AE /* inline.h in Headers */,
 				08FF5D27225EEA29000251AE /* nsx_core.h in Headers */,
 				0820CCDB225F07E20058CF91 /* policy_checks.h in Headers */,
+				08ABEC6122609373004F18E6 /* audio_util.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,7 +1056,9 @@
 			files = (
 				0822ACDF2249371B00F10A18 /* Resources.bundle in Resources */,
 				085022B122433E1F001F31E2 /* ASRTempFile_1553139209.wav in Resources */,
+				0897DA9F22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav in Resources */,
 				085022AA2243378A001F31E2 /* ASRTempFile_1553133607.wav in Resources */,
+				0897DA9D22606C90002310DF /* NoisySpeech-44k_mono.m4a in Resources */,
 				08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */,
 				087879102215121200A8662E /* LaunchScreen.storyboard in Resources */,
 				0878790D2215121200A8662E /* Assets.xcassets in Resources */,
@@ -1055,17 +1106,20 @@
 				0820CCF2225F0CAF0058CF91 /* nsx_core.c in Sources */,
 				0820CD0E225F39960058CF91 /* min_max_operations.c in Sources */,
 				0820CD12225F39F90058CF91 /* division_operations.c in Sources */,
+				0897DAB0226070B0002310DF /* splitting_filter.c in Sources */,
 				0820CCD3225F06530058CF91 /* memutil.cc in Sources */,
 				0820CCE3225F08410058CF91 /* raw_logging.cc in Sources */,
 				0820CD16225F3A5C0058CF91 /* get_scaling_square.c in Sources */,
 				0820CCFC225F37CC0058CF91 /* complex_fft.c in Sources */,
 				08FF5D42225EECE2000251AE /* spl_sqrt_floor.c in Sources */,
+				0897DAB3226070B0002310DF /* sparse_fir_filter.cc in Sources */,
 				0820CD08225F38F90058CF91 /* downsample_fast.c in Sources */,
 				08FF5D23225EEA29000251AE /* nsx_core_c.c in Sources */,
 				08FF5D2C225EEA29000251AE /* noise_suppression.c in Sources */,
 				0820CD06225F38CB0058CF91 /* spl_init.c in Sources */,
 				0820CD10225F39C90058CF91 /* vector_scaling_operations.c in Sources */,
 				0820CCFE225F37F10058CF91 /* copy_set_operations.c in Sources */,
+				08ABEC5F22609311004F18E6 /* audio_util.cc in Sources */,
 				0820CD0C225F396B0058CF91 /* cross_correlation.c in Sources */,
 				0820CD14225F3A250058CF91 /* energy.c in Sources */,
 				08FF5D4A225EED69000251AE /* spl_inl.c in Sources */,
@@ -1075,6 +1129,8 @@
 				0820CCD6225F07B70058CF91 /* throw_delegate.cc in Sources */,
 				08FF5D22225EEA29000251AE /* noise_suppression_x.c in Sources */,
 				0820CCCD225F06210058CF91 /* string_view.cc in Sources */,
+				0897DAB1226070B0002310DF /* three_band_filter_bank.cc in Sources */,
+				081E4F1B2261704F007F9E1B /* DSPKit_Ns.mm in Sources */,
 				0820CD00225F38220058CF91 /* complex_bit_reverse.c in Sources */,
 				08FF5D3E225EECD3000251AE /* fft4g.c in Sources */,
 				08FF5D45225EED26000251AE /* real_fft.c in Sources */,
@@ -1184,6 +1240,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_MODULES_DISABLE_PRIVATE_WARNING = YES;
@@ -1195,6 +1252,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1212,7 +1270,8 @@
 					"@loader_path/Frameworks",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.DSPKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1226,6 +1285,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				BITCODE_GENERATION_MODE = bitcode;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_MODULE_DEBUGGING = NO;
@@ -1238,6 +1298,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					WEBRTC_IOS,
@@ -1252,7 +1313,8 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				OTHER_LDFLAGS = "-lc++";
+				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.DSPKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;

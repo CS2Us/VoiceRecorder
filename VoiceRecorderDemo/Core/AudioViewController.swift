@@ -216,27 +216,27 @@ fileprivate class MainViewController: UIViewController {
 	@IBAction private func clickRecordButton() {
 		recordButton.isSelected = !recordButton.isSelected
 		if recordButton.isSelected {
-			RecordKit.default.recordStart(destinationURL: .documents(url: "二郎.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
-			rollingOutputView.beginRolling()
-			print("cache: \(RKFileManager.default.allFilesSize)")
-			UIView.animate(withDuration: 0.3, animations: {
-				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
-				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
-				self.view.frame = CGRect(origin: origin, size: size)
-				self.view.setNeedsLayout()
-				self.view.layoutIfNeeded()
-			})
+			RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
+//			rollingOutputView.beginRolling()
+//			print("cache: \(RKFileManager.default.allFilesSize)")
+//			UIView.animate(withDuration: 0.3, animations: {
+//				let origin = CGPoint(x: 0, y: self.view.frame.maxY - recordPreferContentHeight - wavePreferContentHeight - infoPreferContentHeight)
+//				let size = CGSize(width: self.view.bounds.width, height: self.view.frame.maxY - origin.y)
+//				self.view.frame = CGRect(origin: origin, size: size)
+//				self.view.setNeedsLayout()
+//				self.view.layoutIfNeeded()
+//			})
 		} else {
 			RecordKit.default.recordEndup()
-			rollingOutputView.endUpRolling()
-			print("cache: \(RKFileManager.default.allFilesSize)")
-			UIView.animate(withDuration: 0.3, animations: {
-				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
-				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)
-				self.view.frame = CGRect(origin: origin, size: size)
-				self.view.setNeedsLayout()
-				self.view.layoutIfNeeded()
-			})
+//			rollingOutputView.endUpRolling()
+//			print("cache: \(RKFileManager.default.allFilesSize)")
+//			UIView.animate(withDuration: 0.3, animations: {
+//				let origin = CGPoint(x: 0, y: self.view.frame.maxY - initialPreferContentHeight)
+//				let size = CGSize(width: self.view.bounds.width, height: initialPreferContentHeight)
+//				self.view.frame = CGRect(origin: origin, size: size)
+//				self.view.setNeedsLayout()
+//				self.view.layoutIfNeeded()
+//			})
 		}
 	}
 }

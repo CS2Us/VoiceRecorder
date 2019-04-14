@@ -142,12 +142,13 @@
 		08C2113E2236A8C2009E91B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2113D2236A8C2009E91B4 /* GLKit.framework */; };
 		08C211732236AD08009E91B4 /* RKASRer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C211722236AD08009E91B4 /* RKASRer.swift */; };
 		08CDE6EF225AE4EB0092D12A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
-		08CDE6F0225AE4F20092D12A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
 		08CE6B462233700200AE08E4 /* RollingOutputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE6B452233700200AE08E4 /* RollingOutputView.swift */; };
 		08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */; };
 		08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */; };
 		08D6CC8D2248BB8B00574485 /* RKAudioCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6CC8C2248BB8B00574485 /* RKAudioCache.swift */; };
 		08D6CC8F2248BCF000574485 /* RKFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6CC8E2248BCF000574485 /* RKFileManager.swift */; };
+		08D910792263379D0041530E /* DSPKit_AEC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 08D910782263379D0041530E /* DSPKit_AEC.mm */; };
+		08D9107C22633ACB0041530E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
 		08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F782230162500267ACD /* RecordKitHelpers.swift */; };
 		08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F7A2230166C00267ACD /* RKSettings.swift */; };
 		08DB4F7D2230189B00267ACD /* ExceptionTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F7C2230189B00267ACD /* ExceptionTracker.swift */; };
@@ -187,7 +188,6 @@
 		08FF5D52225EEE45000251AE /* inline.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D51225EEE45000251AE /* inline.h */; };
 		08FF5D54225EEE7C000251AE /* safe_conversions_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D53225EEE7C000251AE /* safe_conversions_impl.h */; };
 		08FF5D56225EEECF000251AE /* type_traits.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D55225EEECF000251AE /* type_traits.h */; };
-		BD883738F885010DAC450C55 /* Pods_VoiceRecorderDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174646656FCF3280E7DEE14C /* Pods_VoiceRecorderDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -367,13 +367,14 @@
 		08C2115B2236AAD2009E91B4 /* BDSTTSEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSTTSEventManager.h; sourceTree = "<group>"; };
 		08C2115C2236AAD2009E91B4 /* BDSSpeechSynthesizerErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSSpeechSynthesizerErrors.h; sourceTree = "<group>"; };
 		08C211722236AD08009E91B4 /* RKASRer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKASRer.swift; sourceTree = "<group>"; };
-		08C7FCA0E0ABE5A216045FF1 /* Pods-VoiceRecorderDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceRecorderDemo/Pods-VoiceRecorderDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		08CE6B452233700200AE08E4 /* RollingOutputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollingOutputView.swift; sourceTree = "<group>"; };
 		08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioConverter.swift; sourceTree = "<group>"; };
 		08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HappyBirthdaySong.mp3; sourceTree = "<group>"; };
 		08D6CC8C2248BB8B00574485 /* RKAudioCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioCache.swift; sourceTree = "<group>"; };
 		08D6CC8E2248BCF000574485 /* RKFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKFileManager.swift; sourceTree = "<group>"; };
+		08D910782263379D0041530E /* DSPKit_AEC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKit_AEC.mm; sourceTree = "<group>"; };
+		08D9107A226337BD0041530E /* DSPKit_AEC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSPKit_AEC.h; sourceTree = "<group>"; };
 		08DB4F782230162500267ACD /* RecordKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKitHelpers.swift; sourceTree = "<group>"; };
 		08DB4F7A2230166C00267ACD /* RKSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKSettings.swift; sourceTree = "<group>"; };
 		08DB4F7C2230189B00267ACD /* ExceptionTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionTracker.swift; sourceTree = "<group>"; };
@@ -417,8 +418,6 @@
 		08FF5D51225EEE45000251AE /* inline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inline.h; sourceTree = "<group>"; };
 		08FF5D53225EEE7C000251AE /* safe_conversions_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = safe_conversions_impl.h; sourceTree = "<group>"; };
 		08FF5D55225EEECF000251AE /* type_traits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = type_traits.h; sourceTree = "<group>"; };
-		174646656FCF3280E7DEE14C /* Pods_VoiceRecorderDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceRecorderDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E096C491DB455138DAA1F6C2 /* Pods-VoiceRecorderDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceRecorderDemo/Pods-VoiceRecorderDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +433,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08D9107C22633ACB0041530E /* libBaiduSpeechSDK.a in Frameworks */,
 				089C323E223BA67900D5E47E /* libiconv.2.4.0.tbd in Frameworks */,
 				089C323D223BA67300D5E47E /* libstdc++.6.0.9.tbd in Frameworks */,
 				08972113223782E3008A4ECF /* libsqlite3.tbd in Frameworks */,
@@ -446,7 +446,6 @@
 				08C211322236A870009E91B4 /* AudioToolbox.framework in Frameworks */,
 				08C211302236A84F009E91B4 /* libz.1.2.5.tbd in Frameworks */,
 				08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */,
-				08CDE6F0225AE4F20092D12A /* libBaiduSpeechSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +455,6 @@
 			files = (
 				08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */,
 				08050EFE225DF5C00001C085 /* DSPKit.framework in Frameworks */,
-				BD883738F885010DAC450C55 /* Pods_VoiceRecorderDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,6 +515,8 @@
 				08050EFA225DF5C00001C085 /* Info.plist */,
 				081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */,
 				086D4A382261E68900ADF988 /* DSPKit_Ns.h */,
+				08D910782263379D0041530E /* DSPKit_AEC.mm */,
+				08D9107A226337BD0041530E /* DSPKit_AEC.h */,
 			);
 			path = DSPKit;
 			sourceTree = "<group>";
@@ -615,7 +615,6 @@
 				08779C28222F7EEF0055CCB9 /* RecordKit */,
 				089C3218223B88D100D5E47E /* Resources */,
 				087879032215121100A8662E /* Products */,
-				E534F1DC2277D9D24FF17FD7 /* Pods */,
 				8722DBA74128198EA81D7EFA /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -796,18 +795,8 @@
 				08C211312236A870009E91B4 /* AudioToolbox.framework */,
 				08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */,
 				08C2112D2236A844009E91B4 /* libc++.tbd */,
-				174646656FCF3280E7DEE14C /* Pods_VoiceRecorderDemo.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		E534F1DC2277D9D24FF17FD7 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				08C7FCA0E0ABE5A216045FF1 /* Pods-VoiceRecorderDemo.debug.xcconfig */,
-				E096C491DB455138DAA1F6C2 /* Pods-VoiceRecorderDemo.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -950,7 +939,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 087879142215121200A8662E /* Build configuration list for PBXNativeTarget "VoiceRecorderDemo" */;
 			buildPhases = (
-				C22068585AB36B928D4E100E /* [CP] Check Pods Manifest.lock */,
 				08120CC4223E70B3000E0E85 /* Headers */,
 				087878FE2215121100A8662E /* Sources */,
 				087878FF2215121100A8662E /* Frameworks */,
@@ -1099,28 +1087,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${ACTION}\" = \"build\" ]\nthen\nFMK_NAME=\"RecordKit\"\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\nDEVICE_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\n\nSIMULATOR_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#ditto \"${DEVICE_DIR}/Headers\" \"${INSTALL_DIR}/Headers\"\n\n# 使用lipo命令将其合并成一个通用framework  \n# 最后将生成的通用framework放置在工程根目录下新建的Products目录下  \nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\n#open \"${DEVICE_DIR}\"\nopen \"${SRCROOT}/Products\"\nfi\n";
 		};
-		C22068585AB36B928D4E100E /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorderDemo-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1157,6 +1123,7 @@
 				0897DAB1226070B0002310DF /* three_band_filter_bank.cc in Sources */,
 				081E4F1B2261704F007F9E1B /* DSPKit_Ns.mm in Sources */,
 				0820CD00225F38220058CF91 /* complex_bit_reverse.c in Sources */,
+				08D910792263379D0041530E /* DSPKit_AEC.mm in Sources */,
 				08FF5D3E225EECD3000251AE /* fft4g.c in Sources */,
 				08FF5D45225EED26000251AE /* real_fft.c in Sources */,
 				0820CCE7225F08640058CF91 /* ascii.cc in Sources */,
@@ -1578,7 +1545,6 @@
 		};
 		087879152215121200A8662E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08C7FCA0E0ABE5A216045FF1 /* Pods-VoiceRecorderDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -1613,7 +1579,6 @@
 		};
 		087879162215121200A8662E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E096C491DB455138DAA1F6C2 /* Pods-VoiceRecorderDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";

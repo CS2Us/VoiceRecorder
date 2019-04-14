@@ -111,9 +111,9 @@ extension RKMicrophone {
 //			}, "could not enable output on AURemoteIO")
 			
 			var ioFormat = inputFormat.asbd
-			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat))
-			}, "couldn't set the input client format on AURemoteIO")
+//			try RKTry({
+//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat))
+//			}, "couldn't set the input client format on AURemoteIO")
 			try RKTry({
 				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat))
 			}, "couldn't set the output client format on AURemoteIO")

@@ -187,6 +187,7 @@
 		08FF5D52225EEE45000251AE /* inline.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D51225EEE45000251AE /* inline.h */; };
 		08FF5D54225EEE7C000251AE /* safe_conversions_impl.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D53225EEE7C000251AE /* safe_conversions_impl.h */; };
 		08FF5D56225EEECF000251AE /* type_traits.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D55225EEECF000251AE /* type_traits.h */; };
+		BD883738F885010DAC450C55 /* Pods_VoiceRecorderDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 174646656FCF3280E7DEE14C /* Pods_VoiceRecorderDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -455,6 +456,7 @@
 			files = (
 				08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */,
 				08050EFE225DF5C00001C085 /* DSPKit.framework in Frameworks */,
+				BD883738F885010DAC450C55 /* Pods_VoiceRecorderDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -948,6 +950,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 087879142215121200A8662E /* Build configuration list for PBXNativeTarget "VoiceRecorderDemo" */;
 			buildPhases = (
+				C22068585AB36B928D4E100E /* [CP] Check Pods Manifest.lock */,
 				08120CC4223E70B3000E0E85 /* Headers */,
 				087878FE2215121100A8662E /* Sources */,
 				087878FF2215121100A8662E /* Frameworks */,
@@ -1095,6 +1098,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${ACTION}\" = \"build\" ]\nthen\nFMK_NAME=\"RecordKit\"\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\nDEVICE_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\n\nSIMULATOR_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#ditto \"${DEVICE_DIR}/Headers\" \"${INSTALL_DIR}/Headers\"\n\n# 使用lipo命令将其合并成一个通用framework  \n# 最后将生成的通用framework放置在工程根目录下新建的Products目录下  \nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\n#open \"${DEVICE_DIR}\"\nopen \"${SRCROOT}/Products\"\nfi\n";
+		};
+		C22068585AB36B928D4E100E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorderDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1553,6 +1578,7 @@
 		};
 		087879152215121200A8662E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08C7FCA0E0ABE5A216045FF1 /* Pods-VoiceRecorderDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -1587,6 +1613,7 @@
 		};
 		087879162215121200A8662E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E096C491DB455138DAA1F6C2 /* Pods-VoiceRecorderDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";

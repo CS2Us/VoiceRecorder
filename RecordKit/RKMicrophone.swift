@@ -25,12 +25,13 @@ private let RecordKit_RenderCallback: AURenderCallback = {(inRefCon,
 	ioData/*: UnsafeMutablePointer<AudioBufferList>*/)
 	-> OSStatus
 	in
+	var bufferList = AudioBufferList()
 	let delegate = unsafeBitCast(inRefCon, to: AURenderCallbackDelegate.self)
 	let result = delegate.performRender(ioActionFlags,
 										inTimeStamp: inTimeStamp,
 										inBufNumber: inBufNumber,
 										inNumberFrames: inNumberFrames,
-										ioData: ioData!)
+										ioData: &bufferList)
 	return result
 }
 
@@ -65,10 +66,10 @@ extension RKMicrophone: AURenderCallbackDelegate {
 		var bufferList = AudioBufferList(
 			mNumberBuffers: 1,
 			mBuffers: AudioBuffer(
-				mNumberChannels:1,
+				mNumberChannels: inputFormat.channelCount,
 				mDataByteSize: inNumberFrames * inputFormat.asbd.mBytesPerFrame,
 				mData: nil))
-		
+
 		let result = AudioUnitRender(_rioUnit!,
 							   ioActionFlags,
 							   inTimeStamp,
@@ -105,9 +106,9 @@ extension RKMicrophone {
 				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &one, SizeOf32(one))
 			}, "could not enable input on AURemoteIO")
 			
-			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one))
-			}, "could not enable output on AURemoteIO")
+//			try RKTry({
+//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one))
+//			}, "could not enable output on AURemoteIO")
 			
 			var ioFormat = inputFormat.asbd
 			try RKTry({
@@ -117,15 +118,15 @@ extension RKMicrophone {
 				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat))
 			}, "couldn't set the output client format on AURemoteIO")
 			
-			var maxFramesPerSlice: UInt32 = RKSettings.bufferLength.samplesCount
-			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
-			}, "couldn't set max frames per slice on AURemoteIO")
-
-			var propSize = SizeOf32(UInt32.self)
-			try RKTry({
-				AudioUnitGetProperty(self._rioUnit!, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, &propSize)
-			}, "couldn't get max frames per slice on AURemoteIO")
+//			var maxFramesPerSlice: UInt32 = RKSettings.bufferLength.samplesCount
+//			try RKTry({
+//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
+//			}, "couldn't set max frames per slice on AURemoteIO")
+//
+//			var propSize = SizeOf32(UInt32.self)
+//			try RKTry({
+//				AudioUnitGetProperty(self._rioUnit!, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, &propSize)
+//			}, "couldn't get max frames per slice on AURemoteIO")
 			
 			// Set the render callback on AURemoteIO
 			var renderCallback = AURenderCallbackStruct(
@@ -133,7 +134,7 @@ extension RKMicrophone {
 				inputProcRefCon: Unmanaged.passUnretained(self).toOpaque()
 			)
 			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &renderCallback, SizeOf32(AURenderCallbackStruct.self))
+				AudioUnitSetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, SizeOf32(AURenderCallbackStruct.self))
 			}, "couldn't set render callback on AURemoteIO")
 			
 			// Initialize the AURemoteIO instance
@@ -163,6 +164,9 @@ extension RKMicrophone {
 			try RKTry({
 				AudioOutputUnitStop(self._rioUnit!)
 			}, "couldn't stop AURemoteIO")
+			Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+				observer.microphoneStop?(self)
+			})
 		} catch let ex {
 			throw ex
 		}

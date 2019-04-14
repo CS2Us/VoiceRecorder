@@ -18,8 +18,9 @@ public class RecordKit: NSObject {
 	public override init() {
 		super.init()
 		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [.defaultToSpeaker])
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.record, mode: .default, options: [.duckOthers])
 			try AVAudioSession.sharedInstance().setActive(true, options: [])
+			print("采样率: \(AVAudioSession.sharedInstance().sampleRate)")
 		} catch let ex {
 			RKLog("RecordKit.Error... \(ex)")
 		}

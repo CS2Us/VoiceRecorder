@@ -22,7 +22,7 @@ public class RKSettings {
 	}
 	
 	public struct IOFormat {
-		public	let channelCount: UInt32
+		public let channelCount: UInt32
 		public let formatID: AudioFormatID
 		public let bitDepth: CommonFormat
 		public let sampleRate: Double
@@ -130,11 +130,9 @@ extension RKSettings.IOFormat {
 	}
 	
 	public enum CommonFormat: UInt32 {
-		case float32 = 1
+		case float32, fixed824, int32 = 4
 		case int16 = 2
-		case fixed824 = 3
-		case float64 = 4
-		case int32 = 5
+		case float64 = 8
 	}
 }
 

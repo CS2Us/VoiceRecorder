@@ -11,18 +11,17 @@ import AVFoundation
 
 public class RecordKit: NSObject {
 	private var inputStream: RKAudioInputStream?
+	private var audioRecorder: AVAudioRecorder?
 	
 	public static let `default` = RecordKit()
 	
 	public override init() {
 		super.init()
 		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .voiceChat, options: [.defaultToSpeaker])
+			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playAndRecord, mode: .default, options: [.defaultToSpeaker])
 			try AVAudioSession.sharedInstance().setActive(true, options: [])
-			try AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
-			try AVAudioSession.sharedInstance().setPreferredIOBufferDuration(RKSettings.bufferLength.duration)
-		} catch {
-			RKLog("RecordKit.Error... AVAudioSession")
+		} catch let ex {
+			RKLog("RecordKit.Error... \(ex)")
 		}
 	}
 	
@@ -37,10 +36,24 @@ public class RecordKit: NSObject {
 		inputStream?.asrerConverter?.outputFileType = kAudioFileWAVEType
 		inputStream?.status = .open
 		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
+//		let settings = [
+//			AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+//			AVSampleRateKey: 44100,
+//			AVNumberOfChannelsKey: 1,
+//			AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+//		]
+//
+//		do {
+//			audioRecorder = try AVAudioRecorder(url: destinationURL.url, settings: settings)
+//			audioRecorder?.record()
+//		} catch let ex {
+//			RKLog("错误: \(ex)")
+//		}
 	}
 	
 	open func recordEndup() {
 		inputStream?.status = .closed
+//		audioRecorder?.stop()
 	}
 	
 	open func recordCancle() {

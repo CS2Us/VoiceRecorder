@@ -418,6 +418,12 @@
 		08FF5D51225EEE45000251AE /* inline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inline.h; sourceTree = "<group>"; };
 		08FF5D53225EEE7C000251AE /* safe_conversions_impl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = safe_conversions_impl.h; sourceTree = "<group>"; };
 		08FF5D55225EEECF000251AE /* type_traits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = type_traits.h; sourceTree = "<group>"; };
+		41D54F1DC51D8112B8261A11 /* Pods-DSPKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DSPKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-DSPKit/Pods-DSPKit.release.xcconfig"; sourceTree = "<group>"; };
+		902D987589AA5F3B50215B65 /* Pods-VoiceRecorderDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceRecorderDemo/Pods-VoiceRecorderDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		92B0740AAC006B4B40FED47B /* Pods-DSPKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DSPKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DSPKit/Pods-DSPKit.debug.xcconfig"; sourceTree = "<group>"; };
+		A5D64C61B87360A2B067283B /* Pods-VoiceRecorderDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorderDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceRecorderDemo/Pods-VoiceRecorderDemo.release.xcconfig"; sourceTree = "<group>"; };
+		DDBFC0F10F1E49AD4477C0F7 /* Pods-RecordKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordKit.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RecordKit/Pods-RecordKit.debug.xcconfig"; sourceTree = "<group>"; };
+		EFA2389DD2B8B5D5EEE8E405 /* Pods-RecordKit.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RecordKit.release.xcconfig"; path = "Pods/Target Support Files/Pods-RecordKit/Pods-RecordKit.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -616,6 +622,7 @@
 				089C3218223B88D100D5E47E /* Resources */,
 				087879032215121100A8662E /* Products */,
 				8722DBA74128198EA81D7EFA /* Frameworks */,
+				44BA74279212E92DB7203486 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -777,6 +784,19 @@
 			path = ns;
 			sourceTree = "<group>";
 		};
+		44BA74279212E92DB7203486 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				92B0740AAC006B4B40FED47B /* Pods-DSPKit.debug.xcconfig */,
+				41D54F1DC51D8112B8261A11 /* Pods-DSPKit.release.xcconfig */,
+				DDBFC0F10F1E49AD4477C0F7 /* Pods-RecordKit.debug.xcconfig */,
+				EFA2389DD2B8B5D5EEE8E405 /* Pods-RecordKit.release.xcconfig */,
+				902D987589AA5F3B50215B65 /* Pods-VoiceRecorderDemo.debug.xcconfig */,
+				A5D64C61B87360A2B067283B /* Pods-VoiceRecorderDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8722DBA74128198EA81D7EFA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -902,6 +922,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 08050F00225DF5C00001C085 /* Build configuration list for PBXNativeTarget "DSPKit" */;
 			buildPhases = (
+				63FA532902A1F0BE6683560B /* [CP] Check Pods Manifest.lock */,
 				08050EF2225DF5C00001C085 /* Headers */,
 				08050EF3225DF5C00001C085 /* Sources */,
 				08050EF4225DF5C00001C085 /* Frameworks */,
@@ -920,6 +941,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 08779C2C222F7EEF0055CCB9 /* Build configuration list for PBXNativeTarget "RecordKit" */;
 			buildPhases = (
+				3A70AA37F8BAE4DEED40513D /* [CP] Check Pods Manifest.lock */,
 				08779C22222F7EEF0055CCB9 /* Headers */,
 				08779C23222F7EEF0055CCB9 /* Sources */,
 				08779C24222F7EEF0055CCB9 /* Frameworks */,
@@ -939,6 +961,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 087879142215121200A8662E /* Build configuration list for PBXNativeTarget "VoiceRecorderDemo" */;
 			buildPhases = (
+				98CC513D31E6EC41FF534238 /* [CP] Check Pods Manifest.lock */,
 				08120CC4223E70B3000E0E85 /* Headers */,
 				087878FE2215121100A8662E /* Sources */,
 				087878FF2215121100A8662E /* Frameworks */,
@@ -1087,6 +1110,72 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${ACTION}\" = \"build\" ]\nthen\nFMK_NAME=\"RecordKit\"\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\nDEVICE_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\n\nSIMULATOR_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#ditto \"${DEVICE_DIR}/Headers\" \"${INSTALL_DIR}/Headers\"\n\n# 使用lipo命令将其合并成一个通用framework  \n# 最后将生成的通用framework放置在工程根目录下新建的Products目录下  \nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\n#open \"${DEVICE_DIR}\"\nopen \"${SRCROOT}/Products\"\nfi\n";
 		};
+		3A70AA37F8BAE4DEED40513D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RecordKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		63FA532902A1F0BE6683560B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DSPKit-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98CC513D31E6EC41FF534238 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecorderDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1230,6 +1319,7 @@
 /* Begin XCBuildConfiguration section */
 		08050F01225DF5C00001C085 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 92B0740AAC006B4B40FED47B /* Pods-DSPKit.debug.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
@@ -1247,10 +1337,9 @@
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
 					"$(inherited)",
-					WEBRTC_POSIX,
 					WEBRTC_IOS,
+					WEBRTC_POSIX,
 				);
 				HEADER_SEARCH_PATHS = DSPKit;
 				INFOPLIST_FILE = DSPKit/Info.plist;
@@ -1275,6 +1364,7 @@
 		};
 		08050F02225DF5C00001C085 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 41D54F1DC51D8112B8261A11 /* Pods-DSPKit.release.xcconfig */;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
@@ -1293,6 +1383,7 @@
 				ENABLE_BITCODE = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
 					WEBRTC_IOS,
 					WEBRTC_POSIX,
 				);
@@ -1343,6 +1434,7 @@
 		};
 		08779C2D222F7EEF0055CCB9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DDBFC0F10F1E49AD4477C0F7 /* Pods-RecordKit.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -1374,6 +1466,7 @@
 				MACH_O_TYPE = mh_dylib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.RecordKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1387,6 +1480,7 @@
 		};
 		08779C2E222F7EEF0055CCB9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EFA2389DD2B8B5D5EEE8E405 /* Pods-RecordKit.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -1417,6 +1511,7 @@
 				);
 				MACH_O_TYPE = mh_dylib;
 				OTHER_CFLAGS = "-fembed-bitcode";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.RecordKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -1545,6 +1640,7 @@
 		};
 		087879152215121200A8662E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 902D987589AA5F3B50215B65 /* Pods-VoiceRecorderDemo.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -1566,7 +1662,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fembed-bitcode";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1579,6 +1675,7 @@
 		};
 		087879162215121200A8662E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5D64C61B87360A2B067283B /* Pods-VoiceRecorderDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -1600,7 +1697,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fembed-bitcode";
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.VoiceRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

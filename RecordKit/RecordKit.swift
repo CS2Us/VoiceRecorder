@@ -14,14 +14,11 @@ public class RecordKit: NSObject {
 	private var audioRecorder: AVAudioRecorder?
 	
 	public static let `default` = RecordKit()
-	
-	public override init() {
-		super.init()
-		do {
-			try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.record, mode: .default, options: [.duckOthers])
-			try AVAudioSession.sharedInstance().setActive(true, options: [])
-		} catch let ex {
-			RKLog("RecordKit.Error... \(ex)")
+	public var isRecording: Bool {
+		if inputStream != nil {
+			return true
+		} else {
+			return false
 		}
 	}
 	
@@ -38,11 +35,8 @@ public class RecordKit: NSObject {
 		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
 	}
 	
-	open func recordEndup() {
-		inputStream?.status = .closed
-	}
-	
 	open func recordCancle() {
+		inputStream?.status = .closed
 		inputStream = nil
 	}
 }

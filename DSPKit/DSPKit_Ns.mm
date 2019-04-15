@@ -10,6 +10,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import <mobileffmpeg/mobileffmpeg.h>
 
 #include <iostream>
 
@@ -31,6 +32,15 @@
 		return nil;
 	}
 	return self;
+}
+
+- (instancetype)initWithUrl:(NSURL *)url mode:(DSPKit_NsMode)nsMode {
+	MediaInformation *mediaInfo = [MobileFFmpeg getMediaInformation:url.absoluteString];
+	NSDictionary *mediaEntries = mediaInfo.getMetadataEntries;
+	for (NSString *key in mediaEntries) {
+		std::cout << "mediaInfo: " << key << "value: " << mediaEntries[key];
+	}
+	return [self initWithSampleRate:44100 mode:nsMode];
 }
 
 - (instancetype)initWithSampleRate:(unsigned int)sampleRate mode:(DSPKit_NsMode)nsMode {

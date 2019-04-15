@@ -252,12 +252,12 @@ extension RKAudioConverter {
 				_crt = crt
 				_cltASBD = cltASBD
 				
-				RKLog("Source file format:\n")
-				printAudioStreamBasicDescription(sorASBD)
-				RKLog("Destination file format:\n")
-				printAudioStreamBasicDescription(dstASBD)
-				RKLog("Client file format:\n")
-				printAudioStreamBasicDescription(cltASBD)
+//				RKLog("Source file format:\n")
+//				printAudioStreamBasicDescription(sorASBD)
+//				RKLog("Destination file format:\n")
+//				printAudioStreamBasicDescription(dstASBD)
+//				RKLog("Client file format:\n")
+//				printAudioStreamBasicDescription(cltASBD)
 			} catch let ex {
 				RKLog("Prepare AudioConvertInfo Fault")
 				throw ex

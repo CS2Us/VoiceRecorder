@@ -72,14 +72,10 @@ open class RKAudioInputStream: InputStream {
 	}
 	
 	private func _closeInputStream() {
-		do {
-			try microphone?.stopIOUnit()
-			try audioConverter?.disposeConvert()
-			try asrerConverter?.disposeConvert()
-			try asrer?.endRecognition()
-		} catch let ex {
-			RKLog("RecordKit.Error: \(ex)")
-		}
+		try? microphone?.stopIOUnit()
+		try? audioConverter?.disposeConvert()
+		try? asrerConverter?.disposeConvert()
+		try? asrer?.endRecognition()
 	}
 	
 	override open func open() {}

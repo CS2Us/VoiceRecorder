@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="eBG-Ht-xW8">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="vMT-W0-GJz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eBG-Ht-xW8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="RTQ-QJ-sYO">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="htK-zi-99D" kind="relationship" relationship="rootViewController" id="bYB-wU-EkD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rr7-TR-AxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="222" y="90"/>
+        </scene>
+        <!--Voice Memos-->
+        <scene sceneID="Wfb-LB-VcU">
+            <objects>
+                <viewController id="htK-zi-99D" customClass="MainViewController" customModule="VoiceRecorderDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5M3-GG-TRs">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wnd-No-SKr">
+                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
+                                <subviews>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qD-dP-g2B">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="541.5"/>
+                                        <connections>
+                                            <segue destination="kVG-BF-UmO" kind="embed" id="HF2-tR-UKm"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0q-Wb-2Ei" userLabel="Recorder View">
+                                        <rect key="frame" x="0.0" y="541.5" width="414" height="180.5"/>
+                                        <connections>
+                                            <segue destination="oBa-oZ-dy1" kind="embed" id="Wsz-Dl-wZh"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="3qD-dP-g2B" firstAttribute="height" secondItem="wnd-No-SKr" secondAttribute="height" multiplier="0.75" id="25d-cH-DiY"/>
+                                    <constraint firstItem="Z0q-Wb-2Ei" firstAttribute="height" secondItem="wnd-No-SKr" secondAttribute="height" multiplier="0.25" id="rQr-Yy-oDd"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="wnd-No-SKr" firstAttribute="leading" secondItem="hUL-cE-mW1" secondAttribute="leading" id="3GN-VV-XIs"/>
+                            <constraint firstItem="wnd-No-SKr" firstAttribute="bottom" secondItem="hUL-cE-mW1" secondAttribute="bottom" id="ZAW-kt-E35"/>
+                            <constraint firstItem="hUL-cE-mW1" firstAttribute="trailing" secondItem="wnd-No-SKr" secondAttribute="trailing" id="c3j-aV-d6G"/>
+                            <constraint firstItem="wnd-No-SKr" firstAttribute="top" secondItem="hUL-cE-mW1" secondAttribute="top" id="hCi-AR-qJT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hUL-cE-mW1"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Voice Memos" id="xeQ-Ib-PNX"/>
+                    <connections>
+                        <outlet property="recorderView" destination="Z0q-Wb-2Ei" id="lnj-rW-vcf"/>
+                        <outlet property="recordingsView" destination="3qD-dP-g2B" id="Tpj-Ba-oPY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="P32-pp-Gta" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1048.8" y="89.408866995073893"/>
+        </scene>
+        <!--Voice Memos-->
+        <scene sceneID="1sn-dz-ogS">
+            <objects>
+                <viewController id="kVG-BF-UmO" customClass="RecordingsViewController" customModule="VoiceRecorderDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VBe-ZE-SOJ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="541.5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FND-Wq-oVv">
+                                <rect key="frame" x="0.0" y="44" width="414" height="463.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="kVG-BF-UmO" id="Psl-dU-lXG"/>
+                                    <outlet property="delegate" destination="kVG-BF-UmO" id="eFl-fF-Mra"/>
+                                </connections>
+                            </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hHM-i0-pcN" userLabel="Fade View">
+                                <rect key="frame" x="0.0" y="44" width="414" height="463.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.45005904800000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hHM-i0-pcN" firstAttribute="top" secondItem="4r7-78-suJ" secondAttribute="top" id="0IW-ge-Aqt"/>
+                            <constraint firstItem="4r7-78-suJ" firstAttribute="bottom" secondItem="hHM-i0-pcN" secondAttribute="bottom" id="Fr2-1Y-ps2"/>
+                            <constraint firstItem="FND-Wq-oVv" firstAttribute="bottom" secondItem="4r7-78-suJ" secondAttribute="bottom" id="fGy-kK-eFu"/>
+                            <constraint firstItem="4r7-78-suJ" firstAttribute="trailing" secondItem="hHM-i0-pcN" secondAttribute="trailing" id="h5r-fh-XqE"/>
+                            <constraint firstItem="hHM-i0-pcN" firstAttribute="leading" secondItem="4r7-78-suJ" secondAttribute="leading" id="pjE-zZ-c8Z"/>
+                            <constraint firstItem="FND-Wq-oVv" firstAttribute="leading" secondItem="4r7-78-suJ" secondAttribute="leading" id="qtD-P5-nb0"/>
+                            <constraint firstItem="FND-Wq-oVv" firstAttribute="trailing" secondItem="4r7-78-suJ" secondAttribute="trailing" id="suH-Uh-CFt"/>
+                            <constraint firstItem="FND-Wq-oVv" firstAttribute="top" secondItem="4r7-78-suJ" secondAttribute="top" id="w3k-mY-NF4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4r7-78-suJ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Voice Memos" id="RiM-1e-gm9"/>
+                    <connections>
+                        <outlet property="fadeView" destination="hHM-i0-pcN" id="Z5M-2P-P8F"/>
+                        <outlet property="tableView" destination="FND-Wq-oVv" id="BDd-Na-dtv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FbB-Qt-Wvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1844" y="-74"/>
+        </scene>
+        <!--Recorder View Controller-->
+        <scene sceneID="VC0-CN-in2">
+            <objects>
+                <viewController id="oBa-oZ-dy1" customClass="RecorderViewController" customModule="VoiceRecorderDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Pc4-1v-71r">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IWK-2U-Q6h" userLabel="Fade View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.45187590840000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="IWK-2U-Q6h" firstAttribute="leading" secondItem="Ax8-xo-gQ0" secondAttribute="leading" id="eWx-Hp-fn4"/>
+                            <constraint firstItem="Ax8-xo-gQ0" firstAttribute="trailing" secondItem="IWK-2U-Q6h" secondAttribute="trailing" id="k29-Po-mMj"/>
+                            <constraint firstAttribute="bottom" secondItem="IWK-2U-Q6h" secondAttribute="bottom" id="lku-Yy-ZAV"/>
+                            <constraint firstItem="IWK-2U-Q6h" firstAttribute="top" secondItem="Pc4-1v-71r" secondAttribute="top" id="pyT-jU-jhT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Ax8-xo-gQ0"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="150"/>
+                    <connections>
+                        <outlet property="fadeView" destination="IWK-2U-Q6h" id="jPi-nV-ji6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DAT-a4-Ybt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1807" y="381"/>
+        </scene>
+    </scenes>
+</document>

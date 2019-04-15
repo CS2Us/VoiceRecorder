@@ -127,6 +127,7 @@
 		08CDBA202264431A00121D7E /* RecordButtonKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1B2264431A00121D7E /* RecordButtonKit.swift */; };
 		08CDBA212264431A00121D7E /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1C2264431A00121D7E /* RecordButton.swift */; };
 		08CDBA222264431A00121D7E /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1D2264431A00121D7E /* RecorderViewController.swift */; };
+		08CDBA26226462E500121D7E /* NoiseSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA25226462E500121D7E /* NoiseSViewController.swift */; };
 		08CDE6EF225AE4EB0092D12A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
 		08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */; };
 		08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */; };
@@ -365,6 +366,7 @@
 		08CDBA1B2264431A00121D7E /* RecordButtonKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButtonKit.swift; sourceTree = "<group>"; };
 		08CDBA1C2264431A00121D7E /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		08CDBA1D2264431A00121D7E /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
+		08CDBA25226462E500121D7E /* NoiseSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseSViewController.swift; sourceTree = "<group>"; };
 		08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioConverter.swift; sourceTree = "<group>"; };
 		08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HappyBirthdaySong.mp3; sourceTree = "<group>"; };
@@ -761,6 +763,7 @@
 			children = (
 				08CDBA172264431A00121D7E /* MainViewController.swift */,
 				08CDBA182264431A00121D7E /* RecordingsViewController.swift */,
+				08CDBA25226462E500121D7E /* NoiseSViewController.swift */,
 				08CDBA192264431A00121D7E /* RecorderView */,
 			);
 			path = Controllers;
@@ -1349,6 +1352,7 @@
 				08DA86D622641AC000CB7A04 /* Extensions.swift in Sources */,
 				08CDBA222264431A00121D7E /* RecorderViewController.swift in Sources */,
 				08CDBA212264431A00121D7E /* RecordButton.swift in Sources */,
+				08CDBA26226462E500121D7E /* NoiseSViewController.swift in Sources */,
 				08CDBA1E2264431A00121D7E /* MainViewController.swift in Sources */,
 				08DFE64E222560E40077E66A /* UIView+Doable.swift in Sources */,
 				08DA86E52264251100CB7A04 /* PRTween.m in Sources */,

@@ -249,7 +249,7 @@ extension RecorderViewController: RKMicrophoneHandle {
 		
 		guard let floatBuffers: UnsafeMutablePointer<UnsafeMutablePointer<Float>?> = {
 			let floatConverter = EZAudioFloatConverter(inputFormat: microphone.inputFormat.asbd)
-			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: length, numberOfChannels: microphone.inputFormat.channelCount)
+			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: numberOfFrames, numberOfChannels: microphone.inputFormat.channelCount)
 			floatConverter?.convertData(from: UnsafeMutablePointer<AudioBufferList>(mutating: bufferList), withNumberOfFrames: numberOfFrames, toFloatBuffers: floatBuffers)
 			return floatBuffers
 			}(), let floatData: UnsafePointer<Float> = UnsafePointer(floatBuffers[0]) else { return }

@@ -36,8 +36,7 @@ class MainViewController: UIViewController {
         if let recordings = self.recordingsViewController {
             recordings.delegate = self
         }
-
-    }
+	}
 
 }
 

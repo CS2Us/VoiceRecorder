@@ -265,7 +265,7 @@ extension RecorderViewController: RKMicrophoneHandle {
 		let silent = average < level
 		let ts = NSDate().timeIntervalSince1970
 		if ts - self.renderTs > 0.1 {
-			let floats = UnsafeBufferPointer(start: floatData, count: Int(bufferList.pointee.mNumberBuffers))
+			let floats = UnsafeBufferPointer(start: floatData, count: Int(numberOfFrames))
 			let frame = floats.map({ (f) -> Int in
 				return Int(f * Float(Int16.max))
 			})

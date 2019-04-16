@@ -63,6 +63,9 @@
 		0822ACDF2249371B00F10A18 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
 		082C29B02231839600710E15 /* RKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29AF2231839600710E15 /* RKMicrophone.swift */; };
 		082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29B1223183A500710E15 /* RKAudioFile.swift */; };
+		083B63872264D13A00674C6A /* DSPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08050EF7225DF5C00001C085 /* DSPKit.framework */; };
+		083B63882264D13A00674C6A /* DSPKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08050EF7225DF5C00001C085 /* DSPKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		083B638C226596DA00674C6A /* NoiseSpeech.wav in Resources */ = {isa = PBXBuildFile; fileRef = 083B638B226596DA00674C6A /* NoiseSpeech.wav */; };
 		08411DEB223F6C3500739903 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
 		084A8492225DC7C600F5629B /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 084A8480225DC7C600F5629B /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		084A8493225DC7C600F5629B /* EZAudioUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 084A8481225DC7C600F5629B /* EZAudioUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -128,6 +131,47 @@
 		08CDBA212264431A00121D7E /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1C2264431A00121D7E /* RecordButton.swift */; };
 		08CDBA222264431A00121D7E /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1D2264431A00121D7E /* RecorderViewController.swift */; };
 		08CDBA26226462E500121D7E /* NoiseSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA25226462E500121D7E /* NoiseSViewController.swift */; };
+		08CDBA2C22647E1E00121D7E /* DSPKit_Ns.h in Headers */ = {isa = PBXBuildFile; fileRef = 086D4A382261E68900ADF988 /* DSPKit_Ns.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08CDBA2D22647E2400121D7E /* DSPKit_AEC.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D9107A226337BD0041530E /* DSPKit_AEC.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08CDBA6A2264C66E00121D7E /* AEAudioFilePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA3C2264C66D00121D7E /* AEAudioFilePlayer.h */; };
+		08CDBA6B2264C66E00121D7E /* AEAudioFileLoaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA3D2264C66D00121D7E /* AEAudioFileLoaderOperation.m */; };
+		08CDBA6C2264C66E00121D7E /* AEBlockChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA3E2264C66D00121D7E /* AEBlockChannel.m */; };
+		08CDBA6D2264C66E00121D7E /* AEBlockScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA3F2264C66D00121D7E /* AEBlockScheduler.m */; };
+		08CDBA6E2264C66E00121D7E /* AEAudioController.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA402264C66D00121D7E /* AEAudioController.h */; };
+		08CDBA6F2264C66E00121D7E /* AEMessageQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA412264C66D00121D7E /* AEMessageQueue.m */; };
+		08CDBA702264C66E00121D7E /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA422264C66D00121D7E /* AEFloatConverter.m */; };
+		08CDBA712264C66E00121D7E /* AEAudioBufferManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA432264C66D00121D7E /* AEAudioBufferManager.m */; };
+		08CDBA722264C66E00121D7E /* AEBlockFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA442264C66D00121D7E /* AEBlockFilter.h */; };
+		08CDBA732264C66E00121D7E /* AEAudioFileWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA452264C66D00121D7E /* AEAudioFileWriter.m */; };
+		08CDBA742264C66E00121D7E /* AERealtimeWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA462264C66D00121D7E /* AERealtimeWatchdog.m */; };
+		08CDBA752264C66E00121D7E /* AEBlockAudioReceiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA472264C66D00121D7E /* AEBlockAudioReceiver.m */; };
+		08CDBA762264C66E00121D7E /* TheAmazingAudioEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA482264C66D00121D7E /* TheAmazingAudioEngine.h */; };
+		08CDBA772264C66E00121D7E /* AEAudioController+Audiobus.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA492264C66D00121D7E /* AEAudioController+Audiobus.h */; };
+		08CDBA7D2264C66E00121D7E /* AEMemoryBufferPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA512264C66D00121D7E /* AEMemoryBufferPlayer.h */; };
+		08CDBA7E2264C66E00121D7E /* AEAudioUnitChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA522264C66D00121D7E /* AEAudioUnitChannel.m */; };
+		08CDBA7F2264C66E00121D7E /* AEUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA532264C66D00121D7E /* AEUtilities.m */; };
+		08CDBA802264C66E00121D7E /* AEAudioUnitFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA542264C66D00121D7E /* AEAudioUnitFilter.m */; };
+		08CDBA812264C66E00121D7E /* AEBlockChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA552264C66D00121D7E /* AEBlockChannel.h */; };
+		08CDBA822264C66E00121D7E /* AERealtimeWatchdog-simulator-x86_64.s in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA562264C66D00121D7E /* AERealtimeWatchdog-simulator-x86_64.s */; };
+		08CDBA832264C66E00121D7E /* AEAudioFileLoaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA572264C66D00121D7E /* AEAudioFileLoaderOperation.h */; };
+		08CDBA842264C66E00121D7E /* AEAudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA582264C66D00121D7E /* AEAudioFilePlayer.m */; };
+		08CDBA852264C66E00121D7E /* AEFloatConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA592264C66D00121D7E /* AEFloatConverter.h */; };
+		08CDBA862264C66E00121D7E /* AEMessageQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA5A2264C66D00121D7E /* AEMessageQueue.h */; };
+		08CDBA872264C66E00121D7E /* AEAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA5B2264C66D00121D7E /* AEAudioController.m */; };
+		08CDBA882264C66E00121D7E /* AEBlockScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA5C2264C66D00121D7E /* AEBlockScheduler.h */; };
+		08CDBA892264C66E00121D7E /* AERealtimeWatchdog-arm64.s in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA5D2264C66D00121D7E /* AERealtimeWatchdog-arm64.s */; };
+		08CDBA8A2264C66E00121D7E /* AERealtimeWatchdog.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA5E2264C66D00121D7E /* AERealtimeWatchdog.h */; };
+		08CDBA8B2264C66E00121D7E /* TheAmazingAudioEngine-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA5F2264C66D00121D7E /* TheAmazingAudioEngine-Prefix.pch */; };
+		08CDBA8C2264C66E00121D7E /* AEAudioFileWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA602264C66D00121D7E /* AEAudioFileWriter.h */; };
+		08CDBA8D2264C66E00121D7E /* AEBlockFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA612264C66D00121D7E /* AEBlockFilter.m */; };
+		08CDBA8E2264C66E00121D7E /* AEAudioBufferManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA622264C66D00121D7E /* AEAudioBufferManager.h */; };
+		08CDBA8F2264C66E00121D7E /* AEAudioUnitFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA632264C66D00121D7E /* AEAudioUnitFilter.h */; };
+		08CDBA902264C66E00121D7E /* AEUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA642264C66D00121D7E /* AEUtilities.h */; };
+		08CDBA912264C66E00121D7E /* AEAudioUnitChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA652264C66D00121D7E /* AEAudioUnitChannel.h */; };
+		08CDBA922264C66E00121D7E /* AEMemoryBufferPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA662264C66D00121D7E /* AEMemoryBufferPlayer.m */; };
+		08CDBA932264C66E00121D7E /* AEAudioController+Audiobus.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA672264C66D00121D7E /* AEAudioController+Audiobus.m */; };
+		08CDBA942264C66E00121D7E /* AEAudioController+AudiobusStub.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA682264C66D00121D7E /* AEAudioController+AudiobusStub.h */; };
+		08CDBA952264C66E00121D7E /* AEBlockAudioReceiver.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA692264C66D00121D7E /* AEBlockAudioReceiver.h */; };
 		08CDE6EF225AE4EB0092D12A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
 		08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */; };
 		08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */; };
@@ -135,8 +179,6 @@
 		08D6CC8F2248BCF000574485 /* RKFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6CC8E2248BCF000574485 /* RKFileManager.swift */; };
 		08D910792263379D0041530E /* DSPKit_AEC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 08D910782263379D0041530E /* DSPKit_AEC.mm */; };
 		08D9107C22633ACB0041530E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
-		08DA86B82263A9C100CB7A04 /* DSPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08050EF7225DF5C00001C085 /* DSPKit.framework */; };
-		08DA86B92263A9CA00CB7A04 /* DSPKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08050EF7225DF5C00001C085 /* DSPKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08DA86C022641A8000CB7A04 /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86BF22641A8000CB7A04 /* AudioVisualizerView.swift */; };
 		08DA86D622641AC000CB7A04 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86D522641AC000CB7A04 /* Extensions.swift */; };
 		08DA86D722641E1900CB7A04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 087879092215121100A8662E /* Main.storyboard */; };
@@ -195,6 +237,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		083B63892264D13A00674C6A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 087878FA2215121100A8662E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08050EF6225DF5C00001C085;
+			remoteInfo = DSPKit;
+		};
 		08411DED223F6C6200739903 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 087878FA2215121100A8662E /* Project object */;
@@ -209,13 +258,6 @@
 			remoteGlobalIDString = 08779C26222F7EEF0055CCB9;
 			remoteInfo = RecordKit;
 		};
-		08DA86B62263A9BD00CB7A04 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 087878FA2215121100A8662E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 08050EF6225DF5C00001C085;
-			remoteInfo = DSPKit;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -226,9 +268,9 @@
 			dstSubfolderSpec = 10;
 			files = (
 				08DA86DC226421D100CB7A04 /* Pods_DSPKit.framework in Embed Frameworks */,
+				083B63882264D13A00674C6A /* DSPKit.framework in Embed Frameworks */,
 				08DA86DD226421D100CB7A04 /* Pods_RecordKit.framework in Embed Frameworks */,
 				08DA86DE226421D100CB7A04 /* Pods_VoiceRecorderDemo.framework in Embed Frameworks */,
-				08DA86B92263A9CA00CB7A04 /* DSPKit.framework in Embed Frameworks */,
 				08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -280,6 +322,7 @@
 		0820CD15225F3A5C0058CF91 /* get_scaling_square.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = get_scaling_square.c; sourceTree = "<group>"; };
 		082C29AF2231839600710E15 /* RKMicrophone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKMicrophone.swift; sourceTree = "<group>"; };
 		082C29B1223183A500710E15 /* RKAudioFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioFile.swift; sourceTree = "<group>"; };
+		083B638B226596DA00674C6A /* NoiseSpeech.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = NoiseSpeech.wav; sourceTree = "<group>"; };
 		084A8480225DC7C600F5629B /* EZPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZPlot.h; sourceTree = "<group>"; };
 		084A8481225DC7C600F5629B /* EZAudioUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioUtilities.h; sourceTree = "<group>"; };
 		084A8482225DC7C600F5629B /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
@@ -367,6 +410,45 @@
 		08CDBA1C2264431A00121D7E /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
 		08CDBA1D2264431A00121D7E /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
 		08CDBA25226462E500121D7E /* NoiseSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseSViewController.swift; sourceTree = "<group>"; };
+		08CDBA3C2264C66D00121D7E /* AEAudioFilePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioFilePlayer.h; sourceTree = "<group>"; };
+		08CDBA3D2264C66D00121D7E /* AEAudioFileLoaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioFileLoaderOperation.m; sourceTree = "<group>"; };
+		08CDBA3E2264C66D00121D7E /* AEBlockChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEBlockChannel.m; sourceTree = "<group>"; };
+		08CDBA3F2264C66D00121D7E /* AEBlockScheduler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEBlockScheduler.m; sourceTree = "<group>"; };
+		08CDBA402264C66D00121D7E /* AEAudioController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioController.h; sourceTree = "<group>"; };
+		08CDBA412264C66D00121D7E /* AEMessageQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEMessageQueue.m; sourceTree = "<group>"; };
+		08CDBA422264C66D00121D7E /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
+		08CDBA432264C66D00121D7E /* AEAudioBufferManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioBufferManager.m; sourceTree = "<group>"; };
+		08CDBA442264C66D00121D7E /* AEBlockFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEBlockFilter.h; sourceTree = "<group>"; };
+		08CDBA452264C66D00121D7E /* AEAudioFileWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioFileWriter.m; sourceTree = "<group>"; };
+		08CDBA462264C66D00121D7E /* AERealtimeWatchdog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AERealtimeWatchdog.m; sourceTree = "<group>"; };
+		08CDBA472264C66D00121D7E /* AEBlockAudioReceiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEBlockAudioReceiver.m; sourceTree = "<group>"; };
+		08CDBA482264C66D00121D7E /* TheAmazingAudioEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TheAmazingAudioEngine.h; sourceTree = "<group>"; };
+		08CDBA492264C66D00121D7E /* AEAudioController+Audiobus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AEAudioController+Audiobus.h"; sourceTree = "<group>"; };
+		08CDBA512264C66D00121D7E /* AEMemoryBufferPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEMemoryBufferPlayer.h; sourceTree = "<group>"; };
+		08CDBA522264C66D00121D7E /* AEAudioUnitChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioUnitChannel.m; sourceTree = "<group>"; };
+		08CDBA532264C66D00121D7E /* AEUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEUtilities.m; sourceTree = "<group>"; };
+		08CDBA542264C66D00121D7E /* AEAudioUnitFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioUnitFilter.m; sourceTree = "<group>"; };
+		08CDBA552264C66D00121D7E /* AEBlockChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEBlockChannel.h; sourceTree = "<group>"; };
+		08CDBA562264C66D00121D7E /* AERealtimeWatchdog-simulator-x86_64.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = "AERealtimeWatchdog-simulator-x86_64.s"; sourceTree = "<group>"; };
+		08CDBA572264C66D00121D7E /* AEAudioFileLoaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioFileLoaderOperation.h; sourceTree = "<group>"; };
+		08CDBA582264C66D00121D7E /* AEAudioFilePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioFilePlayer.m; sourceTree = "<group>"; };
+		08CDBA592264C66D00121D7E /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
+		08CDBA5A2264C66D00121D7E /* AEMessageQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEMessageQueue.h; sourceTree = "<group>"; };
+		08CDBA5B2264C66D00121D7E /* AEAudioController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEAudioController.m; sourceTree = "<group>"; };
+		08CDBA5C2264C66D00121D7E /* AEBlockScheduler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEBlockScheduler.h; sourceTree = "<group>"; };
+		08CDBA5D2264C66D00121D7E /* AERealtimeWatchdog-arm64.s */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.asm; path = "AERealtimeWatchdog-arm64.s"; sourceTree = "<group>"; };
+		08CDBA5E2264C66D00121D7E /* AERealtimeWatchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AERealtimeWatchdog.h; sourceTree = "<group>"; };
+		08CDBA5F2264C66D00121D7E /* TheAmazingAudioEngine-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TheAmazingAudioEngine-Prefix.pch"; sourceTree = "<group>"; };
+		08CDBA602264C66D00121D7E /* AEAudioFileWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioFileWriter.h; sourceTree = "<group>"; };
+		08CDBA612264C66D00121D7E /* AEBlockFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEBlockFilter.m; sourceTree = "<group>"; };
+		08CDBA622264C66D00121D7E /* AEAudioBufferManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioBufferManager.h; sourceTree = "<group>"; };
+		08CDBA632264C66D00121D7E /* AEAudioUnitFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioUnitFilter.h; sourceTree = "<group>"; };
+		08CDBA642264C66D00121D7E /* AEUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEUtilities.h; sourceTree = "<group>"; };
+		08CDBA652264C66D00121D7E /* AEAudioUnitChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEAudioUnitChannel.h; sourceTree = "<group>"; };
+		08CDBA662264C66D00121D7E /* AEMemoryBufferPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEMemoryBufferPlayer.m; sourceTree = "<group>"; };
+		08CDBA672264C66D00121D7E /* AEAudioController+Audiobus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AEAudioController+Audiobus.m"; sourceTree = "<group>"; };
+		08CDBA682264C66D00121D7E /* AEAudioController+AudiobusStub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AEAudioController+AudiobusStub.h"; sourceTree = "<group>"; };
+		08CDBA692264C66D00121D7E /* AEBlockAudioReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEBlockAudioReceiver.h; sourceTree = "<group>"; };
 		08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioConverter.swift; sourceTree = "<group>"; };
 		08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HappyBirthdaySong.mp3; sourceTree = "<group>"; };
@@ -469,7 +551,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08DA86B82263A9C100CB7A04 /* DSPKit.framework in Frameworks */,
+				083B63872264D13A00674C6A /* DSPKit.framework in Frameworks */,
 				08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */,
 				6C41123B0F68F6198AE8B594 /* Pods_VoiceRecorderDemo.framework in Frameworks */,
 			);
@@ -602,6 +684,7 @@
 		08779C28222F7EEF0055CCB9 /* RecordKit */ = {
 			isa = PBXGroup;
 			children = (
+				08CDBA3B2264C66D00121D7E /* TheAmazingAudioEngine */,
 				084A847F225DC7C600F5629B /* EZAudio */,
 				08779C29222F7EEF0055CCB9 /* RecordKit.h */,
 				08DB4F8322301CAA00267ACD /* RecordKit.swift */,
@@ -667,6 +750,7 @@
 				0897DA9E22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav */,
 				08DA86E922642C9F00CB7A04 /* StartRecording.aiff */,
 				08DA86EA22642C9F00CB7A04 /* StopRecording.aiff */,
+				083B638B226596DA00674C6A /* NoiseSpeech.wav */,
 				08120CB1223E6EF8000E0E85 /* VoiceRecorderDemo-Bridging-Header.h */,
 			);
 			path = VoiceRecorderDemo;
@@ -787,6 +871,52 @@
 			path = RecordingButton;
 			sourceTree = "<group>";
 		};
+		08CDBA3B2264C66D00121D7E /* TheAmazingAudioEngine */ = {
+			isa = PBXGroup;
+			children = (
+				08CDBA3C2264C66D00121D7E /* AEAudioFilePlayer.h */,
+				08CDBA3D2264C66D00121D7E /* AEAudioFileLoaderOperation.m */,
+				08CDBA3E2264C66D00121D7E /* AEBlockChannel.m */,
+				08CDBA3F2264C66D00121D7E /* AEBlockScheduler.m */,
+				08CDBA402264C66D00121D7E /* AEAudioController.h */,
+				08CDBA412264C66D00121D7E /* AEMessageQueue.m */,
+				08CDBA422264C66D00121D7E /* AEFloatConverter.m */,
+				08CDBA432264C66D00121D7E /* AEAudioBufferManager.m */,
+				08CDBA442264C66D00121D7E /* AEBlockFilter.h */,
+				08CDBA452264C66D00121D7E /* AEAudioFileWriter.m */,
+				08CDBA462264C66D00121D7E /* AERealtimeWatchdog.m */,
+				08CDBA472264C66D00121D7E /* AEBlockAudioReceiver.m */,
+				08CDBA482264C66D00121D7E /* TheAmazingAudioEngine.h */,
+				08CDBA492264C66D00121D7E /* AEAudioController+Audiobus.h */,
+				08CDBA512264C66D00121D7E /* AEMemoryBufferPlayer.h */,
+				08CDBA522264C66D00121D7E /* AEAudioUnitChannel.m */,
+				08CDBA532264C66D00121D7E /* AEUtilities.m */,
+				08CDBA542264C66D00121D7E /* AEAudioUnitFilter.m */,
+				08CDBA552264C66D00121D7E /* AEBlockChannel.h */,
+				08CDBA562264C66D00121D7E /* AERealtimeWatchdog-simulator-x86_64.s */,
+				08CDBA572264C66D00121D7E /* AEAudioFileLoaderOperation.h */,
+				08CDBA582264C66D00121D7E /* AEAudioFilePlayer.m */,
+				08CDBA592264C66D00121D7E /* AEFloatConverter.h */,
+				08CDBA5A2264C66D00121D7E /* AEMessageQueue.h */,
+				08CDBA5B2264C66D00121D7E /* AEAudioController.m */,
+				08CDBA5C2264C66D00121D7E /* AEBlockScheduler.h */,
+				08CDBA5D2264C66D00121D7E /* AERealtimeWatchdog-arm64.s */,
+				08CDBA5E2264C66D00121D7E /* AERealtimeWatchdog.h */,
+				08CDBA5F2264C66D00121D7E /* TheAmazingAudioEngine-Prefix.pch */,
+				08CDBA602264C66D00121D7E /* AEAudioFileWriter.h */,
+				08CDBA612264C66D00121D7E /* AEBlockFilter.m */,
+				08CDBA622264C66D00121D7E /* AEAudioBufferManager.h */,
+				08CDBA632264C66D00121D7E /* AEAudioUnitFilter.h */,
+				08CDBA642264C66D00121D7E /* AEUtilities.h */,
+				08CDBA652264C66D00121D7E /* AEAudioUnitChannel.h */,
+				08CDBA662264C66D00121D7E /* AEMemoryBufferPlayer.m */,
+				08CDBA672264C66D00121D7E /* AEAudioController+Audiobus.m */,
+				08CDBA682264C66D00121D7E /* AEAudioController+AudiobusStub.h */,
+				08CDBA692264C66D00121D7E /* AEBlockAudioReceiver.h */,
+			);
+			path = TheAmazingAudioEngine;
+			sourceTree = "<group>";
+		};
 		08DA86BE22641A7F00CB7A04 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -880,6 +1010,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				08050EFB225DF5C00001C085 /* DSPKit.h in Headers */,
+				08CDBA2C22647E1E00121D7E /* DSPKit_Ns.h in Headers */,
 				08FF5D2D225EEA29000251AE /* nsx_defines.h in Headers */,
 				0820CCF7225F33EC0058CF91 /* signal_processing_library.h in Headers */,
 				0820CCDC225F07E20058CF91 /* port.h in Headers */,
@@ -915,6 +1046,7 @@
 				08FF5D41225EECE2000251AE /* spl_sqrt_floor.h in Headers */,
 				08FF5D31225EEA5A000251AE /* checks.h in Headers */,
 				0820CCCC225F06210058CF91 /* string_view.h in Headers */,
+				08CDBA2D22647E2400121D7E /* DSPKit_AEC.h in Headers */,
 				08FF5D49225EED69000251AE /* spl_inl.h in Headers */,
 				0820CD0A225F392D0058CF91 /* sanitizer.h in Headers */,
 				08FF5D52225EEE45000251AE /* inline.h in Headers */,
@@ -938,22 +1070,42 @@
 			buildActionMask = 2147483647;
 			files = (
 				08779C2B222F7EEF0055CCB9 /* RecordKit.h in Headers */,
+				08CDBA902264C66E00121D7E /* AEUtilities.h in Headers */,
+				08CDBA8A2264C66E00121D7E /* AERealtimeWatchdog.h in Headers */,
 				08DB4F81223018ED00267ACD /* ExceptionCatcher.h in Headers */,
+				08CDBA8C2264C66E00121D7E /* AEAudioFileWriter.h in Headers */,
 				089C3252223BA8E700D5E47E /* BDSWakeupParameters.h in Headers */,
 				089C3253223BA8E700D5E47E /* BDSASRParameters.h in Headers */,
+				08CDBA7D2264C66E00121D7E /* AEMemoryBufferPlayer.h in Headers */,
 				084A8497225DC7C600F5629B /* EZAudioPlot.h in Headers */,
+				08CDBA8B2264C66E00121D7E /* TheAmazingAudioEngine-Prefix.pch in Headers */,
+				08CDBA6E2264C66E00121D7E /* AEAudioController.h in Headers */,
+				08CDBA862264C66E00121D7E /* AEMessageQueue.h in Headers */,
 				084A8498225DC7C600F5629B /* EZAudioFloatConverter.h in Headers */,
+				08CDBA912264C66E00121D7E /* AEAudioUnitChannel.h in Headers */,
 				084A8492225DC7C600F5629B /* EZPlot.h in Headers */,
+				08CDBA832264C66E00121D7E /* AEAudioFileLoaderOperation.h in Headers */,
+				08CDBA722264C66E00121D7E /* AEBlockFilter.h in Headers */,
+				08CDBA8F2264C66E00121D7E /* AEAudioUnitFilter.h in Headers */,
 				084A8499225DC7C600F5629B /* EZAudioPlotGL.h in Headers */,
 				084A8494225DC7C600F5629B /* EZAudio.h in Headers */,
+				08CDBA952264C66E00121D7E /* AEBlockAudioReceiver.h in Headers */,
 				084A8496225DC7C600F5629B /* TPCircularBuffer.h in Headers */,
+				08CDBA852264C66E00121D7E /* AEFloatConverter.h in Headers */,
+				08CDBA882264C66E00121D7E /* AEBlockScheduler.h in Headers */,
 				084A849E225DC7C600F5629B /* EZAudioFloatData.h in Headers */,
 				084A8493225DC7C600F5629B /* EZAudioUtilities.h in Headers */,
 				084A849A225DC7C600F5629B /* EZAudioDisplayLink.h in Headers */,
+				08CDBA942264C66E00121D7E /* AEAudioController+AudiobusStub.h in Headers */,
+				08CDBA762264C66E00121D7E /* TheAmazingAudioEngine.h in Headers */,
 				089C3254223BA8E700D5E47E /* BDSEventManager.h in Headers */,
+				08CDBA8E2264C66E00121D7E /* AEAudioBufferManager.h in Headers */,
+				08CDBA6A2264C66E00121D7E /* AEAudioFilePlayer.h in Headers */,
 				089C3257223BA8E700D5E47E /* BDSASRDefines.h in Headers */,
+				08CDBA812264C66E00121D7E /* AEBlockChannel.h in Headers */,
 				089C3258223BA8E700D5E47E /* BDSUploaderParameters.h in Headers */,
 				089C3259223BA8E700D5E47E /* BDSWakeupDefines.h in Headers */,
+				08CDBA772264C66E00121D7E /* AEAudioController+Audiobus.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,8 +1173,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				08DA86B72263A9BD00CB7A04 /* PBXTargetDependency */,
 				08AB7830223ADF2C001E4E8C /* PBXTargetDependency */,
+				083B638A2264D13A00674C6A /* PBXTargetDependency */,
 			);
 			name = VoiceRecorderDemo;
 			productName = VoiceRecorderDemo;
@@ -1118,6 +1270,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				083B638C226596DA00674C6A /* NoiseSpeech.wav in Resources */,
 				08DA86D722641E1900CB7A04 /* Main.storyboard in Resources */,
 				08DA86D822641E1900CB7A04 /* LaunchScreen.storyboard in Resources */,
 				08DA86EB22642CA000CB7A04 /* StartRecording.aiff in Resources */,
@@ -1311,28 +1464,47 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08CDBA8D2264C66E00121D7E /* AEBlockFilter.m in Sources */,
 				084A849C225DC7C600F5629B /* EZAudioPlot.m in Sources */,
 				08C211732236AD08009E91B4 /* RKASRer.swift in Sources */,
+				08CDBA742264C66E00121D7E /* AERealtimeWatchdog.m in Sources */,
+				08CDBA7F2264C66E00121D7E /* AEUtilities.m in Sources */,
 				08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */,
 				0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */,
 				08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */,
 				084A84A3225DC7C600F5629B /* EZAudioPlotGL.m in Sources */,
 				08D6CC8F2248BCF000574485 /* RKFileManager.swift in Sources */,
 				08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */,
+				08CDBA712264C66E00121D7E /* AEAudioBufferManager.m in Sources */,
+				08CDBA6C2264C66E00121D7E /* AEBlockChannel.m in Sources */,
+				08CDBA6B2264C66E00121D7E /* AEAudioFileLoaderOperation.m in Sources */,
+				08CDBA892264C66E00121D7E /* AERealtimeWatchdog-arm64.s in Sources */,
 				08098EE9223258C000B0FA81 /* RKNode.swift in Sources */,
 				084A849D225DC7C600F5629B /* TPCircularBuffer.c in Sources */,
 				084A849F225DC7C600F5629B /* EZAudio.m in Sources */,
+				08CDBA922264C66E00121D7E /* AEMemoryBufferPlayer.m in Sources */,
 				08DB4F7D2230189B00267ACD /* ExceptionTracker.swift in Sources */,
+				08CDBA752264C66E00121D7E /* AEBlockAudioReceiver.m in Sources */,
+				08CDBA702264C66E00121D7E /* AEFloatConverter.m in Sources */,
+				08CDBA7E2264C66E00121D7E /* AEAudioUnitChannel.m in Sources */,
 				08AB782A223A2E69001E4E8C /* RKAudioInputStream.swift in Sources */,
 				08DB4F8422301CAA00267ACD /* RecordKit.swift in Sources */,
 				08DB4F7F223018CD00267ACD /* ExceptionCatcher.m in Sources */,
 				082C29B02231839600710E15 /* RKMicrophone.swift in Sources */,
 				0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */,
+				08CDBA842264C66E00121D7E /* AEAudioFilePlayer.m in Sources */,
 				084A84A2225DC7C600F5629B /* EZAudioDisplayLink.m in Sources */,
 				084A849B225DC7C600F5629B /* EZPlot.m in Sources */,
 				082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */,
 				084A8495225DC7C600F5629B /* EZAudioFloatData.m in Sources */,
+				08CDBA932264C66E00121D7E /* AEAudioController+Audiobus.m in Sources */,
 				084A84A1225DC7C600F5629B /* EZAudioFloatConverter.m in Sources */,
+				08CDBA732264C66E00121D7E /* AEAudioFileWriter.m in Sources */,
+				08CDBA802264C66E00121D7E /* AEAudioUnitFilter.m in Sources */,
+				08CDBA872264C66E00121D7E /* AEAudioController.m in Sources */,
+				08CDBA822264C66E00121D7E /* AERealtimeWatchdog-simulator-x86_64.s in Sources */,
+				08CDBA6F2264C66E00121D7E /* AEMessageQueue.m in Sources */,
+				08CDBA6D2264C66E00121D7E /* AEBlockScheduler.m in Sources */,
 				084A84A0225DC7C600F5629B /* EZAudioUtilities.m in Sources */,
 				08D6CC8D2248BB8B00574485 /* RKAudioCache.swift in Sources */,
 			);
@@ -1369,6 +1541,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		083B638A2264D13A00674C6A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08050EF6225DF5C00001C085 /* DSPKit */;
+			targetProxy = 083B63892264D13A00674C6A /* PBXContainerItemProxy */;
+		};
 		08411DEE223F6C6200739903 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 089C3216223B88D100D5E47E /* Resources */;
@@ -1378,11 +1555,6 @@
 			isa = PBXTargetDependency;
 			target = 08779C26222F7EEF0055CCB9 /* RecordKit */;
 			targetProxy = 08AB782F223ADF2C001E4E8C /* PBXContainerItemProxy */;
-		};
-		08DA86B72263A9BD00CB7A04 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 08050EF6225DF5C00001C085 /* DSPKit */;
-			targetProxy = 08DA86B62263A9BD00CB7A04 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1522,6 +1694,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1534,6 +1707,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = RecordKit;
 				INFOPLIST_FILE = RecordKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
@@ -1565,6 +1739,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -1577,6 +1752,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = RecordKit;
 				INFOPLIST_FILE = RecordKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
@@ -1723,6 +1899,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1730,7 +1907,10 @@
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = VoiceRecorderDemo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -1756,6 +1936,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -1763,7 +1944,10 @@
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = VoiceRecorderDemo/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (

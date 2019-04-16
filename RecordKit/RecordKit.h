@@ -22,3 +22,5 @@ FOUNDATION_EXPORT const unsigned char RecordKitVersionString[];
 #import "BDSEventManager.h"
 #import "BDSASRDefines.h"
 #import "BDSASRParameters.h"
+
+#import "AEFloatConverter.h"

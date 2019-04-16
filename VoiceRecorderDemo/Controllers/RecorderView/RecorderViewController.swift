@@ -113,7 +113,7 @@ class RecorderViewController: UIViewController {
     
     //MARK:- Actions
     @objc func handleRecording(_ sender: RecordButton) {
-        var defaultFrame: CGRect = CGRect(x: 0, y: 24, width: view.frame.width, height: 135)
+        var defaultFrame: CGRect = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
         if recordButton.isRecording {
             defaultFrame = self.view.frame
             audioView.isHidden = false
@@ -173,6 +173,8 @@ class RecorderViewController: UIViewController {
         do {
             let session = AVAudioSession.sharedInstance()
             try session.setCategory(.record, mode: .default, options: [.duckOthers, .defaultToSpeaker])
+			try session.setPreferredIOBufferDuration(TimeInterval(10 / 1000))
+			try session.setPreferredSampleRate(RKSettings.sampleRate)
             try session.setActive(true)
         } catch let error as NSError {
             print(error.localizedDescription)

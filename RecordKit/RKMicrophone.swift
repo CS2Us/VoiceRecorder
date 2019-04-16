@@ -8,6 +8,7 @@
 
 import Foundation
 import AudioToolbox
+import DSPKit
 
 @objc protocol AURenderCallbackDelegate {
 	func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -69,13 +70,31 @@ extension RKMicrophone: AURenderCallbackDelegate {
 				mNumberChannels: inputFormat.channelCount,
 				mDataByteSize: inNumberFrames * inputFormat.asbd.mBytesPerFrame,
 				mData: nil))
-
+		
 		let result = AudioUnitRender(_rioUnit!,
-							   ioActionFlags,
-							   inTimeStamp,
-							   1,
-							   inNumberFrames,
-							   &bufferList)
+									 ioActionFlags,
+									 inTimeStamp,
+									 1,
+									 inNumberFrames,
+									 &bufferList)
+		
+		guard let floatBuffers: UnsafeMutablePointer<UnsafeMutablePointer<Float>?> = {
+			let floatConverter = EZAudioFloatConverter(inputFormat: inputFormat.asbd)
+			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: inNumberFrames, numberOfChannels: inputFormat.channelCount)
+			floatConverter?.convertData(from: &bufferList, withNumberOfFrames: inNumberFrames, toFloatBuffers: floatBuffers)
+			return floatBuffers
+			}(), let floatData: UnsafePointer<Float> = UnsafePointer(floatBuffers[0]) else { return OSStatus(100000) }
+		
+		let nsIntData = UnsafeMutablePointer<Float>.init(mutating: floatData)
+		let nsOutData = nsIntData
+		let nsOutDataPointer = EZAudioUtilities.floatBuffers(withNumberOfFrames: inNumberFrames, numberOfChannels: inputFormat.channelCount)
+		nsOutDataPointer?.pointee = nsOutData
+		
+		let ns: DSPKit_Ns = DSPKit_Ns.init(sampleRate: UInt32(inputFormat.sampleRate), mode: aggressive15dB)
+		ns.dspFrameProcess(nsIntData, out: nsOutData, frames: Int32(inNumberFrames))
+
+		guard let floatConverter = AEFloatConverter.init(sourceFormat: inputFormat.asbd) else { return OSStatus(10000) }
+		AEFloatConverterFromFloat(floatConverter, unsafeBitCast(nsOutDataPointer, to: UnsafePointer<UnsafeMutablePointer<Float>?>.self), &bufferList, inNumberFrames)
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
@@ -118,15 +137,15 @@ extension RKMicrophone {
 				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat))
 			}, "couldn't set the output client format on AURemoteIO")
 			
-//			var maxFramesPerSlice: UInt32 = RKSettings.bufferLength.samplesCount
-//			try RKTry({
-//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
-//			}, "couldn't set max frames per slice on AURemoteIO")
+			var maxFramesPerSlice: UInt32 = UInt32(inputFormat.sampleRate / 100)
+			try RKTry({
+				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
+			}, "couldn't set max frames per slice on AURemoteIO")
 //
-//			var propSize = SizeOf32(UInt32.self)
-//			try RKTry({
-//				AudioUnitGetProperty(self._rioUnit!, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, &propSize)
-//			}, "couldn't get max frames per slice on AURemoteIO")
+			var propSize = SizeOf32(UInt32.self)
+			try RKTry({
+				AudioUnitGetProperty(self._rioUnit!, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, &propSize)
+			}, "couldn't get max frames per slice on AURemoteIO")
 			
 			// Set the render callback on AURemoteIO
 			var renderCallback = AURenderCallbackStruct(

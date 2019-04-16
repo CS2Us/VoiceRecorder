@@ -8,8 +8,6 @@
 
 #import "DSPKit_Ns.h"
 
-#import <AVFoundation/AVFoundation.h>
-#import <AudioToolbox/AudioToolbox.h>
 #import <mobileffmpeg/mobileffmpeg.h>
 
 #include <iostream>
@@ -35,12 +33,7 @@
 }
 
 - (instancetype)initWithUrl:(NSURL *)url mode:(DSPKit_NsMode)nsMode {
-	MediaInformation *mediaInfo = [MobileFFmpeg getMediaInformation:url.absoluteString];
-	NSDictionary *mediaEntries = mediaInfo.getMetadataEntries;
-	for (NSString *key in mediaEntries) {
-		std::cout << "mediaInfo: " << key << "value: " << mediaEntries[key];
-	}
-	return [self initWithSampleRate:44100 mode:nsMode];
+	return [self initWithSampleRate:16000 mode:nsMode];
 }
 
 - (instancetype)initWithSampleRate:(unsigned int)sampleRate mode:(DSPKit_NsMode)nsMode {
@@ -72,7 +65,13 @@
 	}
 }
 
-- (void)_in_frame_process:(float *)data_in out:(float *)data_out {
+- (void)dspFrameProcess:(float *)data_in out:(float *)data_out frames:(int)inNumberOfFrames {
+	for (size_t nFrames = 0; nFrames < inNumberOfFrames / numPerFrame; nFrames ++) {
+		[self dspFrameProcess:data_in + nFrames * numPerFrame out:data_out + nFrames * numPerFrame];
+	}
+}
+
+- (void)dspFrameProcess:(float *)data_in out:(float *)data_out {
 	if (numPerFrame == 80 || numPerFrame == 160) {
 		float *input_buffer[1] = { data_in };
 		float *output_buffer[1] = { data_out };

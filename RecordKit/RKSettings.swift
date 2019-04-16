@@ -26,21 +26,23 @@ public class RKSettings {
 		public let formatID: AudioFormatID
 		public let bitDepth: CommonFormat
 		public let sampleRate: Double
+		public let interleaved: Bool
 		public var asbd: AudioStreamBasicDescription {
 			var value = AudioStreamBasicDescription()
 			ioFormat(desc: &value, iof: {
 				RKSettings.IOFormat(formatID: formatID, bitDepth: bitDepth,
 									channelCount: channelCount, sampleRate: sampleRate)
-			}(), inIsInterleaved: false)
+			}(), inIsInterleaved: interleaved)
 			return value
 		}
 		
 		public init(formatID: AudioFormatID, bitDepth: CommonFormat,
-			 channelCount: UInt32 = 1, sampleRate: Double = RKSettings.sampleRate) {
+					channelCount: UInt32 = 1, sampleRate: Double = RKSettings.sampleRate, isInterleaved: Bool = true) {
 			self.formatID = formatID
 			self.bitDepth = bitDepth
 			self.channelCount = channelCount
 			self.sampleRate = sampleRate
+			self.interleaved = isInterleaved
 		}
 	}
 	
@@ -52,7 +54,7 @@ public class RKSettings {
 			return Bundle.main
 		}
 	}
-	public static var sampleRate: Double = 44_100
+	public static var sampleRate: Double = 32000
 	public static var bufferLength: BufferLength = .veryLong
 	public static var interleaved: Bool = false
 	public static var enableLogging: Bool = true
@@ -117,7 +119,7 @@ extension RKSettings.IOFormat {
 		var asbd = AudioStreamBasicDescription()
 		ioFormat(desc: &asbd, iof: {
 			RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16)
-		}(), inIsInterleaved: false)
+		}(), inIsInterleaved: true)
 		return asbd
 	}
 	
@@ -125,7 +127,7 @@ extension RKSettings.IOFormat {
 		var asbd = AudioStreamBasicDescription()
 		ioFormat(desc: &asbd, iof: {
 			RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
-		}(), inIsInterleaved: false)
+		}(), inIsInterleaved: true)
 		return asbd
 	}
 	

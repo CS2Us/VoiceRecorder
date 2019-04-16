@@ -54,7 +54,7 @@ public class RKSettings {
 			return Bundle.main
 		}
 	}
-	public static var sampleRate: Double = 32000
+	public static var sampleRate: Double = 44100
 	public static var bufferLength: BufferLength = .veryLong
 	public static var interleaved: Bool = false
 	public static var enableLogging: Bool = true

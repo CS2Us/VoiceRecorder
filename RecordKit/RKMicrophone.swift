@@ -77,7 +77,7 @@ extension RKMicrophone: AURenderCallbackDelegate {
 									 1,
 									 inNumberFrames,
 									 &bufferList)
-		
+		/** noise_suppression
 		guard let floatBuffers: UnsafeMutablePointer<UnsafeMutablePointer<Float>?> = {
 			let floatConverter = EZAudioFloatConverter(inputFormat: inputFormat.asbd)
 			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: inNumberFrames, numberOfChannels: inputFormat.channelCount)
@@ -95,6 +95,7 @@ extension RKMicrophone: AURenderCallbackDelegate {
 
 		guard let floatConverter = AEFloatConverter.init(sourceFormat: inputFormat.asbd) else { return OSStatus(10000) }
 		AEFloatConverterFromFloat(floatConverter, unsafeBitCast(nsOutDataPointer, to: UnsafePointer<UnsafeMutablePointer<Float>?>.self), &bufferList, inNumberFrames)
+		**/
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)

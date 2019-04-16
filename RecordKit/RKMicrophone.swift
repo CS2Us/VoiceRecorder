@@ -96,7 +96,6 @@ extension RKMicrophone: AURenderCallbackDelegate {
 		guard let floatConverter = AEFloatConverter.init(sourceFormat: inputFormat.asbd) else { return OSStatus(10000) }
 		AEFloatConverterFromFloat(floatConverter, unsafeBitCast(nsOutDataPointer, to: UnsafePointer<UnsafeMutablePointer<Float>?>.self), &bufferList, inNumberFrames)
 		**/
-		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
 		})
@@ -110,7 +109,7 @@ extension RKMicrophone {
 		do {
 			var desc = AudioComponentDescription(
 				componentType: OSType(kAudioUnitType_Output),
-				componentSubType: OSType(kAudioUnitSubType_RemoteIO),
+				componentSubType: OSType(kAudioUnitSubType_VoiceProcessingIO),
 				componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
 				componentFlags: 0,
 				componentFlagsMask: 0)
@@ -124,11 +123,27 @@ extension RKMicrophone {
 			var one: UInt32 = 1
 			try RKTry({
 				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &one, SizeOf32(one))
-			}, "could not enable input on AURemoteIO")
+			}, "kAudioOutputUnitProperty_EnableIO failed")
 			
 //			try RKTry({
 //				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one))
 //			}, "could not enable output on AURemoteIO")
+			
+			var zero: UInt32 = 0
+			try RKTry({
+				AudioUnitSetProperty(self._rioUnit!,
+									 kAUVoiceIOProperty_BypassVoiceProcessing,
+									 kAudioUnitScope_Global,
+									 0,
+									 &zero,
+									 SizeOf32(zero))
+			}, "kAUVoiceIOProperty_BypassVoiceProcessing failed")
+			try RKTry({
+				AudioUnitSetProperty(self._rioUnit!, kAUVoiceIOProperty_VoiceProcessingEnableAGC, kAudioUnitScope_Global,
+									 0,
+									 &zero,
+									 SizeOf32(zero))
+			}, "kAUVoiceIOProperty_VoiceProcessingEnableAGC failed")
 			
 			var ioFormat = inputFormat.asbd
 //			try RKTry({

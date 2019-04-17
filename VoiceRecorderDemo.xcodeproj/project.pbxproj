@@ -25,7 +25,6 @@
 		0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */; };
 		0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */; };
 		08098EE9223258C000B0FA81 /* RKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08098EE8223258C000B0FA81 /* RKNode.swift */; };
-		081E4F1B2261704F007F9E1B /* DSPKit_Ns.mm in Sources */ = {isa = PBXBuildFile; fileRef = 081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */; };
 		0820CCCC225F06210058CF91 /* string_view.h in Headers */ = {isa = PBXBuildFile; fileRef = 0820CCCA225F06210058CF91 /* string_view.h */; };
 		0820CCCD225F06210058CF91 /* string_view.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0820CCCB225F06210058CF91 /* string_view.cc */; };
 		0820CCD2225F06530058CF91 /* memutil.h in Headers */ = {isa = PBXBuildFile; fileRef = 0820CCD0225F06520058CF91 /* memutil.h */; };
@@ -155,7 +154,7 @@
 		08CDBA822264C66E00121D7E /* AERealtimeWatchdog-simulator-x86_64.s in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA562264C66D00121D7E /* AERealtimeWatchdog-simulator-x86_64.s */; };
 		08CDBA832264C66E00121D7E /* AEAudioFileLoaderOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA572264C66D00121D7E /* AEAudioFileLoaderOperation.h */; };
 		08CDBA842264C66E00121D7E /* AEAudioFilePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA582264C66D00121D7E /* AEAudioFilePlayer.m */; };
-		08CDBA852264C66E00121D7E /* AEFloatConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA592264C66D00121D7E /* AEFloatConverter.h */; };
+		08CDBA852264C66E00121D7E /* AEFloatConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA592264C66D00121D7E /* AEFloatConverter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08CDBA862264C66E00121D7E /* AEMessageQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA5A2264C66D00121D7E /* AEMessageQueue.h */; };
 		08CDBA872264C66E00121D7E /* AEAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA5B2264C66D00121D7E /* AEAudioController.m */; };
 		08CDBA882264C66E00121D7E /* AEBlockScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CDBA5C2264C66D00121D7E /* AEBlockScheduler.h */; };
@@ -201,6 +200,7 @@
 		08DFE64822255D2F0077E66A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DFE64722255D2F0077E66A /* UIColor+Extension.swift */; };
 		08DFE64A222560790077E66A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DFE649222560790077E66A /* UIFont+Extension.swift */; };
 		08DFE64E222560E40077E66A /* UIView+Doable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DFE64D222560E40077E66A /* UIView+Doable.swift */; };
+		08FCFA8C2265BFC500E2B3DF /* DSPKit_Ns.mm in Sources */ = {isa = PBXBuildFile; fileRef = 081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */; };
 		08FF5D20225EEA29000251AE /* ns_core.h in Headers */ = {isa = PBXBuildFile; fileRef = 08FF5D12225EEA29000251AE /* ns_core.h */; };
 		08FF5D22225EEA29000251AE /* noise_suppression_x.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FF5D14225EEA29000251AE /* noise_suppression_x.c */; };
 		08FF5D23225EEA29000251AE /* nsx_core_c.c in Sources */ = {isa = PBXBuildFile; fileRef = 08FF5D15225EEA29000251AE /* nsx_core_c.c */; };
@@ -1424,6 +1424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08FCFA8C2265BFC500E2B3DF /* DSPKit_Ns.mm in Sources */,
 				0820CCF2225F0CAF0058CF91 /* nsx_core.c in Sources */,
 				0820CD0E225F39960058CF91 /* min_max_operations.c in Sources */,
 				0820CD12225F39F90058CF91 /* division_operations.c in Sources */,
@@ -1451,7 +1452,6 @@
 				08FF5D22225EEA29000251AE /* noise_suppression_x.c in Sources */,
 				0820CCCD225F06210058CF91 /* string_view.cc in Sources */,
 				0897DAB1226070B0002310DF /* three_band_filter_bank.cc in Sources */,
-				081E4F1B2261704F007F9E1B /* DSPKit_Ns.mm in Sources */,
 				0820CD00225F38220058CF91 /* complex_bit_reverse.c in Sources */,
 				08D910792263379D0041530E /* DSPKit_AEC.mm in Sources */,
 				08FF5D3E225EECD3000251AE /* fft4g.c in Sources */,
@@ -1602,6 +1602,7 @@
 					"$(inherited)",
 					WEBRTC_IOS,
 					WEBRTC_POSIX,
+					FF_BIG_ENDIAN,
 				);
 				HEADER_SEARCH_PATHS = DSPKit;
 				INFOPLIST_FILE = DSPKit/Info.plist;
@@ -1614,7 +1615,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.DSPKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1645,18 +1646,20 @@
 					"$(inherited)",
 					WEBRTC_IOS,
 					WEBRTC_POSIX,
+					FF_BIG_ENDIAN,
 				);
 				HEADER_SEARCH_PATHS = DSPKit;
 				INFOPLIST_FILE = DSPKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = "${inherited}";
 				PRODUCT_BUNDLE_IDENTIFIER = com.matrixmiaou.DSPKit;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1697,6 +1700,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_MODULES_DISABLE_PRIVATE_WARNING = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1742,6 +1746,7 @@
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_ENABLE_MODULES = YES;
+				CLANG_MODULES_DISABLE_PRIVATE_WARNING = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

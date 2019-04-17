@@ -15,5 +15,5 @@ FOUNDATION_EXPORT double DSPKitVersionNumber;
 FOUNDATION_EXPORT const unsigned char DSPKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <DSPKit/PublicHeader.h>
-#import <DSPKit/DSPKit_Ns.h>
-#import <DSPKit/DSPKit_AEC.h>
+#import "DSPKit_Ns.h"
+#import "DSPKit_AEC.h"

@@ -152,30 +152,28 @@ public class RKAudioConverter: RKNode {
 	}
 	
 	internal func disposeConvert() throws {
-		do {
-			try RKTry({
-				if self._sourceFile != nil {
-					ExtAudioFileDispose(self._sourceFile!)
-				}
-			}, "_sourceFile dispose error")
-			try RKTry({
-				if self._destinationFile != nil {
-					ExtAudioFileDispose(self._destinationFile!)
-				}
-			}, "_destinationFile dispose error")
-			try RKTry({
-				if self._audioConvertInfo?._crt != nil {
-					ExtAudioFileDispose(self._audioConvertInfo!._crt!)
-				}
-			}, "_audioConvertInfo?._crt dispose error")
-			
-			Broadcaster.notify(RKAudioConverterHandle.self, block: { observer in
-				observer.audioConvertCompleted?(self)
-			})
-		} catch let ex {
-			RKLog("failed to dispose")
-			throw ex
-		}
+		try RKTry({
+			if self._sourceFile != nil {
+				ExtAudioFileDispose(self._sourceFile!)
+			}
+		}, "_sourceFile dispose error")
+		try RKTry({
+			if self._destinationFile != nil {
+				ExtAudioFileDispose(self._destinationFile!)
+			}
+		}, "_destinationFile dispose error")
+		try RKTry({
+			if self._audioConvertInfo?._crt != nil {
+				ExtAudioFileDispose(self._audioConvertInfo!._crt!)
+			}
+		}, "_audioConvertInfo?._crt dispose error")
+		
+		self._sourceFile = nil
+		self._destinationFile = nil
+		self._audioConvertInfo = nil
+		Broadcaster.notify(RKAudioConverterHandle.self, block: { observer in
+			observer.audioConvertCompleted?(self)
+		})
 	}
 }
 

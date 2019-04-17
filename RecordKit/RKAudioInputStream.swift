@@ -76,6 +76,11 @@ open class RKAudioInputStream: InputStream {
 		try? audioConverter?.disposeConvert()
 		try? asrerConverter?.disposeConvert()
 		try? asrer?.endRecognition()
+		
+		microphone = nil
+		audioConverter = nil
+		asrerConverter = nil
+		asrer = nil
 	}
 	
 	override open func open() {}

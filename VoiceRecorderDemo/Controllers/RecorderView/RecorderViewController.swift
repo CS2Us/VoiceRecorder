@@ -31,12 +31,9 @@ class RecorderViewController: UIViewController {
     var recordButton = RecordButton()
     var timeLabel = UILabel()
     var audioView = AudioVisualizerView()
-    let settings = [AVFormatIDKey: kAudioFormatLinearPCM, AVLinearPCMBitDepthKey: 16, AVLinearPCMIsFloatKey: true, AVSampleRateKey: Float64(44100), AVNumberOfChannelsKey: 1] as [String : Any]
-    let audioEngine = AVAudioEngine()
     private var renderTs: Double = 0
     private var recordingTs: Double = 0
     private var silenceTs: Double = 0
-    private var audioFile: AVAudioFile?
     weak var delegate: RecorderViewControllerDelegate?
     
     //MARK:- Outlets
@@ -169,17 +166,11 @@ class RecorderViewController: UIViewController {
         
         self.recordingTs = NSDate().timeIntervalSince1970
         self.silenceTs = 0
-        
-        do {
-            let session = AVAudioSession.sharedInstance()
-            try session.setCategory(.record, mode: .default, options: [.duckOthers, .defaultToSpeaker])
-			try session.setPreferredIOBufferDuration(TimeInterval(10 / 1000))
-			try session.setPreferredSampleRate(RKSettings.sampleRate)
-            try session.setActive(true)
-        } catch let error as NSError {
-            print(error.localizedDescription)
-            return
-        }
+		
+		try? AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.duckOthers, .defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth])
+		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
+		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
+		try? AVAudioSession.sharedInstance().setActive(true, options: [])
 
 		RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
         self.updateUI(.recording)
@@ -191,12 +182,9 @@ class RecorderViewController: UIViewController {
         }
 		
 		RecordKit.default.recordCancle()
-        do {
-            try AVAudioSession.sharedInstance().setActive(false)
-        } catch  let error as NSError {
-            print(error.localizedDescription)
-            return
-        }
+		
+		try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
+
         self.updateUI(.stopped)
     }
     

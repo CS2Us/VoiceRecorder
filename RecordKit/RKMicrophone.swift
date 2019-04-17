@@ -77,7 +77,8 @@ extension RKMicrophone: AURenderCallbackDelegate {
 									 1,
 									 inNumberFrames,
 									 &bufferList)
-		/** noise_suppression
+
+		/**
 		guard let floatBuffers: UnsafeMutablePointer<UnsafeMutablePointer<Float>?> = {
 			let floatConverter = EZAudioFloatConverter(inputFormat: inputFormat.asbd)
 			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: inNumberFrames, numberOfChannels: inputFormat.channelCount)
@@ -96,6 +97,7 @@ extension RKMicrophone: AURenderCallbackDelegate {
 		guard let floatConverter = AEFloatConverter.init(sourceFormat: inputFormat.asbd) else { return OSStatus(10000) }
 		AEFloatConverterFromFloat(floatConverter, unsafeBitCast(nsOutDataPointer, to: UnsafePointer<UnsafeMutablePointer<Float>?>.self), &bufferList, inNumberFrames)
 		**/
+		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
 		})
@@ -109,7 +111,7 @@ extension RKMicrophone {
 		do {
 			var desc = AudioComponentDescription(
 				componentType: OSType(kAudioUnitType_Output),
-				componentSubType: OSType(kAudioUnitSubType_VoiceProcessingIO),
+				componentSubType: OSType(kAudioUnitSubType_RemoteIO),
 				componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
 				componentFlags: 0,
 				componentFlagsMask: 0)
@@ -129,21 +131,21 @@ extension RKMicrophone {
 //				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one))
 //			}, "could not enable output on AURemoteIO")
 			
-			var zero: UInt32 = 0
-			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!,
-									 kAUVoiceIOProperty_BypassVoiceProcessing,
-									 kAudioUnitScope_Global,
-									 0,
-									 &zero,
-									 SizeOf32(zero))
-			}, "kAUVoiceIOProperty_BypassVoiceProcessing failed")
-			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, kAUVoiceIOProperty_VoiceProcessingEnableAGC, kAudioUnitScope_Global,
-									 0,
-									 &zero,
-									 SizeOf32(zero))
-			}, "kAUVoiceIOProperty_VoiceProcessingEnableAGC failed")
+//			var zero: UInt32 = 0
+//			try RKTry({
+//				AudioUnitSetProperty(self._rioUnit!,
+//									 kAUVoiceIOProperty_BypassVoiceProcessing,
+//									 kAudioUnitScope_Global,
+//									 0,
+//									 &zero,
+//									 SizeOf32(zero))
+//			}, "kAUVoiceIOProperty_BypassVoiceProcessing failed")
+//			try RKTry({
+//				AudioUnitSetProperty(self._rioUnit!, kAUVoiceIOProperty_VoiceProcessingEnableAGC, kAudioUnitScope_Global,
+//									 0,
+//									 &zero,
+//									 SizeOf32(zero))
+//			}, "kAUVoiceIOProperty_VoiceProcessingEnableAGC failed")
 			
 			var ioFormat = inputFormat.asbd
 //			try RKTry({
@@ -185,25 +187,22 @@ extension RKMicrophone {
 	}
 	
 	internal func startIOUnit() throws {
-		do {
-			try RKTry({
-				AudioOutputUnitStart(self._rioUnit!)
-			}, "couldn't start AURemoteIO")
-		} catch let ex {
-			throw ex
-		}
+		try RKTry({
+			AudioOutputUnitStart(self._rioUnit!)
+		}, "couldn't start AURemoteIO")
 	}
 	
 	internal func stopIOUnit() throws {
-		do {
-			try RKTry({
-				AudioOutputUnitStop(self._rioUnit!)
-			}, "couldn't stop AURemoteIO")
-			Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-				observer.microphoneStop?(self)
-			})
-		} catch let ex {
-			throw ex
-		}
+		try RKTry({
+			AudioOutputUnitStop(self._rioUnit!)
+		}, "couldn't stop AURemoteIO")
+//		try RKTry({
+//			AudioUnitUninitialize(self._rioUnit!)
+//		}, "couldn't deinit AURemoteIO")
+		_rioUnit = nil
+		
+		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+			observer.microphoneStop?(self)
+		})
 	}
 }

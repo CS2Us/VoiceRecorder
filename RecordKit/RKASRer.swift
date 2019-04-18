@@ -39,6 +39,7 @@ public class RKASRer: NSObject {
 		_asrEventManager = BDSEventManager.createEventManager(withName: BDS_ASR_NAME)
 		super.init()
 		_asrEventManager.setDelegate(self)
+		_asrEventManager.setParameter(true, forKey: BDS_ASR_DISABLE_AUDIO_OPERATION)
 		_asrEventManager.setParameter(EVRDebugLogLevelTrace, forKey: BDS_ASR_DEBUG_LOG_LEVEL)
 		_asrEventManager.setParameter([RKSettings.ASRApiKey, RKSettings.ASRSecretKey], forKey: BDS_ASR_API_SECRET_KEYS)
 		_asrEventManager.setParameter(RKSettings.ASRAppID, forKey: BDS_ASR_OFFLINE_APP_CODE)

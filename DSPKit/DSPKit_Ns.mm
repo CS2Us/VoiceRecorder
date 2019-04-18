@@ -23,6 +23,7 @@
 	size_t numPerFrame;
 	webrtc::TwoBandsStates TwoBands;
 	webrtc::ThreeBandFilterBank *three_bands_filter_48k;
+	char *pcm_buff;
 }
 
 - (instancetype)init {
@@ -30,10 +31,6 @@
 		return nil;
 	}
 	return self;
-}
-
-- (instancetype)initWithUrl:(NSURL *)url mode:(DSPKit_NsMode)nsMode {
-	return [self initWithSampleRate:16000 mode:nsMode];
 }
 
 - (instancetype)initWithSampleRate:(unsigned int)sampleRate mode:(DSPKit_NsMode)nsMode {
@@ -69,6 +66,10 @@
 	for (size_t nFrames = 0; nFrames < inNumberOfFrames / numPerFrame; nFrames ++) {
 		[self dspFrameProcess:data_in + nFrames * numPerFrame out:data_out + nFrames * numPerFrame];
 	}
+}
+
+- (void)dspFrameProcesss:(AudioBufferList *)bufferList {
+	
 }
 
 - (void)dspFrameProcess:(float *)data_in out:(float *)data_out {

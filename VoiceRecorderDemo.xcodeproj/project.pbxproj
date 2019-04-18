@@ -1222,6 +1222,11 @@
 					087879012215121100A8662E = {
 						CreatedOnToolsVersion = 10.1;
 						LastSwiftMigration = 1010;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					089C3216223B88D100D5E47E = {
 						CreatedOnToolsVersion = 10.1;

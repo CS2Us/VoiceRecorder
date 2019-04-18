@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 /** |mode| = 0 is mild (6dB),
  |mode| = 1 is medium (10dB) and
@@ -20,10 +21,8 @@ typedef enum mode {
 
 @interface DSPKit_Ns: NSObject
 
-- (instancetype)initWithUrl:(NSURL *)url mode:(DSPKit_NsMode)nsMode;
-
 - (instancetype)initWithSampleRate:(unsigned int)sampleRate mode:(DSPKit_NsMode)nsMode;
 
-- (void)dspFrameProcess:(float *)data_in out:(float *)data_out frames:(int)inNumberOfFrames;
+- (void)dspFrameProcesss:(AudioBufferList *)bufferList;
 
 @end

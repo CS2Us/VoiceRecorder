@@ -46,6 +46,8 @@ public protocol RKMicrophoneHandle {
 
 public class RKMicrophone: RKNode {
 	private var _rioUnit: AudioUnit? = nil
+	private var _component: AudioComponent? = nil
+	private var _ns: DSPKit_Ns? = nil
 	
 	public var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 	
@@ -77,26 +79,11 @@ extension RKMicrophone: AURenderCallbackDelegate {
 									 1,
 									 inNumberFrames,
 									 &bufferList)
-
-		/**
-		guard let floatBuffers: UnsafeMutablePointer<UnsafeMutablePointer<Float>?> = {
-			let floatConverter = EZAudioFloatConverter(inputFormat: inputFormat.asbd)
-			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: inNumberFrames, numberOfChannels: inputFormat.channelCount)
-			floatConverter?.convertData(from: &bufferList, withNumberOfFrames: inNumberFrames, toFloatBuffers: floatBuffers)
-			return floatBuffers
-			}(), let floatData: UnsafePointer<Float> = UnsafePointer(floatBuffers[0]) else { return OSStatus(100000) }
 		
-		let nsIntData = UnsafeMutablePointer<Float>.init(mutating: floatData)
-		let nsOutData = nsIntData
-		let nsOutDataPointer = EZAudioUtilities.floatBuffers(withNumberOfFrames: inNumberFrames, numberOfChannels: inputFormat.channelCount)
-		nsOutDataPointer?.pointee = nsOutData
-		
-		let ns: DSPKit_Ns = DSPKit_Ns.init(sampleRate: UInt32(inputFormat.sampleRate), mode: aggressive15dB)
-		ns.dspFrameProcess(nsIntData, out: nsOutData, frames: Int32(inNumberFrames))
-
-		guard let floatConverter = AEFloatConverter.init(sourceFormat: inputFormat.asbd) else { return OSStatus(10000) }
-		AEFloatConverterFromFloat(floatConverter, unsafeBitCast(nsOutDataPointer, to: UnsafePointer<UnsafeMutablePointer<Float>?>.self), &bufferList, inNumberFrames)
-		**/
+//		if _ns == nil {
+//			_ns = DSPKit_Ns.init(sampleRate: UInt32(inputFormat.sampleRate), mode: aggressive15dB)
+//		}
+//		_ns!.dspFrameProcesss(&bufferList)
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
@@ -116,10 +103,10 @@ extension RKMicrophone {
 				componentFlags: 0,
 				componentFlagsMask: 0)
 			
-			let comp = AudioComponentFindNext(nil, &desc)
+			_component = AudioComponentFindNext(nil, &desc)
 			
 			try RKTry({
-				AudioComponentInstanceNew(comp!, &self._rioUnit)
+				AudioComponentInstanceNew(self._component!, &self._rioUnit)
 			}, "couldn't create a new instance of AURemoteIO")
 			
 			var one: UInt32 = 1
@@ -196,10 +183,11 @@ extension RKMicrophone {
 		try RKTry({
 			AudioOutputUnitStop(self._rioUnit!)
 		}, "couldn't stop AURemoteIO")
-//		try RKTry({
-//			AudioUnitUninitialize(self._rioUnit!)
-//		}, "couldn't deinit AURemoteIO")
+		try RKTry({
+			AudioComponentInstanceDispose(self._rioUnit!)
+		}, "couldn't deinit component")
 		_rioUnit = nil
+		_component = nil
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneStop?(self)

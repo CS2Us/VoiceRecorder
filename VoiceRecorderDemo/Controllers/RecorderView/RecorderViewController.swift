@@ -53,8 +53,9 @@ class RecorderViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let notificationName = AVAudioSession.interruptionNotification
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRecording(_:)), name: notificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(notification:)), name: AVAudioSession.interruptionNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector:
+			#selector(handleRouteChange(notification:)), name: AVAudioSession.routeChangeNotification, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -166,13 +167,9 @@ class RecorderViewController: UIViewController {
         
         self.recordingTs = NSDate().timeIntervalSince1970
         self.silenceTs = 0
-		
-		try? AVAudioSession.sharedInstance().setCategory(.record, mode: .default, options: [.duckOthers, .defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth])
-		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
-		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
-		try? AVAudioSession.sharedInstance().setActive(true, options: [])
-
+	
 		RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
+		
         self.updateUI(.recording)
     }
     
@@ -182,8 +179,6 @@ class RecorderViewController: UIViewController {
         }
 		
 		RecordKit.default.recordCancle()
-		
-		try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 
         self.updateUI(.stopped)
     }
@@ -215,21 +210,11 @@ class RecorderViewController: UIViewController {
     private func isRecording() -> Bool {
         return RecordKit.default.isRecording
     }
-    
-    // MARK:- Handle interruption
-    @objc func handleInterruption(notification: Notification) {
-        guard let userInfo = notification.userInfo else { return }
-        guard let key = userInfo[AVAudioSessionInterruptionTypeKey] as? NSNumber
-            else { return }
-        if key.intValue == 1 {
-            DispatchQueue.main.async {
-                if self.isRecording() {
-                    self.stopRecording()
-                }
-            }
-        }
-    }
-    
+	
+	deinit {
+		NotificationCenter.default.removeObserver(self, name: AVAudioSession.interruptionNotification, object: nil)
+		NotificationCenter.default.removeObserver(self, name: AVAudioSession.routeChangeNotification, object: nil)
+	}
 }
 
 extension RecorderViewController: RKMicrophoneHandle {
@@ -276,3 +261,13 @@ extension RecorderViewController: RKMicrophoneHandle {
 	}
 }
 
+extension RecorderViewController: RecordKitSessionHandle {
+	func handleRouteChange(notification: Notification) {
+		RecordKit.default.handleRouteChange(notification: notification)
+	}
+	
+	func handleInterruption(notification: Notification) {
+		stopRecording()
+		RecordKit.default.handleInterruption(notification: notification)
+	}
+}

@@ -80,13 +80,14 @@ extension RKMicrophone: AURenderCallbackDelegate {
 									 inNumberFrames,
 									 &bufferList)
 		
-//		if _ns == nil {
-//			_ns = DSPKit_Ns.init(sampleRate: UInt32(inputFormat.sampleRate), mode: aggressive15dB)
-//		}
-//		_ns!.dspFrameProcesss(&bufferList)
+		
+		if _ns == nil {
+			_ns = DSPKit_Ns.init(asbd: inputFormat.asbd, mode: aggressive15dB)
+		}
+		_ns!.dspFrameProcesss(&bufferList)
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
+			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: bufferList.mBuffers.mDataByteSize / inputFormat.asbd.mBytesPerFrame);
 		})
 		
 		return result

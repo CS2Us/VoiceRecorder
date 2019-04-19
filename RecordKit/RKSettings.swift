@@ -9,8 +9,8 @@
 import Foundation
 import AVFoundation
 
-public class RKSettings {
-	public enum BufferLength: Int {
+public class RKSettings: RKNode {
+	@objc public enum BufferLength: Int {
 		case shortest = 5
 		case veryShort = 6
 		case short = 7
@@ -46,7 +46,7 @@ public class RKSettings {
 		}
 	}
 	
-	public static var resources: Bundle {
+	@objc public static var resources: Bundle {
 		if let bundlePath = Bundle.main.path(forResource: "Frameworks/RecordKit.framework/Resources", ofType: "bundle"),
 			let bundle = Bundle(path: bundlePath) {
 			return bundle
@@ -54,15 +54,15 @@ public class RKSettings {
 			return Bundle.main
 		}
 	}
-	public static var sampleRate: Double = 44100
-	public static var bufferLength: BufferLength = .veryLong
-	public static var interleaved: Bool = false
-	public static var enableLogging: Bool = true
-	public static var maxDuration: TimeInterval = TimeInterval(2 * 60)
-	public static var ASRLimitDuration: TimeInterval = TimeInterval(60)
-	public static var ASRAppID: String = /** "15731062" **/ "15807927"
-	public static var ASRApiKey: String = /** "rbKB6zVhL0fAc7fn0lKGYiPn" **/ "DavSgp7gxiBbbqxdWFQpvGO0"
-	public static var ASRSecretKey: String = /** "Un2QyGl2HS942MOa2GjCKFN4HOQrHUaX" **/ "GAXG2t82pT7UWzIXiB4kIkbbD6fwWlK8"
+	@objc public static var sampleRate: Double = 32000
+	@objc public static var bufferLength: BufferLength = .veryLong
+	@objc public static var interleaved: Bool = false
+	@objc public static var enableLogging: Bool = true
+	@objc public static var maxDuration: TimeInterval = TimeInterval(2 * 60)
+	@objc public static var ASRLimitDuration: TimeInterval = TimeInterval(60)
+	@objc public static var ASRAppID: String = /** "15731062" **/ "15807927"
+	@objc public static var ASRApiKey: String = /** "rbKB6zVhL0fAc7fn0lKGYiPn" **/ "DavSgp7gxiBbbqxdWFQpvGO0"
+	@objc public static var ASRSecretKey: String = /** "Un2QyGl2HS942MOa2GjCKFN4HOQrHUaX" **/ "GAXG2t82pT7UWzIXiB4kIkbbD6fwWlK8"
 }
 
 private func ioFormat(desc: UnsafeMutablePointer<AudioStreamBasicDescription>,

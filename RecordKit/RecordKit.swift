@@ -10,10 +10,9 @@ import Foundation
 import AVFoundation
 
 public class RecordKit: NSObject {
-	private var inputStream: RKAudioInputStream?
-	private var audioRecorder: AVAudioRecorder?
+	@objc public var inputStream: RKAudioInputStream?
 	
-	public static let `default` = RecordKit()
+	@objc public static let `default` = RecordKit()
 	public var isRecording: Bool {
 		if inputStream != nil {
 			return true

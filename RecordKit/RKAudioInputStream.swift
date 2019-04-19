@@ -65,7 +65,7 @@ open class RKAudioInputStream: InputStream {
 			try audioConverter?.prepare(inRealtime: true)
 			try asrerConverter?.prepare(inRealtime: true)
 			try microphone?.startIOUnit()
-			try asrer?.longSpeechRecognition((audioConverter?.outputUrl)!)
+//			try asrer?.longSpeechRecognition((audioConverter?.outputUrl)!)
 		} catch let ex {
 			RKLog("RecordKit.Error: \(ex)")
 		}
@@ -75,7 +75,7 @@ open class RKAudioInputStream: InputStream {
 		try? microphone?.stopIOUnit()
 		try? audioConverter?.disposeConvert()
 		try? asrerConverter?.disposeConvert()
-		try? asrer?.endRecognition()
+//		try? asrer?.endRecognition()
 		
 		microphone = nil
 		audioConverter = nil

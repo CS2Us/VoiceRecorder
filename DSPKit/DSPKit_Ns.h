@@ -21,7 +21,7 @@ typedef enum mode {
 
 @interface DSPKit_Ns: NSObject
 
-- (instancetype)initWithSampleRate:(unsigned int)sampleRate mode:(DSPKit_NsMode)nsMode;
+- (instancetype)initWithASBD:(AudioStreamBasicDescription)asbd mode:(DSPKit_NsMode)mode;
 
 - (void)dspFrameProcesss:(AudioBufferList *)bufferList;
 

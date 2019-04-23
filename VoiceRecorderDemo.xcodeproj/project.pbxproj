@@ -62,8 +62,6 @@
 		0822ACDF2249371B00F10A18 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
 		082C29B02231839600710E15 /* RKMicrophone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29AF2231839600710E15 /* RKMicrophone.swift */; };
 		082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 082C29B1223183A500710E15 /* RKAudioFile.swift */; };
-		083B63872264D13A00674C6A /* DSPKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08050EF7225DF5C00001C085 /* DSPKit.framework */; };
-		083B63882264D13A00674C6A /* DSPKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08050EF7225DF5C00001C085 /* DSPKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		083B638C226596DA00674C6A /* NoiseSpeech.wav in Resources */ = {isa = PBXBuildFile; fileRef = 083B638B226596DA00674C6A /* NoiseSpeech.wav */; };
 		08411DEB223F6C3500739903 /* Resources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 089C3217223B88D100D5E47E /* Resources.bundle */; };
 		084A8492225DC7C600F5629B /* EZPlot.h in Headers */ = {isa = PBXBuildFile; fileRef = 084A8480225DC7C600F5629B /* EZPlot.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -237,13 +235,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		083B63892264D13A00674C6A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 087878FA2215121100A8662E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 08050EF6225DF5C00001C085;
-			remoteInfo = DSPKit;
-		};
 		08411DED223F6C6200739903 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 087878FA2215121100A8662E /* Project object */;
@@ -268,7 +259,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				08DA86DC226421D100CB7A04 /* Pods_DSPKit.framework in Embed Frameworks */,
-				083B63882264D13A00674C6A /* DSPKit.framework in Embed Frameworks */,
 				08DA86DD226421D100CB7A04 /* Pods_RecordKit.framework in Embed Frameworks */,
 				08DA86DE226421D100CB7A04 /* Pods_VoiceRecorderDemo.framework in Embed Frameworks */,
 				08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */,
@@ -551,7 +541,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				083B63872264D13A00674C6A /* DSPKit.framework in Frameworks */,
 				08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */,
 				6C41123B0F68F6198AE8B594 /* Pods_VoiceRecorderDemo.framework in Frameworks */,
 			);
@@ -1174,7 +1163,6 @@
 			);
 			dependencies = (
 				08AB7830223ADF2C001E4E8C /* PBXTargetDependency */,
-				083B638A2264D13A00674C6A /* PBXTargetDependency */,
 			);
 			name = VoiceRecorderDemo;
 			productName = VoiceRecorderDemo;
@@ -1546,11 +1534,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		083B638A2264D13A00674C6A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 08050EF6225DF5C00001C085 /* DSPKit */;
-			targetProxy = 083B63892264D13A00674C6A /* PBXContainerItemProxy */;
-		};
 		08411DEE223F6C6200739903 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 089C3216223B88D100D5E47E /* Resources */;

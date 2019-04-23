@@ -8,7 +8,7 @@
 
 import Foundation
 import AudioToolbox
-import DSPKit
+//import DSPKit
 
 @objc protocol AURenderCallbackDelegate {
 	func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
@@ -42,12 +42,16 @@ public protocol RKMicrophoneHandle {
 	optional func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32)
 	@objc(microphoneStop:)
 	optional func microphoneStop(_ microphone: RKMicrophone)
+	@objc(microphoneClose:)
+	optional func microphoneEndup(_ microphone: RKMicrophone)
+	@objc(microphoneStart:)
+	optional func microphoneStart(_ microphone: RKMicrophone)
 }
 
 public class RKMicrophone: RKNode {
 	private var _rioUnit: AudioUnit? = nil
 	private var _component: AudioComponent? = nil
-	private var _ns: DSPKit_Ns? = nil
+//	private var _ns: DSPKit_Ns? = nil
 	
 	public var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 	
@@ -81,13 +85,17 @@ extension RKMicrophone: AURenderCallbackDelegate {
 									 &bufferList)
 		
 		
-		if _ns == nil {
-			_ns = DSPKit_Ns.init(asbd: inputFormat.asbd, mode: aggressive15dB)
-		}
-		_ns!.dspFrameProcesss(&bufferList)
-		
+//		if _ns == nil {
+//			_ns = DSPKit_Ns.init(asbd: inputFormat.asbd, mode: aggressive15dB)
+//		}
+//		_ns!.dspFrameProcesss(&bufferList)
+//
+//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+//			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: bufferList.mBuffers.mDataByteSize / inputFormat.asbd.mBytesPerFrame);
+//		})
+//
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: bufferList.mBuffers.mDataByteSize / inputFormat.asbd.mBytesPerFrame);
+			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames);
 		})
 		
 		return result
@@ -178,12 +186,23 @@ extension RKMicrophone {
 		try RKTry({
 			AudioOutputUnitStart(self._rioUnit!)
 		}, "couldn't start AURemoteIO")
+		
+		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+			observer.microphoneStart?(self)
+		})
 	}
 	
 	internal func stopIOUnit() throws {
 		try RKTry({
 			AudioOutputUnitStop(self._rioUnit!)
 		}, "couldn't stop AURemoteIO")
+		
+		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+			observer.microphoneStop?(self)
+		})
+	}
+	
+	internal func endUpIOUnit() throws {
 		try RKTry({
 			AudioComponentInstanceDispose(self._rioUnit!)
 		}, "couldn't deinit component")
@@ -191,7 +210,7 @@ extension RKMicrophone {
 		_component = nil
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneStop?(self)
+			observer.microphoneEndup?(self)
 		})
 	}
 }

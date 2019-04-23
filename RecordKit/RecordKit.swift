@@ -31,14 +31,23 @@ public class RecordKit: NSObject {
 		inputStream?.asrerConverter?.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
 		inputStream?.asrerConverter?.outputUrl = Destination.temp(url: "ASRTempFile.wav")
 		inputStream?.asrerConverter?.outputFileType = kAudioFileWAVEType
-		inputStream?.status = .open
+		inputStream?.initInputStream()
+		inputStream?.openInputStream()
 		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
 	}
 	
 	open func recordCancle() {
 		recordCancleDeinit()
-		inputStream?.status = .closed
+		inputStream?.closeInputStream()
 		inputStream = nil
+	}
+	
+	open func recordStop() {
+		inputStream?.stopInputStream()
+	}
+	
+	open func recordResume() {
+		inputStream?.openInputStream()
 	}
 	
 	private func recordStartInit() {

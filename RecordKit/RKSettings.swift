@@ -54,7 +54,7 @@ public class RKSettings: RKNode {
 			return Bundle.main
 		}
 	}
-	@objc public static var sampleRate: Double = 32000
+	@objc public static var sampleRate: Double = 44100
 	@objc public static var bufferLength: BufferLength = .veryLong
 	@objc public static var interleaved: Bool = false
 	@objc public static var enableLogging: Bool = true

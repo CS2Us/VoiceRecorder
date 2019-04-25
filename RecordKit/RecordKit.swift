@@ -11,7 +11,8 @@ import AVFoundation
 
 public class RecordKit: NSObject {
 	public static let `default` = RecordKit()
-	public var inputStream: RKAudioInputStream? {
+	
+	internal var inputStream: RKAudioInputStream! {
 		didSet {
 			if inputStream != nil {
 				sessionShouldBeInit()
@@ -21,42 +22,37 @@ public class RecordKit: NSObject {
 		}
 	}
 	
+	public private(set) var isRecording: Bool = false
 	
-	public var isRecording: Bool {
-		if inputStream != nil {
-			return true
-		} else {
-			return false
-		}
-	}
-	
-	open func recordStart(destinationURL: Destination, outputFileType: AudioFileTypeID, outputFormat: AudioFormatID) {
+	public func recordStart(destinationURL: Destination, outputFileType: AudioFileTypeID, outputFormat: AudioFormatID) {
 		inputStream = RKAudioInputStream.inputStream()
-		inputStream?.microphone?.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
-		inputStream?.audioConverter?.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
-		inputStream?.audioConverter?.outputUrl = destinationURL
-		inputStream?.audioConverter?.outputFileType = outputFileType
-		inputStream?.asrerConverter?.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
-		inputStream?.asrerConverter?.outputUrl = Destination.temp(url: "ASRTempFile.wav")
-		inputStream?.asrerConverter?.outputFileType = kAudioFileWAVEType
-		inputStream?.initInputStream()
-		inputStream?.openInputStream()
+		inputStream.microphone.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
+		inputStream.audioConverter.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
+		inputStream.audioConverter.outputUrl = destinationURL
+		inputStream.audioConverter.outputFileType = outputFileType
+		inputStream.asrerConverter.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
+		inputStream.asrerConverter.outputUrl = Destination.temp(url: "ASRTempFile.wav")
+		inputStream.asrerConverter.outputFileType = kAudioFileWAVEType
+		inputStream.initInputStream()
+		inputStream.openInputStream()
 		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
+		isRecording = true
 	}
 	
-	open func recordCancle() {
-		inputStream?.closeInputStream()
-		inputStream = nil
+	public func recordCancle() {
+		inputStream.closeInputStream()
+		isRecording = false
 	}
 	
-	open func recordStop() {
-		inputStream?.stopInputStream()
+	public func recordStop() {
+		inputStream.stopInputStream()
+		isRecording = false
 	}
 	
-	open func recordResume() {
-		inputStream?.openInputStream()
+	public func recordResume() {
+		inputStream.openInputStream()
+		isRecording = true
 	}
-	
 }
 
 @objc

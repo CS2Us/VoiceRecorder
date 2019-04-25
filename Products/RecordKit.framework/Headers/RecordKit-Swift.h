@@ -249,8 +249,6 @@ SWIFT_CLASS("_TtC9RecordKit18RKAudioInputStream")
 - (void)close;
 - (NSInteger)read:(uint8_t * _Nonnull)buffer maxLength:(NSUInteger)len SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)getBuffer:(uint8_t * _Nullable * _Nonnull)buffer length:(NSInteger * _Nonnull)len SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly) BOOL hasBytesAvailable;
-@property (nonatomic, readonly) NSStreamStatus streamStatus;
 - (nonnull instancetype)initWithData:(NSData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithURL:(NSURL * _Nonnull)url OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=4.0);
 @end
@@ -617,8 +615,6 @@ SWIFT_CLASS("_TtC9RecordKit18RKAudioInputStream")
 - (void)close;
 - (NSInteger)read:(uint8_t * _Nonnull)buffer maxLength:(NSUInteger)len SWIFT_WARN_UNUSED_RESULT;
 - (BOOL)getBuffer:(uint8_t * _Nullable * _Nonnull)buffer length:(NSInteger * _Nonnull)len SWIFT_WARN_UNUSED_RESULT;
-@property (nonatomic, readonly) BOOL hasBytesAvailable;
-@property (nonatomic, readonly) NSStreamStatus streamStatus;
 - (nonnull instancetype)initWithData:(NSData * _Nonnull)data OBJC_DESIGNATED_INITIALIZER;
 - (nullable instancetype)initWithURL:(NSURL * _Nonnull)url OBJC_DESIGNATED_INITIALIZER SWIFT_AVAILABILITY(ios,introduced=4.0);
 @end

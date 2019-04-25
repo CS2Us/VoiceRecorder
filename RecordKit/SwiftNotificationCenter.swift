@@ -9,10 +9,8 @@
 import Foundation
 
 public class Broadcaster {
-	
-	fileprivate static var observersDic = [String: Any]()
-	
 	fileprivate static let notificationQueue = DispatchQueue(label: "com.swift.notification.center.dispatch.queue", attributes: .concurrent)
+	fileprivate static var observersDic = [String:Any]()
 	
 	public static func register<T>(_ protocolType: T.Type, observer: T) {
 		let key = "\(protocolType)"

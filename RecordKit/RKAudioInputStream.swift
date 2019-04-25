@@ -10,10 +10,10 @@ import Foundation
 import AVFoundation
 
 open class RKAudioInputStream: InputStream {
-	var microphone: RKMicrophone?
-	var audioConverter: RKAudioConverter?
-	var asrerConverter: RKAudioConverter?
-	var asrer: RKASRer?
+	var microphone: RKMicrophone!
+	var audioConverter: RKAudioConverter!
+	var asrerConverter: RKAudioConverter!
+	var asrer: RKASRer!
 	
 	var audioData: AudioDataQueue = AudioDataQueue(bufferCapacity: RKSettings.bufferLength.samplesCount)
 	struct AudioDataQueue {
@@ -46,15 +46,15 @@ open class RKAudioInputStream: InputStream {
 		return inputStream
 	}
 	
-	open func initObserver() {
+	public func initObserver() {
 		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
 	}
 	
-	open func initInputStream() {
+	public func initInputStream() {
 		do {
-			try audioConverter?.prepare(inRealtime: true)
-			try asrerConverter?.prepare(inRealtime: true)
-			try asrer?.longSpeechRecognition((audioConverter?.outputUrl)!)
+			try audioConverter.prepare(inRealtime: true)
+			try asrerConverter.prepare(inRealtime: true)
+			try asrer.longSpeechRecognition(audioConverter.outputUrl)
 		} catch let ex {
 			RKLog("initInputStream error: \(ex)")
 		}
@@ -62,7 +62,7 @@ open class RKAudioInputStream: InputStream {
 	
 	public func openInputStream() {
 		do {
-			try microphone?.startIOUnit()
+			try microphone.startIOUnit()
 		} catch let ex {
 			RKLog("openInputStream error: \(ex)")
 		}
@@ -70,22 +70,21 @@ open class RKAudioInputStream: InputStream {
 	
 	public func stopInputStream() {
 		do {
-			try microphone?.stopIOUnit()
+			try microphone.stopIOUnit()
 		} catch let ex {
 			RKLog("stopInputStream error: \(ex)")
 		}
 	}
 	
 	public func closeInputStream() {
-		try? microphone?.endUpIOUnit()
-		try? audioConverter?.disposeConvert()
-		try? asrerConverter?.disposeConvert()
-		try? asrer?.endRecognition()
-		
-		microphone = nil
-		audioConverter = nil
-		asrerConverter = nil
-		asrer = nil
+		do {
+			try microphone.endUpIOUnit()
+			try audioConverter.disposeConvert()
+			try asrerConverter.disposeConvert()
+			try asrer.endRecognition()
+		} catch let ex {
+			RKLog("closeInputStream error: \(ex)")
+		}
 	}
 	
 	override open func open() {}
@@ -101,14 +100,6 @@ open class RKAudioInputStream: InputStream {
 	
 	override open func getBuffer(_ buffer: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, length len: UnsafeMutablePointer<Int>) -> Bool {
 		return false
-	}
-	
-	override open var hasBytesAvailable: Bool {
-		return true
-	}
-	
-	override open var streamStatus: Stream.Status {
-		return .open
 	}
 }
 
@@ -182,7 +173,7 @@ extension RKAudioInputStream: RKMicrophoneHandle {
 		var uInt8Buffer: UnsafePointer<UInt8> = UnsafePointer(bufferList.pointee.mBuffers.mData!.bindMemory(to: UInt8.self, capacity: intByteSize))
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)
 		audioData.mDataFrames = (bufferList, numberOfFrames)
-		try? audioConverter?.convert(inputStream: self)
-		try? asrerConverter?.convert(inputStream: self)
+		try? audioConverter.convert(inputStream: self)
+		try? asrerConverter.convert(inputStream: self)
 	}
 }

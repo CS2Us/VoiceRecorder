@@ -19,10 +19,10 @@ public protocol RKAudioConverterHandle {
 
 public class RKAudioConverter: RKNode {
 	private var _sourceFile: ExtAudioFileRef?
-	private var _destinationFile: ExtAudioFileRef?
+	private var _destinationFile: ExtAudioFileRef!
 	private var _queue: DispatchQueue
 	private var _semaphore: DispatchSemaphore
-	private var _audioConvertInfo: AudioConvertInfo?
+	private var _audioConvertInfo: AudioConvertInfo!
 	private var _inRealtime: Bool!
 	
 	public var inputUrl: Destination = .none
@@ -59,7 +59,7 @@ public class RKAudioConverter: RKNode {
 					var canResumeFromInterruption = true
 					var canResume: UInt32 = 0
 					var canResumeSize = SizeOf32(canResume)
-					var error = AudioConverterGetProperty(self._audioConvertInfo!._crt!, kAudioConverterPropertyCanResumeFromInterruption, &canResumeSize, &canResume)
+					var error = AudioConverterGetProperty(self._audioConvertInfo._crt, kAudioConverterPropertyCanResumeFromInterruption, &canResumeSize, &canResume)
 					if error == noErr {
 						if canResume == 0 {
 							canResumeFromInterruption = false
@@ -85,7 +85,7 @@ public class RKAudioConverter: RKNode {
 		do {
 			if _inRealtime {
 				try RKTry({
-					ExtAudioFileWriteAsync(self._destinationFile!, inputStream.audioData.mDataFrames.1, inputStream.audioData.mDataFrames.0!)
+					ExtAudioFileWriteAsync(self._destinationFile, inputStream.audioData.mDataFrames.1, inputStream.audioData.mDataFrames.0!)
 				}, "ExtAudioFileRead failed")
 			} else {
 				let bufferByteSize : UInt32 = RKSettings.bufferLength.samplesCount
@@ -102,11 +102,11 @@ public class RKAudioConverter: RKNode {
 					// Set up output buffer list
 					var fillBufferList = AudioBufferList()
 					fillBufferList.mNumberBuffers = 1
-					fillBufferList.mBuffers = AudioBuffer(mNumberChannels: _audioConvertInfo!._cltASBD.mChannelsPerFrame, mDataByteSize: bufferByteSize, mData: &srcBuffer)
+					fillBufferList.mBuffers = AudioBuffer(mNumberChannels: _audioConvertInfo._cltASBD.mChannelsPerFrame, mDataByteSize: bufferByteSize, mData: &srcBuffer)
 					
 					var numberOfFrames: UInt32 = 0
-					if _audioConvertInfo!._cltASBD.mBytesPerFrame > 0 {
-						numberOfFrames = bufferByteSize / _audioConvertInfo!._cltASBD.mBytesPerFrame
+					if _audioConvertInfo._cltASBD.mBytesPerFrame > 0 {
+						numberOfFrames = bufferByteSize / _audioConvertInfo._cltASBD.mBytesPerFrame
 					}
 					
 					try RKTry({
@@ -121,7 +121,7 @@ public class RKAudioConverter: RKNode {
 					sourceFrameOffset += numberOfFrames
 					
 					try RKTry({
-						error = ExtAudioFileWrite(self._destinationFile!, numberOfFrames, &fillBufferList)
+						error = ExtAudioFileWrite(self._destinationFile, numberOfFrames, &fillBufferList)
 					}, "ExtAudioFileWrite failed")
 					// If we were interrupted in the process of the write call, we must handle the errors appropriately.
 					if error != noErr {
@@ -159,18 +159,19 @@ public class RKAudioConverter: RKNode {
 		}, "_sourceFile dispose error")
 		try RKTry({
 			if self._destinationFile != nil {
-				ExtAudioFileDispose(self._destinationFile!)
+				ExtAudioFileDispose(self._destinationFile)
 			}
 		}, "_destinationFile dispose error")
 		try RKTry({
 			if self._audioConvertInfo?._crt != nil {
-				ExtAudioFileDispose(self._audioConvertInfo!._crt!)
+				ExtAudioFileDispose(self._audioConvertInfo._crt)
 			}
 		}, "_audioConvertInfo?._crt dispose error")
 		
-		self._sourceFile = nil
-		self._destinationFile = nil
-		self._audioConvertInfo = nil
+		_sourceFile = nil
+		_destinationFile = nil
+		_audioConvertInfo = nil
+		
 		Broadcaster.notify(RKAudioConverterHandle.self, block: { observer in
 			observer.audioConvertCompleted?(self)
 		})
@@ -180,7 +181,7 @@ public class RKAudioConverter: RKNode {
 extension RKAudioConverter {
 	struct AudioConvertInfo {
 		let _parent: RKAudioConverter
-		let _crt: AudioConverterRef?
+		let _crt: AudioConverterRef
 		let _cltASBD: AudioStreamBasicDescription
 		
 		init(parent: RKAudioConverter) throws {
@@ -237,17 +238,17 @@ extension RKAudioConverter {
 					}, "couldn't set the client format on the source file")
 				}
 				try RKTry({
-					ExtAudioFileSetProperty(parent._destinationFile!, kExtAudioFileProperty_ClientDataFormat, cltSize, &cltASBD)
+					ExtAudioFileSetProperty(parent._destinationFile, kExtAudioFileProperty_ClientDataFormat, cltSize, &cltASBD)
 				}, "couldn't set the client format on the destination file")
 				
 				// Get the audio converter
 				var crt: AudioConverterRef?
 				var crtSize = SizeOf32(crt)
 				try RKTry({
-					ExtAudioFileGetProperty(parent._destinationFile!, kExtAudioFileProperty_AudioConverter, &crtSize, &crt)
+					ExtAudioFileGetProperty(parent._destinationFile, kExtAudioFileProperty_AudioConverter, &crtSize, &crt)
 				}, "failed to get the Audio Converter from the destination file")
 				
-				_crt = crt
+				_crt = crt!
 				_cltASBD = cltASBD
 				
 //				RKLog("Source file format:\n")

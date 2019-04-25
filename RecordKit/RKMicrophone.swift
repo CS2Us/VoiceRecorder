@@ -50,7 +50,6 @@ public protocol RKMicrophoneHandle {
 
 public class RKMicrophone: RKNode {
 	private var _rioUnit: AudioUnit? = nil
-	private var _component: AudioComponent? = nil
 //	private var _ns: DSPKit_Ns? = nil
 	
 	public var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
@@ -112,10 +111,10 @@ extension RKMicrophone {
 				componentFlags: 0,
 				componentFlagsMask: 0)
 			
-			_component = AudioComponentFindNext(nil, &desc)
+			let comp = AudioComponentFindNext(nil, &desc)
 			
 			try RKTry({
-				AudioComponentInstanceNew(self._component!, &self._rioUnit)
+				AudioComponentInstanceNew(comp!, &self._rioUnit)
 			}, "couldn't create a new instance of AURemoteIO")
 			
 			var one: UInt32 = 1
@@ -206,8 +205,6 @@ extension RKMicrophone {
 		try RKTry({
 			AudioComponentInstanceDispose(self._rioUnit!)
 		}, "couldn't deinit component")
-		_rioUnit = nil
-		_component = nil
 		
 		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 			observer.microphoneEndup?(self)

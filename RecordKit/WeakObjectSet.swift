@@ -15,10 +15,10 @@ struct WeakObject<T: AnyObject>: Equatable, Hashable {
         _object = object
 		_originalHashValue = ObjectIdentifier(object).hashValue
     }
-    
-    var hashValue: Int {
-        return _originalHashValue
-    }
+	
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(_originalHashValue)
+	}
 }
 
 func == <T> (lhs: WeakObject<T>, rhs: WeakObject<T>) -> Bool {

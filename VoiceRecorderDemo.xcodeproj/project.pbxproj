@@ -22,8 +22,6 @@
 
 /* Begin PBXBuildFile section */
 		08050EFB225DF5C00001C085 /* DSPKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 08050EF9225DF5C00001C085 /* DSPKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */; };
-		0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */; };
 		08098EE9223258C000B0FA81 /* RKNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08098EE8223258C000B0FA81 /* RKNode.swift */; };
 		0820CCCC225F06210058CF91 /* string_view.h in Headers */ = {isa = PBXBuildFile; fileRef = 0820CCCA225F06210058CF91 /* string_view.h */; };
 		0820CCCD225F06210058CF91 /* string_view.cc in Sources */ = {isa = PBXBuildFile; fileRef = 0820CCCB225F06210058CF91 /* string_view.cc */; };
@@ -88,6 +86,8 @@
 		08779C2F222F7F410055CCB9 /* RecordKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; };
 		087879062215121100A8662E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087879052215121100A8662E /* AppDelegate.swift */; };
 		0878790D2215121200A8662E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0878790C2215121200A8662E /* Assets.xcassets */; };
+		088E4FC72271A16300AB92E2 /* SwiftNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E4FC62271A16300AB92E2 /* SwiftNotificationCenter.swift */; };
+		088E4FC92271A18D00AB92E2 /* WeakObjectSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 088E4FC82271A18D00AB92E2 /* WeakObjectSet.swift */; };
 		08972113223782E3008A4ECF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08972112223782E3008A4ECF /* libsqlite3.tbd */; };
 		0897DA9D22606C90002310DF /* NoisySpeech-44k_mono.m4a in Resources */ = {isa = PBXBuildFile; fileRef = 0897DA9C22606C90002310DF /* NoisySpeech-44k_mono.m4a */; };
 		0897DA9F22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 0897DA9E22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav */; };
@@ -273,8 +273,6 @@
 		08050EF7225DF5C00001C085 /* DSPKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DSPKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08050EF9225DF5C00001C085 /* DSPKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSPKit.h; sourceTree = "<group>"; };
 		08050EFA225DF5C00001C085 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakObjectSet.swift; sourceTree = "<group>"; };
-		0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftNotificationCenter.swift; sourceTree = "<group>"; };
 		08098EE8223258C000B0FA81 /* RKNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKNode.swift; sourceTree = "<group>"; };
 		08120CB1223E6EF8000E0E85 /* VoiceRecorderDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoiceRecorderDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKit_Ns.mm; sourceTree = "<group>"; };
@@ -343,6 +341,8 @@
 		0878790C2215121200A8662E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0878790F2215121200A8662E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		087879112215121200A8662E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		088E4FC62271A16300AB92E2 /* SwiftNotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotificationCenter.swift; sourceTree = "<group>"; };
+		088E4FC82271A18D00AB92E2 /* WeakObjectSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeakObjectSet.swift; sourceTree = "<group>"; };
 		08972112223782E3008A4ECF /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		0897DA9C22606C90002310DF /* NoisySpeech-44k_mono.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NoisySpeech-44k_mono.m4a"; sourceTree = "<group>"; };
 		0897DA9E22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "NoisySpeech-16k_16bit_stereo.wav"; sourceTree = "<group>"; };
@@ -678,6 +678,8 @@
 				08779C29222F7EEF0055CCB9 /* RecordKit.h */,
 				08DB4F8322301CAA00267ACD /* RecordKit.swift */,
 				08DB4F7A2230166C00267ACD /* RKSettings.swift */,
+				088E4FC62271A16300AB92E2 /* SwiftNotificationCenter.swift */,
+				088E4FC82271A18D00AB92E2 /* WeakObjectSet.swift */,
 				08DB4F782230162500267ACD /* RecordKitHelpers.swift */,
 				08DB4F7C2230189B00267ACD /* ExceptionTracker.swift */,
 				08DB4F80223018E500267ACD /* ExceptionCatcher.h */,
@@ -689,8 +691,6 @@
 				08098EE8223258C000B0FA81 /* RKNode.swift */,
 				08C211722236AD08009E91B4 /* RKASRer.swift */,
 				08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */,
-				0806E59A2241F8EB0027A6F5 /* SwiftNotificationCenter.swift */,
-				0806E5992241F8EB0027A6F5 /* WeakObjectSet.swift */,
 				08D6CC8C2248BB8B00574485 /* RKAudioCache.swift */,
 				08D6CC8E2248BCF000574485 /* RKFileManager.swift */,
 			);
@@ -1157,7 +1157,6 @@
 				087878FF2215121100A8662E /* Frameworks */,
 				087879002215121100A8662E /* Resources */,
 				08AB7831223ADF2C001E4E8C /* Embed Frameworks */,
-				218C6A030FBCF98BCFB94E82 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1330,42 +1329,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ \"${ACTION}\" = \"build\" ]\nthen\nFMK_NAME=\"RecordKit\"\nINSTALL_DIR=${SRCROOT}/Products/${FMK_NAME}.framework\n\nDEVICE_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphoneos/${FMK_NAME}.framework\n\nSIMULATOR_DIR=${BUILD_ROOT}/${CONFIGURATION}-iphonesimulator/${FMK_NAME}.framework\n\n\nif [ -d \"${INSTALL_DIR}\" ]\nthen\nrm -rf \"${INSTALL_DIR}\"\nfi\n\nmkdir -p \"${INSTALL_DIR}\"\n\ncp -R \"${DEVICE_DIR}/\" \"${INSTALL_DIR}/\"\n#ditto \"${DEVICE_DIR}/Headers\" \"${INSTALL_DIR}/Headers\"\n\n# 使用lipo命令将其合并成一个通用framework  \n# 最后将生成的通用framework放置在工程根目录下新建的Products目录下  \nlipo -create \"${DEVICE_DIR}/${FMK_NAME}\" \"${SIMULATOR_DIR}/${FMK_NAME}\" -output \"${INSTALL_DIR}/${FMK_NAME}\"\n\n#open \"${DEVICE_DIR}\"\nopen \"${SRCROOT}/Products\"\nfi\n";
 		};
-		218C6A030FBCF98BCFB94E82 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-VoiceRecorderDemo/Pods-VoiceRecorderDemo-frameworks.sh",
-				"${PODS_ROOT}/mobile-ffmpeg-full/mobileffmpeg.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libavcodec.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libavdevice.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libavfilter.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libavformat.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libavutil.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libswresample.framework",
-				"${PODS_ROOT}/mobile-ffmpeg-full/libswscale.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/mobileffmpeg.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libavcodec.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libavdevice.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libavfilter.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libavformat.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libavutil.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libswresample.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libswscale.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VoiceRecorderDemo/Pods-VoiceRecorderDemo-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		46A1F6EE0B322DF6088C765F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1460,10 +1423,10 @@
 				08CDBA8D2264C66E00121D7E /* AEBlockFilter.m in Sources */,
 				084A849C225DC7C600F5629B /* EZAudioPlot.m in Sources */,
 				08C211732236AD08009E91B4 /* RKASRer.swift in Sources */,
+				088E4FC72271A16300AB92E2 /* SwiftNotificationCenter.swift in Sources */,
 				08CDBA742264C66E00121D7E /* AERealtimeWatchdog.m in Sources */,
 				08CDBA7F2264C66E00121D7E /* AEUtilities.m in Sources */,
 				08CE6B4822341DB900AE08E4 /* RKAudioConverter.swift in Sources */,
-				0806E59B2241F8EB0027A6F5 /* WeakObjectSet.swift in Sources */,
 				08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */,
 				084A84A3225DC7C600F5629B /* EZAudioPlotGL.m in Sources */,
 				08D6CC8F2248BCF000574485 /* RKFileManager.swift in Sources */,
@@ -1480,11 +1443,11 @@
 				08CDBA752264C66E00121D7E /* AEBlockAudioReceiver.m in Sources */,
 				08CDBA702264C66E00121D7E /* AEFloatConverter.m in Sources */,
 				08CDBA7E2264C66E00121D7E /* AEAudioUnitChannel.m in Sources */,
+				088E4FC92271A18D00AB92E2 /* WeakObjectSet.swift in Sources */,
 				08AB782A223A2E69001E4E8C /* RKAudioInputStream.swift in Sources */,
 				08DB4F8422301CAA00267ACD /* RecordKit.swift in Sources */,
 				08DB4F7F223018CD00267ACD /* ExceptionCatcher.m in Sources */,
 				082C29B02231839600710E15 /* RKMicrophone.swift in Sources */,
-				0806E59C2241F8EB0027A6F5 /* SwiftNotificationCenter.swift in Sources */,
 				08CDBA842264C66E00121D7E /* AEAudioFilePlayer.m in Sources */,
 				084A84A2225DC7C600F5629B /* EZAudioDisplayLink.m in Sources */,
 				084A849B225DC7C600F5629B /* EZPlot.m in Sources */,

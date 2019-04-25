@@ -92,10 +92,15 @@ public class RKASRer: NSObject {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 //		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-			Broadcaster.notify(RKASRerHandle.self, block: { observer in
-				observer.asrRecognitionCompleted?(self)
-			})
+//			Broadcaster.notify(RKASRerHandle.self, block: { observer in
+//				observer.asrRecognitionCompleted?(self)
+//			})
 //		})
+		
+		RecordKit.default.asrerObservers.allObjects
+			.map{$0 as? RKASRerHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.asrRecognitionCompleted?(self)
+		}
 	}
 	
 	internal func resetRecognition() {

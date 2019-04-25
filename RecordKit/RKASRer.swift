@@ -91,11 +91,11 @@ public class RKASRer: NSObject {
 	internal func endRecognition() throws {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
-		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+//		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
 			Broadcaster.notify(RKASRerHandle.self, block: { observer in
 				observer.asrRecognitionCompleted?(self)
 			})
-		})
+//		})
 	}
 	
 	internal func resetRecognition() {

@@ -340,23 +340,25 @@ typedef SWIFT_ENUM(NSInteger, BufferLength, closed) {
 
 SWIFT_CLASS("_TtC9RecordKit9RecordKit")
 @interface RecordKit : NSObject
-@property (nonatomic, strong) RKAudioInputStream * _Nullable inputStream;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong, getter=default) RecordKit * _Nonnull default_;)
-+ (RecordKit * _Nonnull)default SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 SWIFT_PROTOCOL("_TtP9RecordKit22RecordKitSessionHandle_")
 @protocol RecordKitSessionHandle
+@optional
 - (void)handleInterruption:(NSNotification * _Nonnull)notification;
 - (void)handleRouteChange:(NSNotification * _Nonnull)notification;
+- (void)sessionShouldBeInit;
+- (void)sessionShouldBeDeinit;
 @end
 
 
 @interface RecordKit (SWIFT_EXTENSION(RecordKit)) <RecordKitSessionHandle>
 - (void)handleInterruption:(NSNotification * _Nonnull)notification;
 - (void)handleRouteChange:(NSNotification * _Nonnull)notification;
+- (void)sessionShouldBeInit;
+- (void)sessionShouldBeDeinit;
 @end
 
 
@@ -706,23 +708,25 @@ typedef SWIFT_ENUM(NSInteger, BufferLength, closed) {
 
 SWIFT_CLASS("_TtC9RecordKit9RecordKit")
 @interface RecordKit : NSObject
-@property (nonatomic, strong) RKAudioInputStream * _Nullable inputStream;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong, getter=default) RecordKit * _Nonnull default_;)
-+ (RecordKit * _Nonnull)default SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
 SWIFT_PROTOCOL("_TtP9RecordKit22RecordKitSessionHandle_")
 @protocol RecordKitSessionHandle
+@optional
 - (void)handleInterruption:(NSNotification * _Nonnull)notification;
 - (void)handleRouteChange:(NSNotification * _Nonnull)notification;
+- (void)sessionShouldBeInit;
+- (void)sessionShouldBeDeinit;
 @end
 
 
 @interface RecordKit (SWIFT_EXTENSION(RecordKit)) <RecordKitSessionHandle>
 - (void)handleInterruption:(NSNotification * _Nonnull)notification;
 - (void)handleRouteChange:(NSNotification * _Nonnull)notification;
+- (void)sessionShouldBeInit;
+- (void)sessionShouldBeDeinit;
 @end
 
 

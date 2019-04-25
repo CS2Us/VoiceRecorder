@@ -56,11 +56,13 @@ class RecorderViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleInterruption(notification:)), name: AVAudioSession.interruptionNotification, object: nil)
 		NotificationCenter.default.addObserver(self, selector:
 			#selector(handleRouteChange(notification:)), name: AVAudioSession.routeChangeNotification, object: nil)
+		sessionShouldBeInit()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
+		sessionShouldBeDeinit()
     }
 	
 	fileprivate func initObserver() {
@@ -269,5 +271,13 @@ extension RecorderViewController: RecordKitSessionHandle {
 	func handleInterruption(notification: Notification) {
 		stopRecording()
 		RecordKit.default.handleInterruption(notification: notification)
+	}
+	
+	func sessionShouldBeInit() {
+//		RecordKit.default.sessionShouldBeInit()
+	}
+	
+	func sessionShouldBeDeinit() {
+//		RecordKit.default.sessionShouldBeDeinit()
 	}
 }

@@ -10,9 +10,18 @@ import Foundation
 import AVFoundation
 
 public class RecordKit: NSObject {
-	@objc public var inputStream: RKAudioInputStream?
+	public static let `default` = RecordKit()
+	public var inputStream: RKAudioInputStream? {
+		didSet {
+			if inputStream != nil {
+				sessionShouldBeInit()
+			} else {
+				sessionShouldBeDeinit()
+			}
+		}
+	}
 	
-	@objc public static let `default` = RecordKit()
+	
 	public var isRecording: Bool {
 		if inputStream != nil {
 			return true
@@ -22,7 +31,6 @@ public class RecordKit: NSObject {
 	}
 	
 	open func recordStart(destinationURL: Destination, outputFileType: AudioFileTypeID, outputFormat: AudioFormatID) {
-		recordStartInit()
 		inputStream = RKAudioInputStream.inputStream()
 		inputStream?.microphone?.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 		inputStream?.audioConverter?.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
@@ -37,7 +45,6 @@ public class RecordKit: NSObject {
 	}
 	
 	open func recordCancle() {
-		recordCancleDeinit()
 		inputStream?.closeInputStream()
 		inputStream = nil
 	}
@@ -50,28 +57,20 @@ public class RecordKit: NSObject {
 		inputStream?.openInputStream()
 	}
 	
-	private func recordStartInit() {
-		try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth, .duckOthers])
-		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
-		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
-		try? AVAudioSession.sharedInstance().setActive(true, options: [])
-	}
-	
-	private func recordCancleDeinit() {
-		try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
-	}
-	
-	
 }
 
 @objc
 public protocol RecordKitSessionHandle {
 	// MARK:- Handle interruption
 	@objc(handleInterruption:)
-	func handleInterruption(notification: Notification)
+	optional func handleInterruption(notification: Notification)
 	// MARK: - Handle RouteChange
 	@objc(handleRouteChange:)
-	func handleRouteChange(notification: Notification)
+	optional func handleRouteChange(notification: Notification)
+	@objc(sessionShouldBeInit)
+	optional func sessionShouldBeInit()
+	@objc(sessionShouldBeDeinit)
+	optional func sessionShouldBeDeinit()
 }
 
 extension RecordKit: RecordKitSessionHandle {
@@ -102,5 +101,16 @@ extension RecordKit: RecordKitSessionHandle {
 			}
 		default: ()
 		}
+	}
+	
+	public func sessionShouldBeInit() {
+		try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth, .duckOthers])
+		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
+		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
+		try? AVAudioSession.sharedInstance().setActive(true, options: [])
+	}
+	
+	public func sessionShouldBeDeinit() {
+		try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
 	}
 }

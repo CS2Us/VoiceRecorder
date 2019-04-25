@@ -9,18 +9,18 @@
 import Foundation
 import UIKit
 import RecordKit
-import DSPKit
+//import DSPKit
 
-class NoiseSViewController: UIViewController {
-	private var dspNsKit: DSPKit_Ns?
-	private var destination: Destination?
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-	
-	@IBAction func clickSegmentControl(_ sender: UISegmentedControl) {
-	}
-	
-}
+//class NoiseSViewController: UIViewController {
+//	private var dspNsKit: DSPKit_Ns?
+//	private var destination: Destination?
+//	
+//	override func viewDidLoad() {
+//		super.viewDidLoad()
+//	}
+//	
+//	@IBAction func clickSegmentControl(_ sender: UISegmentedControl) {
+//	}
+//	
+//}
 

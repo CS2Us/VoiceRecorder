@@ -186,9 +186,15 @@ extension RKAudioInputStream: RKMicrophoneHandle {
 	open func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
 		var intByteSize: Int = Int(bufferList.pointee.mBuffers.mDataByteSize)
 		var uInt8Buffer: UnsafePointer<UInt8> = UnsafePointer(bufferList.pointee.mBuffers.mData!.bindMemory(to: UInt8.self, capacity: intByteSize))
+		print("流准备写入")
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)
 		audioData.mDataFrames = (bufferList, numberOfFrames)
-		try? audioConverter.convert(inputStream: self)
-		try? asrerConverter.convert(inputStream: self)
+		do {
+			try audioConverter.convert(inputStream: self)
+			try asrerConverter.convert(inputStream: self)
+		} catch let ex {
+			print("converter convert error: \(ex)")
+		}
+		print("流已经写入")
 	}
 }

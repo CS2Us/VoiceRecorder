@@ -63,6 +63,10 @@ public class RKMicrophone: RKNode {
 		super.init()
 		setupIOUnit()
 	}
+	
+	deinit {
+		print("麦克风销毁")
+	}
 }
 
 extension RKMicrophone: AURenderCallbackDelegate {
@@ -93,9 +97,14 @@ extension RKMicrophone: AURenderCallbackDelegate {
 //			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: bufferList.mBuffers.mDataByteSize / inputFormat.asbd.mBytesPerFrame);
 //		})
 //
-		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames);
-		})
+//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+//			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames);
+//		})
+		
+		RecordKit.default.microphoneObservers.allObjects
+			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+			observer?.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
+		}
 		
 		return result
 	}
@@ -186,9 +195,14 @@ extension RKMicrophone {
 			AudioOutputUnitStart(self._rioUnit!)
 		}, "couldn't start AURemoteIO")
 		
-		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneStart?(self)
-		})
+//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+//			observer.microphoneStart?(self)
+//		})
+		
+		RecordKit.default.microphoneObservers.allObjects
+			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+			observer?.microphoneStart?(self)
+		}
 	}
 	
 	internal func stopIOUnit() throws {
@@ -196,18 +210,29 @@ extension RKMicrophone {
 			AudioOutputUnitStop(self._rioUnit!)
 		}, "couldn't stop AURemoteIO")
 		
-		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneStop?(self)
-		})
+//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+//			observer.microphoneStop?(self)
+//		})
+		
+		RecordKit.default.microphoneObservers.allObjects
+			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+			observer?.microphoneStop?(self)
+		}
 	}
 	
 	internal func endUpIOUnit() throws {
 		try RKTry({
 			AudioComponentInstanceDispose(self._rioUnit!)
 		}, "couldn't deinit component")
+		_rioUnit = nil
 		
-		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-			observer.microphoneEndup?(self)
-		})
+//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
+//			observer.microphoneEndup?(self)
+//		})
+		
+		RecordKit.default.microphoneObservers.allObjects
+			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+			observer?.microphoneEndup?(self)
+		}
 	}
 }

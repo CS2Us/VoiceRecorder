@@ -105,6 +105,10 @@ public class RKASRer: NSObject {
 		_asrEventManager.setParameter("", forKey: BDS_ASR_AUDIO_INPUT_STREAM)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
 	}
+	
+	deinit {
+		print("识别器销毁")
+	}
 }
 
 extension RKASRer {

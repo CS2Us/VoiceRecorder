@@ -172,9 +172,18 @@ public class RKAudioConverter: RKNode {
 		_destinationFile = nil
 		_audioConvertInfo = nil
 		
-		Broadcaster.notify(RKAudioConverterHandle.self, block: { observer in
-			observer.audioConvertCompleted?(self)
-		})
+//		Broadcaster.notify(RKAudioConverterHandle.self, block: { observer in
+//			observer.audioConvertCompleted?(self)
+//		})
+		
+		RecordKit.default.microphoneObservers.allObjects
+			.map{$0 as? RKAudioConverterHandle}.filter{$0 != nil}.forEach { observer in
+			observer?.audioConvertCompleted?(self)
+		}
+	}
+	
+	deinit {
+		print("转换器销毁")
 	}
 }
 

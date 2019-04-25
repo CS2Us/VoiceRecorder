@@ -66,7 +66,11 @@ class RecorderViewController: UIViewController {
     }
 	
 	fileprivate func initObserver() {
-		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
+		{ [weak self] in
+			RecordKit.default.microphoneObservers.addObject(self)
+		}()
+		
+//		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
 	}
     
     //MARK:- Setup Methods

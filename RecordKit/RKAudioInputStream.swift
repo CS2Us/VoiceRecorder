@@ -47,7 +47,11 @@ open class RKAudioInputStream: InputStream {
 	}
 	
 	public func initObserver() {
-		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
+//		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
+		
+		{ [weak self] in
+			RecordKit.default.microphoneObservers.addObject(self)
+		}()
 	}
 	
 	public func initInputStream() {
@@ -85,6 +89,12 @@ open class RKAudioInputStream: InputStream {
 		} catch let ex {
 			RKLog("closeInputStream error: \(ex)")
 		}
+		
+		microphone = nil
+		audioConverter = nil
+		asrerConverter = nil
+		asrer = nil
+		audioData.reset()
 	}
 	
 	override open func open() {}
@@ -100,6 +110,10 @@ open class RKAudioInputStream: InputStream {
 	
 	override open func getBuffer(_ buffer: UnsafeMutablePointer<UnsafeMutablePointer<UInt8>?>, length len: UnsafeMutablePointer<Int>) -> Bool {
 		return false
+	}
+	
+	deinit {
+		print("流销毁")
 	}
 }
 
@@ -164,6 +178,7 @@ extension RKAudioInputStream.AudioDataQueue {
 		mDataEnd = mData + mBufferCapacity
 		mLoopStart = mData
 		mLoopEnd = mData
+		mDataFrames = (nil, 0)
 	}
 }
 

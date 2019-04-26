@@ -173,6 +173,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import ObjectiveC;
 #endif
 
+#import <RecordKit/RecordKit.h>
+
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
 #if __has_warning("-Wpragma-clang-attribute")
@@ -195,6 +197,13 @@ SWIFT_CLASS("_TtC9RecordKit7RKASRer")
 @interface RKASRer : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+
+
+@interface RKASRer (SWIFT_EXTENSION(RecordKit)) <BDSClientASRDelegate>
+- (void)VoiceRecognitionClientWorkStatus:(int32_t)workStatus obj:(id _Null_unspecified)aObj;
 @end
 
 
@@ -534,6 +543,8 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @import ObjectiveC;
 #endif
 
+#import <RecordKit/RecordKit.h>
+
 #pragma clang diagnostic ignored "-Wproperty-attribute-mismatch"
 #pragma clang diagnostic ignored "-Wduplicate-method-arg"
 #if __has_warning("-Wpragma-clang-attribute")
@@ -556,6 +567,13 @@ SWIFT_CLASS("_TtC9RecordKit7RKASRer")
 @interface RKASRer : NSObject
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_DEPRECATED_MSG("-init is unavailable");
+@end
+
+
+
+
+@interface RKASRer (SWIFT_EXTENSION(RecordKit)) <BDSClientASRDelegate>
+- (void)VoiceRecognitionClientWorkStatus:(int32_t)workStatus obj:(id _Null_unspecified)aObj;
 @end
 
 

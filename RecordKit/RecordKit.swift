@@ -37,6 +37,7 @@ public class RecordKit: NSObject {
 		inputStream.asrerConverter.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
 		inputStream.asrerConverter.outputUrl = Destination.temp(url: "ASRTempFile.wav")
 		inputStream.asrerConverter.outputFileType = kAudioFileWAVEType
+		inputStream.initObserver()
 		inputStream.initInputStream()
 		inputStream.openInputStream()
 		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
@@ -106,8 +107,8 @@ extension RecordKit: RecordKitSessionHandle {
 	
 	public func sessionShouldBeInit() {
 		try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth, .duckOthers])
-//		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
-//		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
+		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
+		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
 		try? AVAudioSession.sharedInstance().setActive(true, options: [])
 	}
 	

@@ -42,7 +42,6 @@ open class RKAudioInputStream: InputStream {
 		inputStream.audioConverter = RKAudioConverter.converter()
 		inputStream.asrerConverter = RKAudioConverter.converter()
 		inputStream.asrer = RKASRer.asrer()
-		inputStream.initObserver()
 		return inputStream
 	}
 	
@@ -56,6 +55,7 @@ open class RKAudioInputStream: InputStream {
 	
 	public func initInputStream() {
 		do {
+			try microphone.setupIOUnit()
 			try audioConverter.prepare(inRealtime: true)
 			try asrerConverter.prepare(inRealtime: true)
 			try asrer.longSpeechRecognition(audioConverter.outputUrl)
@@ -113,7 +113,7 @@ open class RKAudioInputStream: InputStream {
 	}
 	
 	deinit {
-		print("流销毁")
+		RKLogBrisk("流销毁")
 	}
 }
 
@@ -186,7 +186,7 @@ extension RKAudioInputStream: RKMicrophoneHandle {
 	open func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
 		var intByteSize: Int = Int(bufferList.pointee.mBuffers.mDataByteSize)
 		var uInt8Buffer: UnsafePointer<UInt8> = UnsafePointer(bufferList.pointee.mBuffers.mData!.bindMemory(to: UInt8.self, capacity: intByteSize))
-		print("流准备写入")
+		RKLogBrisk("流准备写入")
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)
 		audioData.mDataFrames = (bufferList, numberOfFrames)
 		do {
@@ -195,6 +195,6 @@ extension RKAudioInputStream: RKMicrophoneHandle {
 		} catch let ex {
 			print("converter convert error: \(ex)")
 		}
-		print("流已经写入")
+		RKLogBrisk("流已经写入")
 	}
 }

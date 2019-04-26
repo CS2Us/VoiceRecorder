@@ -85,7 +85,7 @@ public class RKAudioConverter: RKNode {
 		do {
 			if _inRealtime {
 				try RKTry({
-					ExtAudioFileWriteAsync(self._destinationFile, inputStream.audioData.mDataFrames.1, inputStream.audioData.mDataFrames.0!)
+					ExtAudioFileWrite(self._destinationFile, inputStream.audioData.mDataFrames.1, inputStream.audioData.mDataFrames.0!)
 				}, "ExtAudioFileRead failed")
 			} else {
 				let bufferByteSize : UInt32 = RKSettings.bufferLength.samplesCount

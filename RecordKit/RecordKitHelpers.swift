@@ -18,6 +18,12 @@ func RKLog(fullname: String = #function, file: String = #file, line: Int = #line
 }
 
 @inline(__always)
+func RKLogBrisk(_ message: String) {
+	guard RKSettings.enableLogging else { return }
+	Swift.print(message)
+}
+
+@inline(__always)
 func SizeOf32<T>(_ X: T) -> UInt32 {
 	return UInt32(MemoryLayout<T>.stride)
 }

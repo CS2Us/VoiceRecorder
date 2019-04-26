@@ -41,13 +41,8 @@ public class RKMicrophone: RKNode {
 		return microphone
 	}
 	
-	public override init() {
-		super.init()
-		setupIOUnit()
-	}
-	
 	deinit {
-		print("麦克风销毁")
+		RKLogBrisk("麦克风销毁")
 	}
 }
 
@@ -61,7 +56,7 @@ extension RKMicrophone {
 		-> OSStatus
 		in
 		
-		print("麦克风首先收到系统数据")
+		RKLogBrisk("麦克风首先收到系统数据")
 		
 		var bufferList = AudioBufferList()
 		let delegate = unsafeBitCast(inRefCon, to: AURenderCallbackDelegate.self)
@@ -86,15 +81,15 @@ extension RKMicrophone: AURenderCallbackDelegate {
 				mDataByteSize: inNumberFrames * inputFormat.asbd.mBytesPerFrame,
 				mData: nil))
 		
-		let result = AudioUnitRender(_rioUnit!,
+		let error = AudioUnitRender(_rioUnit!,
 									 ioActionFlags,
 									 inTimeStamp,
 									 1,
 									 inNumberFrames,
 									 &bufferList)
 		
-		print("麦克风收到数据回调")
-		
+		RKLogBrisk("麦克风收到数据回调: \(error)")
+
 //		if _ns == nil {
 //			_ns = DSPKit_Ns.init(asbd: inputFormat.asbd, mode: aggressive15dB)
 //		}
@@ -113,12 +108,12 @@ extension RKMicrophone: AURenderCallbackDelegate {
 			observer?.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
 		}
 		
-		return result
+		return error
 	}
 }
 
 extension RKMicrophone {
-	private func setupIOUnit() {
+	 internal func setupIOUnit() {
 		do {
 			var desc = AudioComponentDescription(
 				componentType: OSType(kAudioUnitType_Output),
@@ -127,18 +122,22 @@ extension RKMicrophone {
 				componentFlags: 0,
 				componentFlagsMask: 0)
 			
+			var error: OSStatus = noErr
+			
 			let comp = AudioComponentFindNext(nil, &desc)
 			
 			try RKTry({
-				AudioComponentInstanceNew(comp!, &self._rioUnit)
+				error = AudioComponentInstanceNew(comp!, &self._rioUnit)
 			}, "couldn't create a new instance of AURemoteIO")
 			
-			print("麦克风实例化")
+			RKLogBrisk("麦克风实例化: \(error)")
 			
 			var one: UInt32 = 1
 			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &one, SizeOf32(one))
+				error = AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &one, SizeOf32(one))
 			}, "kAudioOutputUnitProperty_EnableIO failed")
+			
+			RKLogBrisk("麦克风io: \(error)")
 			
 //			try RKTry({
 //				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one))
@@ -165,18 +164,17 @@ extension RKMicrophone {
 //				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat))
 //			}, "couldn't set the input client format on AURemoteIO")
 			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat))
+				error = AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat))
 			}, "couldn't set the output client format on AURemoteIO")
 			
-//			var maxFramesPerSlice: UInt32 = UInt32(inputFormat.sampleRate / 100)
-//			try RKTry({
-//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
-//			}, "couldn't set max frames per slice on AURemoteIO")
-//
-//			var propSize = SizeOf32(UInt32.self)
-//			try RKTry({
-//				AudioUnitGetProperty(self._rioUnit!, kAudioUnitProperty_MaximumFramesPerSlice, kAudioUnitScope_Global, 0, &maxFramesPerSlice, &propSize)
-//			}, "couldn't get max frames per slice on AURemoteIO")
+			RKLogBrisk("麦克风asbd: \(error)")
+			
+			var maxFramesPerSlice: UInt32 = UInt32(inputFormat.sampleRate / 100)
+			try RKTry({
+				error = AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
+			}, "couldn't set max frames per slice on AURemoteIO")
+			
+			RKLogBrisk("麦克风maxframes: \(error)")
 			
 			// Set the render callback on AURemoteIO
 			var renderCallback = AURenderCallbackStruct(
@@ -184,21 +182,24 @@ extension RKMicrophone {
 				inputProcRefCon: Unmanaged.passUnretained(self).toOpaque()
 			)
 			try RKTry({
-				AudioUnitSetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, SizeOf32(AURenderCallbackStruct.self))
+				error = AudioUnitSetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, SizeOf32(AURenderCallbackStruct.self))
 			}, "couldn't set render callback on AURemoteIO")
 			
-			do {
-				try AudioUnitSetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, SizeOf32(AURenderCallbackStruct.self))
-			} catch let ex {
-				print("这到底是怎么回事: \(ex)")
-			}
+			RKLogBrisk("麦克风callback: \(error)")
+			
+//			propSize = SizeOf32(AURenderCallbackStruct.self)
+//			try RKTry({
+//				error = AudioUnitGetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, &propSize)
+//			}, "couldn't get render callback on AURemoteIO")
+//
+//			RKLogBrisk("麦克风callback get: \(error)")
 			
 			// Initialize the AURemoteIO instance
 			try RKTry({
-				AudioUnitInitialize(self._rioUnit!)
+				error = AudioUnitInitialize(self._rioUnit!)
 			}, "couldn't initialize AURemoteIO instance")
 			
-			print("麦克风初始化完成")
+			RKLogBrisk("麦克风初始化: \(error)")
 		} catch let ex as NSException {
 			RKLog("Error returned from setupIOUnit: %d: %@", ex.name)
 		} catch _ {
@@ -208,15 +209,17 @@ extension RKMicrophone {
 	}
 	
 	internal func startIOUnit() throws {
+		var error: OSStatus = noErr
+		
 		try RKTry({
-			AudioOutputUnitStart(self._rioUnit!)
+			error = AudioOutputUnitStart(self._rioUnit!)
 		}, "couldn't start AURemoteIO")
 		
 //		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 //			observer.microphoneStart?(self)
 //		})
 		
-		print("麦克风开始录音")
+		RKLogBrisk("麦克风开始录音: \(error)")
 		
 		RecordKit.default.microphoneObservers.allObjects
 			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
@@ -225,13 +228,17 @@ extension RKMicrophone {
 	}
 	
 	internal func stopIOUnit() throws {
+		var error: OSStatus = noErr
+		
 		try RKTry({
-			AudioOutputUnitStop(self._rioUnit!)
+			error = AudioOutputUnitStop(self._rioUnit!)
 		}, "couldn't stop AURemoteIO")
 		
 //		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 //			observer.microphoneStop?(self)
 //		})
+		
+		RKLogBrisk("麦克风停止录音: \(error)")
 		
 		RecordKit.default.microphoneObservers.allObjects
 			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
@@ -240,16 +247,14 @@ extension RKMicrophone {
 	}
 	
 	internal func endUpIOUnit() throws {
-		print("取消麦克风before")
+		var error: OSStatus = noErr
+
 		try RKTry({
-			AudioOutputUnitStop(self._rioUnit!)
-		}, "couldn't stop AURemoteIO")
-		print("麦克风暂停")
-		try RKTry({
-			AudioComponentInstanceDispose(self._rioUnit!)
+			error = AudioComponentInstanceDispose(self._rioUnit!)
 		}, "couldn't deinit component")
 		_rioUnit = nil
-		print("取消麦克风after")
+		
+		RKLogBrisk("麦克风终止录音: \(error)")
 		
 //		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
 //			observer.microphoneEndup?(self)

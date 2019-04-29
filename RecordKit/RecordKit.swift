@@ -14,11 +14,11 @@ public class RecordKit: NSObject {
 	
 	internal var inputStream: RKAudioInputStream! {
 		didSet {
-			if inputStream != nil {
-				sessionShouldBeInit()
-			} else {
-				sessionShouldBeDeinit()
-			}
+//			if inputStream != nil {
+//				sessionShouldBeInit()
+//			} else {
+//				sessionShouldBeDeinit()
+//			}
 		}
 	}
 	
@@ -29,6 +29,7 @@ public class RecordKit: NSObject {
 	public private(set) var isRecording: Bool = false
 	
 	public func recordStart(destinationURL: Destination, outputFileType: AudioFileTypeID, outputFormat: AudioFormatID) {
+		isRecording = true
 		inputStream = RKAudioInputStream.inputStream()
 		inputStream.microphone.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
 		inputStream.audioConverter.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
@@ -41,23 +42,24 @@ public class RecordKit: NSObject {
 		inputStream.initInputStream()
 		inputStream.openInputStream()
 		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
-		isRecording = true
+		sessionShouldBeInit()
 	}
 	
 	public func recordCancle() {
+		isRecording = false
 		inputStream.closeInputStream()
 		inputStream = nil
-		isRecording = false
+		sessionShouldBeDeinit()
 	}
 	
 	public func recordStop() {
-		inputStream.stopInputStream()
 		isRecording = false
+		inputStream.stopInputStream()
 	}
 	
 	public func recordResume() {
-		inputStream.openInputStream()
 		isRecording = true
+		inputStream.openInputStream()
 	}
 }
 

@@ -24,6 +24,7 @@ open class RKAudioInputStream: InputStream {
 		var mLoopEnd: UnsafeMutablePointer<UInt8>
 		var mDataEnd: UnsafeMutablePointer<UInt8>
 		var mDataFrames: (UnsafePointer<AudioBufferList>?, UInt32)
+		var mTotalFrames: UInt32
 		
 		init(bufferCapacity: UInt32) {
 			mDataLength = 0
@@ -33,6 +34,7 @@ open class RKAudioInputStream: InputStream {
 			mLoopStart = mData
 			mLoopEnd = mData
 			mDataFrames = (nil, 0)
+			mTotalFrames = 0
 		}
 	}
 	
@@ -179,6 +181,7 @@ extension RKAudioInputStream.AudioDataQueue {
 		mLoopStart = mData
 		mLoopEnd = mData
 		mDataFrames = (nil, 0)
+		mTotalFrames = 0
 	}
 }
 
@@ -189,6 +192,16 @@ extension RKAudioInputStream: RKMicrophoneHandle {
 		RKLogBrisk("流准备写入")
 		audioData.mDataLength = audioData.queueAudio(&uInt8Buffer, dataLength: &intByteSize)
 		audioData.mDataFrames = (bufferList, numberOfFrames)
+		audioData.mTotalFrames += numberOfFrames
+		
+		guard UInt32(RKSettings.maxDuration * RKSettings.sampleRate)
+			> audioData.mTotalFrames else {
+				RKLogBrisk("时间到，流停止: \(audioData.mTotalFrames)")
+				DispatchQueue.main.async {
+					RecordKit.default.recordCancle()
+				}
+				return }
+		
 		do {
 			try audioConverter.convert(inputStream: self)
 			try asrerConverter.convert(inputStream: self)
@@ -196,5 +209,6 @@ extension RKAudioInputStream: RKMicrophoneHandle {
 			print("converter convert error: \(ex)")
 		}
 		RKLogBrisk("流已经写入")
+		
 	}
 }

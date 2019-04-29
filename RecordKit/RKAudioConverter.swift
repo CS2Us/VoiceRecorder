@@ -183,7 +183,7 @@ public class RKAudioConverter: RKNode {
 	}
 	
 	deinit {
-		print("转换器销毁")
+		RKLogBrisk("转换器销毁")
 	}
 }
 

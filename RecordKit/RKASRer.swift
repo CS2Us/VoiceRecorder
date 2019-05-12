@@ -19,7 +19,7 @@ public protocol RKASRerHandle {
 	optional func asrRecognitionCompleted(_ asr: RKASRer)
 }
 
-public class RKASRer: NSObject {
+public class RKASRer: RKObject {
 	private var _asrEventManager: BDSEventManager
 	private var _longSpeech: Bool = false
 	
@@ -28,7 +28,11 @@ public class RKASRer: NSObject {
 	public var chunkResult: String?
 	public var finalResult: String?
 	public var speechId: String?
-	public var inputUrl: Destination = .none
+	public var dst: Destination = .none {
+		didSet {
+			speechId = dst.fileId
+		}
+	}
 	
 	public static func asrer() -> RKASRer {
 		let asrer = RKASRer()
@@ -53,34 +57,29 @@ public class RKASRer: NSObject {
 		enablePunctuation() /** 开启标点输出 **/
 	}
 	
-	public func audioStreamRecognition(inputStream: RKAudioInputStream) throws {
-		speechId = inputStream.audioConverter?.outputUrl.fileId
+	public func audioStreamRecognition(inputStream: InputStream) throws {
 		_longSpeech = false
 		resetRecognition()
 		_asrEventManager.setParameter(inputStream, forKey: BDS_ASR_AUDIO_INPUT_STREAM)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
 	
-	public func fileRecognition(_ filePath: Destination) throws {
-		speechId = filePath.fileId
-		inputUrl = filePath
+	public func fileRecognition() {
 		resetRecognition()
 		_asrEventManager.setDelegate(self)
-		if filePath.duration >= RKSettings.ASRLimitDuration {
+		if dst.duration >= RKSettings.ASRLimitDuration {
 			_longSpeech = true
-			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
+			_asrEventManager.setParameter(dst.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
 			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
-			try longSpeechRecognition(filePath)
+			longSpeechRecognition()
 		} else {
 			_longSpeech = false
-			_asrEventManager.setParameter(filePath.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
+			_asrEventManager.setParameter(dst.url.absoluteString, forKey: BDS_ASR_AUDIO_FILE_PATH)
 			_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 		}
 	}
 	
-	public func longSpeechRecognition(_ filePath: Destination) throws {
-		speechId = filePath.fileId
-		inputUrl = filePath
+	public func longSpeechRecognition() {
 		_longSpeech = true
 		resetRecognition()
 		_asrEventManager.setParameter(true, forKey:BDS_ASR_ENABLE_LONG_SPEECH)
@@ -88,16 +87,11 @@ public class RKASRer: NSObject {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_START)
 	}
 	
-	internal func endRecognition() throws {
+	internal func endRecognition() {
 		_asrEventManager.sendCommand(BDS_ASR_CMD_STOP)
 		_asrEventManager.sendCommand(BDS_ASR_CMD_CANCEL)
-//		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-//			Broadcaster.notify(RKASRerHandle.self, block: { observer in
-//				observer.asrRecognitionCompleted?(self)
-//			})
-//		})
 		
-		RecordKit.default.asrerObservers.allObjects
+		RecordKit.asrerObservers.allObjects
 			.map{$0 as? RKASRerHandle}.filter{$0 != nil}.forEach { observer in
 				observer?.asrRecognitionCompleted?(self)
 		}
@@ -148,26 +142,29 @@ extension RKASRer: BDSClientASRDelegate {
 		case EVoiceRecognitionClientWorkStatusFlushData:
 			originalObj = aObj
 			flushResult = (((aObj as! NSDictionary)["results_recognition"]) as! NSArray).firstObject as? String
-			Broadcaster.notify(RKASRerHandle.self, block: { observer in
-				observer.asrRecognitionFlushing?(self)
-			})
+			RecordKit.asrerObservers.allObjects
+				.map{$0 as? RKASRerHandle}.filter{$0 != nil}.forEach { observer in
+					observer?.asrRecognitionFlushing?(self)
+			}
 			RKLog("CALLBACK: partial result - \(String(describing: parseDicDescription(data: aObj)))")
 		case EVoiceRecognitionClientWorkStatusFinish:
 			chunkResult = (((aObj as! NSDictionary)["results_recognition"]) as! NSArray).firstObject as? String
 			if !_longSpeech {
 				finalResult = chunkResult
-				Broadcaster.notify(RKASRerHandle.self, block: { observer in
-					observer.asrRecognitionCompleted?(self)
-				})
+				RecordKit.asrerObservers.allObjects
+					.map{$0 as? RKASRerHandle}.filter{$0 != nil}.forEach { observer in
+						observer?.asrRecognitionCompleted?(self)
+				}
 			} else {
 				finalResult = (finalResult ?? "") + (chunkResult ?? "")
 			}
 			RKLog("CALLBACK: final result - \(String(describing: parseDicDescription(data: aObj)))")
 		case EVoiceRecognitionClientWorkStatusError:
 			originalObj = aObj
-			Broadcaster.notify(RKASRerHandle.self, block: { observer in
-				observer.asrRecognitionError?(self)
-			})
+			RecordKit.asrerObservers.allObjects
+				.map{$0 as? RKASRerHandle}.filter{$0 != nil}.forEach { observer in
+					observer?.asrRecognitionError?(self)
+			}
 			RKLog("CALLBACK: encount error - \(aObj as! NSError)")
 		case EVoiceRecognitionClientWorkStatusCancel:
 			RKLog("CALLBACK: user press cancel.\n")

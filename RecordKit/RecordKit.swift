@@ -9,57 +9,32 @@
 import Foundation
 import AVFoundation
 
-public class RecordKit: NSObject {
-	public static let `default` = RecordKit()
+public class RecordKit: RKObject {
+	internal static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
 	
-	internal var inputStream: RKAudioInputStream! {
+	/// Observers about components
+	public internal(set) static var microphoneObservers = NSPointerArray.weakObjects()
+	public internal(set) static var asrerObservers = NSPointerArray.weakObjects()
+	public internal(set) static var converterObservers = NSPointerArray.weakObjects()
+	/// Reference to the AV Audio Engine
+	public internal(set) static var engine = AVAudioEngine()
+	
+	public static var finalMixer: RKMixer?
+	public static var output: RKNode? {
 		didSet {
-//			if inputStream != nil {
-//				sessionShouldBeInit()
-//			} else {
-//				sessionShouldBeDeinit()
-//			}
+			// if the assigned output is already a mixer, avoid creating an additional mixer and just use
+			// that input as the finalMixer
+			if let mixerInput = output as? RKMixer {
+				finalMixer = mixerInput
+			} else {
+				// otherwise at this point create the finalMixer and add the input to it
+				let mixer = RKMixer()
+				output?.connect(to: mixer)
+				finalMixer = mixer
+			}
+			guard let finalMixer = finalMixer else { return }
+			engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: RKSettings.audioFormat)
 		}
-	}
-	
-	public var microphoneObservers = NSPointerArray.weakObjects()
-	public var asrerObservers = NSPointerArray.weakObjects()
-	public var converterObservers = NSPointerArray.weakObjects()
-	
-	public private(set) var isRecording: Bool = false
-	
-	public func recordStart(destinationURL: Destination, outputFileType: AudioFileTypeID, outputFormat: AudioFormatID) {
-		isRecording = true
-		inputStream = RKAudioInputStream.inputStream()
-		inputStream.microphone.inputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
-		inputStream.audioConverter.outputFormat = RKSettings.IOFormat(formatID: outputFormat, bitDepth: .int16)
-		inputStream.audioConverter.outputUrl = destinationURL
-		inputStream.audioConverter.outputFileType = outputFileType
-		inputStream.asrerConverter.outputFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .int16, sampleRate: 16000)
-		inputStream.asrerConverter.outputUrl = Destination.temp(url: "ASRTempFile.wav")
-		inputStream.asrerConverter.outputFileType = kAudioFileWAVEType
-		inputStream.initObserver()
-		inputStream.initInputStream()
-		inputStream.openInputStream()
-		RKLog("outputUrl: \(destinationURL.url.absoluteString)")
-		sessionShouldBeInit()
-	}
-	
-	public func recordCancle() {
-		isRecording = false
-		inputStream.closeInputStream()
-		inputStream = nil
-		sessionShouldBeDeinit()
-	}
-	
-	public func recordStop() {
-		isRecording = false
-		inputStream.stopInputStream()
-	}
-	
-	public func recordResume() {
-		isRecording = true
-		inputStream.openInputStream()
 	}
 }
 
@@ -75,48 +50,6 @@ public protocol RecordKitSessionHandle {
 	optional func sessionShouldBeInit()
 	@objc(sessionShouldBeDeinit)
 	optional func sessionShouldBeDeinit()
-}
-
-extension RecordKit: RecordKitSessionHandle {
-	public func handleInterruption(notification: Notification) {
-		if inputStream != nil {
-			RecordKit.default.recordCancle()
-		}
-	}
-	
-	public func handleRouteChange(notification: Notification) {
-		guard let userInfo = notification.userInfo,
-			let reasonValue = userInfo[AVAudioSessionRouteChangeReasonKey] as? UInt,
-			let reason = AVAudioSession.RouteChangeReason(rawValue:reasonValue) else {
-				return
-		}
-		switch reason {
-		case .newDeviceAvailable:
-			let session = AVAudioSession.sharedInstance()
-			for output in session.currentRoute.outputs where output.portType == AVAudioSession.Port.bluetoothA2DP {
-				break
-			}
-		case .oldDeviceUnavailable:
-			if let previousRoute =
-				userInfo[AVAudioSessionRouteChangePreviousRouteKey] as? AVAudioSessionRouteDescription {
-				for output in previousRoute.outputs where output.portType == AVAudioSession.Port.bluetoothA2DP {
-					break
-				}
-			}
-		default: ()
-		}
-	}
-	
-	public func sessionShouldBeInit() {
-		try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetooth, .duckOthers])
-		try? AVAudioSession.sharedInstance().setPreferredIOBufferDuration(TimeInterval(10 / 1000))
-		try? AVAudioSession.sharedInstance().setPreferredSampleRate(RKSettings.sampleRate)
-		try? AVAudioSession.sharedInstance().setActive(true, options: [])
-	}
-	
-	public func sessionShouldBeDeinit() {
-		try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
-	}
 }
 
 public extension NSPointerArray {

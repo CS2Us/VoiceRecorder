@@ -1,27 +1,17 @@
 //
-//  RKAudioPlot.swift
+//  RKMicrophone.swift
 //  RecordKit
 //
-//  Created by guoyiyuan on 2019/3/8.
+//  Created by guoyiyuan on 2019/5/12.
 //  Copyright © 2019 guoyiyuan. All rights reserved.
 //
 
 import Foundation
-import AudioToolbox
-//import DSPKit
-
-@objc protocol AURenderCallbackDelegate {
-	func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>,
-					   inTimeStamp: UnsafePointer<AudioTimeStamp>,
-					   inBufNumber: UInt32,
-					   inNumberFrames: UInt32,
-					   ioData: UnsafeMutablePointer<AudioBufferList>) -> OSStatus
-}
 
 @objc
 public protocol RKMicrophoneHandle {
-	@objc(microphoneWorking:bufferList:numberOfFrames:)
-	optional func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32)
+	@objc(microphoneWorking:buffer:)
+	optional func microphoneWorking(_ microphone: RKMicrophone, buffer: AVAudioPCMBuffer)
 	@objc(microphoneStop:)
 	optional func microphoneStop(_ microphone: RKMicrophone)
 	@objc(microphoneClose:)
@@ -30,239 +20,106 @@ public protocol RKMicrophoneHandle {
 	optional func microphoneStart(_ microphone: RKMicrophone)
 }
 
-public class RKMicrophone: RKNode {
-	private var _rioUnit: AudioUnit? = nil
-//	private var _ns: DSPKit_Ns? = nil
+/// Audio from the standard input
+public class RKMicrophone: RKNode, RKToggleable {
 	
-	public var inputFormat: RKSettings.IOFormat = RKSettings.IOFormat(formatID: kAudioFormatLinearPCM, bitDepth: .float32)
+	internal let mixer = AVAudioMixerNode()
 	
-	public static func microphone() -> RKMicrophone {
-		let microphone = RKMicrophone()
-		return microphone
+	/// Output Volume (Default 1)
+	public var volume: Double = 1.0 {
+		didSet {
+			volume = max(volume, 0)
+			mixer.outputVolume = Float(volume)
+		}
+	}
+	
+	fileprivate var lastKnownVolume: Double = 1.0
+	
+	/// Determine if the microphone is currently on.
+	public var isStarted: Bool {
+		return volume != 0.0
+	}
+	
+	/// Initialize the microphone
+	override public init() {
+		super.init()
+		
+		self.avAudioNode = AVAudioMixerNode()
+		
+		let format = getFormatForDevice()
+		// we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
+		setAVSessionSampleRate(sampleRate: RecordKit.deviceSampleRate)
+		RecordKit.engine.attach(avAudioUnitOrNode)
+		RecordKit.engine.connect(RecordKit.engine.inputNode, to: self.avAudioNode, format: format!)
+		setAVSessionSampleRate(sampleRate: RKSettings.sampleRate)
+	}
+	
+	/// Function to start, play, or activate the node, all do the same thing
+	public func start() {
+		if isStopped {
+			volume = lastKnownVolume
+		}
+		RecordKit.microphoneObservers.allObjects
+			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.microphoneStart?(self)
+		}
+	}
+	
+	/// Function to stop or bypass the node, both are equivalent
+	public func stop() {
+		if isPlaying {
+			lastKnownVolume = volume
+			volume = 0
+		}
+		RecordKit.microphoneObservers.allObjects
+			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.microphoneEndup?(self)
+		}
 	}
 	
 	deinit {
-		RKLogBrisk("麦克风销毁")
+		
 	}
 }
 
 extension RKMicrophone {
-	var RecordKit_RenderCallback: AURenderCallback { return {(inRefCon,
-		ioActionFlags/*: UnsafeMutablePointer<AudioUnitRenderActionFlags>*/,
-		inTimeStamp/*: UnsafePointer<AudioTimeStamp>*/,
-		inBufNumber/*: UInt32*/,
-		inNumberFrames/*: UInt32*/,
-		ioData/*: UnsafeMutablePointer<AudioBufferList>*/)
-		-> OSStatus
-		in
-		
-		RKLogBrisk("麦克风首先收到系统数据")
-		
-		var bufferList = AudioBufferList()
-		let delegate = unsafeBitCast(inRefCon, to: AURenderCallbackDelegate.self)
-		let result = delegate.performRender(ioActionFlags,
-											inTimeStamp: inTimeStamp,
-											inBufNumber: inBufNumber,
-											inNumberFrames: inNumberFrames,
-											ioData: &bufferList)
-		return result
-		}
-	}
-}
-
-extension RKMicrophone: AURenderCallbackDelegate {
-	func performRender(_ ioActionFlags: UnsafeMutablePointer<AudioUnitRenderActionFlags>, inTimeStamp: UnsafePointer<AudioTimeStamp>, inBufNumber: UInt32, inNumberFrames: UInt32, ioData: UnsafeMutablePointer<AudioBufferList>) -> OSStatus {
-		// Make sure the size of each buffer in the stored buffer array
-		// is properly set using the actual number of frames coming in!
-		var bufferList = AudioBufferList(
-			mNumberBuffers: 1,
-			mBuffers: AudioBuffer(
-				mNumberChannels: inputFormat.channelCount,
-				mDataByteSize: inNumberFrames * inputFormat.asbd.mBytesPerFrame,
-				mData: nil))
-		
-		let error = AudioUnitRender(_rioUnit!,
-									 ioActionFlags,
-									 inTimeStamp,
-									 1,
-									 inNumberFrames,
-									 &bufferList)
-		
-		RKLogBrisk("麦克风收到数据回调: \(error)")
-
-//		if _ns == nil {
-//			_ns = DSPKit_Ns.init(asbd: inputFormat.asbd, mode: aggressive15dB)
-//		}
-//		_ns!.dspFrameProcesss(&bufferList)
-//
-//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-//			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: bufferList.mBuffers.mDataByteSize / inputFormat.asbd.mBytesPerFrame);
-//		})
-//
-//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-//			observer.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames);
-//		})
-		
-		RecordKit.default.microphoneObservers.allObjects
-			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
-			observer?.microphoneWorking?(self, bufferList: &bufferList, numberOfFrames: inNumberFrames)
-		}
-		
-		return error
-	}
-}
-
-extension RKMicrophone {
-	 internal func setupIOUnit() {
+	private func setAVSessionSampleRate(sampleRate: Double) {
 		do {
-			var desc = AudioComponentDescription(
-				componentType: OSType(kAudioUnitType_Output),
-				componentSubType: OSType(kAudioUnitSubType_RemoteIO),
-				componentManufacturer: OSType(kAudioUnitManufacturer_Apple),
-				componentFlags: 0,
-				componentFlagsMask: 0)
-			
-			var error: OSStatus = noErr
-			
-			let comp = AudioComponentFindNext(nil, &desc)
-			
-			try RKTry({
-				error = AudioComponentInstanceNew(comp!, &self._rioUnit)
-			}, "couldn't create a new instance of AURemoteIO")
-			
-			RKLogBrisk("麦克风实例化: \(error)")
-			
-			var one: UInt32 = 1
-			try RKTry({
-				error = AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Input), 1, &one, SizeOf32(one))
-			}, "kAudioOutputUnitProperty_EnableIO failed")
-			
-			RKLogBrisk("麦克风io: \(error)")
-			
-//			try RKTry({
-//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioOutputUnitProperty_EnableIO), AudioUnitScope(kAudioUnitScope_Output), 0, &one, SizeOf32(one))
-//			}, "could not enable output on AURemoteIO")
-			
-//			var zero: UInt32 = 0
-//			try RKTry({
-//				AudioUnitSetProperty(self._rioUnit!,
-//									 kAUVoiceIOProperty_BypassVoiceProcessing,
-//									 kAudioUnitScope_Global,
-//									 0,
-//									 &zero,
-//									 SizeOf32(zero))
-//			}, "kAUVoiceIOProperty_BypassVoiceProcessing failed")
-//			try RKTry({
-//				AudioUnitSetProperty(self._rioUnit!, kAUVoiceIOProperty_VoiceProcessingEnableAGC, kAudioUnitScope_Global,
-//									 0,
-//									 &zero,
-//									 SizeOf32(zero))
-//			}, "kAUVoiceIOProperty_VoiceProcessingEnableAGC failed")
-			
-			var ioFormat = inputFormat.asbd
-//			try RKTry({
-//				AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Input), 0, &ioFormat, SizeOf32(ioFormat))
-//			}, "couldn't set the input client format on AURemoteIO")
-			try RKTry({
-				error = AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_StreamFormat), AudioUnitScope(kAudioUnitScope_Output), 1, &ioFormat, SizeOf32(ioFormat))
-			}, "couldn't set the output client format on AURemoteIO")
-			
-			RKLogBrisk("麦克风asbd: \(error)")
-			
-			var maxFramesPerSlice: UInt32 = UInt32(inputFormat.sampleRate / 100)
-			try RKTry({
-				error = AudioUnitSetProperty(self._rioUnit!, AudioUnitPropertyID(kAudioUnitProperty_MaximumFramesPerSlice), AudioUnitScope(kAudioUnitScope_Global), 0, &maxFramesPerSlice, SizeOf32(UInt32.self))
-			}, "couldn't set max frames per slice on AURemoteIO")
-			
-			RKLogBrisk("麦克风maxframes: \(error)")
-			
-			// Set the render callback on AURemoteIO
-			var renderCallback = AURenderCallbackStruct(
-				inputProc: RecordKit_RenderCallback,
-				inputProcRefCon: Unmanaged.passUnretained(self).toOpaque()
-			)
-			try RKTry({
-				error = AudioUnitSetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, SizeOf32(AURenderCallbackStruct.self))
-			}, "couldn't set render callback on AURemoteIO")
-			
-			RKLogBrisk("麦克风callback: \(error)")
-			
-//			propSize = SizeOf32(AURenderCallbackStruct.self)
-//			try RKTry({
-//				error = AudioUnitGetProperty(self._rioUnit!, kAudioOutputUnitProperty_SetInputCallback, kAudioUnitScope_Global, 1, &renderCallback, &propSize)
-//			}, "couldn't get render callback on AURemoteIO")
-//
-//			RKLogBrisk("麦克风callback get: \(error)")
-			
-			// Initialize the AURemoteIO instance
-			try RKTry({
-				error = AudioUnitInitialize(self._rioUnit!)
-			}, "couldn't initialize AURemoteIO instance")
-			
-			RKLogBrisk("麦克风初始化: \(error)")
-		} catch let ex as NSException {
-			RKLog("Error returned from setupIOUnit: %d: %@", ex.name)
-		} catch _ {
-			RKLog("Unknown error returned from setupIOUnit")
-		}
-		
-	}
-	
-	internal func startIOUnit() throws {
-		var error: OSStatus = noErr
-		
-		try RKTry({
-			error = AudioOutputUnitStart(self._rioUnit!)
-		}, "couldn't start AURemoteIO")
-		
-//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-//			observer.microphoneStart?(self)
-//		})
-		
-		RKLogBrisk("麦克风开始录音: \(error)")
-		
-		RecordKit.default.microphoneObservers.allObjects
-			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
-			observer?.microphoneStart?(self)
+			try AVAudioSession.sharedInstance().setPreferredSampleRate(sampleRate)
+		} catch {
+			RKLog(error)
 		}
 	}
 	
-	internal func stopIOUnit() throws {
-		var error: OSStatus = noErr
-		
-		try RKTry({
-			error = AudioOutputUnitStop(self._rioUnit!)
-		}, "couldn't stop AURemoteIO")
-		
-//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-//			observer.microphoneStop?(self)
-//		})
-		
-		RKLogBrisk("麦克风停止录音: \(error)")
-		
-		RecordKit.default.microphoneObservers.allObjects
-			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
-			observer?.microphoneStop?(self)
+	// Here is where we actually check the device type and make the settings, if needed
+	private func getFormatForDevice() -> AVAudioFormat? {
+		var audioFormat: AVAudioFormat?
+		#if os(iOS) && !targetEnvironment(simulator)
+		let currentFormat = RecordKit.engine.inputNode.inputFormat(forBus: 0)
+		let desiredFS = RecordKit.deviceSampleRate
+		if let layout = currentFormat.channelLayout {
+			audioFormat = AVAudioFormat(commonFormat: currentFormat.commonFormat,
+										sampleRate: desiredFS,
+										interleaved: currentFormat.isInterleaved,
+										channelLayout: layout)
+		} else {
+			audioFormat = AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 1)
 		}
-	}
-	
-	internal func endUpIOUnit() throws {
-		var error: OSStatus = noErr
-
-		try RKTry({
-			error = AudioComponentInstanceDispose(self._rioUnit!)
-		}, "couldn't deinit component")
-		_rioUnit = nil
-		
-		RKLogBrisk("麦克风终止录音: \(error)")
-		
-//		Broadcaster.notify(RKMicrophoneHandle.self, block: { observer in
-//			observer.microphoneEndup?(self)
-//		})
-		
-		RecordKit.default.microphoneObservers.allObjects
-			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
-			observer?.microphoneEndup?(self)
-		}
+		#else
+		let desiredFS = RKSettings.sampleRate
+		audioFormat = AVAudioFormat(standardFormatWithSampleRate: desiredFS, channels: 1)
+		#endif
+		return audioFormat
 	}
 }
+
+//
+//public func stop() {
+//	engine.pause()
+//	
+//	RecordKit.microphoneObservers.allObjects
+//		.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
+//			observer?.nodeRecorderStop?(self)
+//	}
+//}
+

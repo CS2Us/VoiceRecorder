@@ -107,3 +107,69 @@ public func Desc(formatFlags: AudioFormatFlags) -> String {
 	default: return "Unknown Format Flags"
 	}
 }
+
+/// Adding instantiation with component and callback
+public extension AVAudioUnit {
+	class func _instantiate(with component: AudioComponentDescription, callback: @escaping (AVAudioUnit) -> Void) {
+		AVAudioUnit.instantiate(with: component, options: []) { avAudioUnit, _ in
+			avAudioUnit.map {
+				RecordKit.engine.attach($0)
+				callback($0)
+			}
+		}
+	}
+}
+
+extension AVAudioNode {
+	func inputConnections() -> [AVAudioConnectionPoint] {
+		return (0..<numberOfInputs).compactMap { engine?.inputConnectionPoint(for: self, inputBus: $0) }
+	}
+}
+
+/// Helper function to convert codes for Audio Units
+/// - parameter string: Four character string to convert
+///
+public func fourCC(_ string: String) -> UInt32 {
+	let utf8 = string.utf8
+	precondition(utf8.count == 4, "Must be a 4 char string")
+	var out: UInt32 = 0
+	for char in utf8 {
+		out <<= 8
+		out |= UInt32(char)
+	}
+	return out
+}
+
+public extension AUParameter {
+	@nonobjc
+	convenience init(identifier: String,
+					 name: String,
+					 address: AUParameterAddress,
+					 range: ClosedRange<Double>,
+					 unit: AudioUnitParameterUnit,
+					 flags: AudioUnitParameterOptions) {
+		
+		self.init(identifier: identifier,
+				  name: name,
+				  address: address,
+				  min: AUValue(range.lowerBound),
+				  max: AUValue(range.upperBound),
+				  unit: unit,
+				  flags: flags)
+	}
+}
+
+extension AudioUnitParameterOptions {
+	public static let `default`:AudioUnitParameterOptions = [.flag_IsReadable, .flag_IsWritable, .flag_CanRamp]
+}
+
+extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntegerLiteral {
+	/// Initialize array with zeros, ~10x faster than append for array of size 4096
+	///
+	/// - parameter count: Number of elements in the array
+	///
+	
+	public init(zeros count: Int) {
+		self.init(repeating: 0, count: count)
+	}
+}

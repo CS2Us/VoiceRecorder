@@ -67,7 +67,7 @@ class RecorderViewController: UIViewController {
 	
 	fileprivate func initObserver() {
 		{ [weak self] in
-			RecordKit.default.microphoneObservers.addObject(self)
+			RecordKit.microphoneObservers.addObject(self)
 		}()
 		
 //		Broadcaster.register(RKMicrophoneHandle.self, observer: self)
@@ -173,8 +173,8 @@ class RecorderViewController: UIViewController {
         
         self.recordingTs = NSDate().timeIntervalSince1970
         self.silenceTs = 0
-	
-		RecordKit.default.recordStart(destinationURL: .documents(url: "VoiceOutput.m4a"), outputFileType: kAudioFileM4AType, outputFormat: kAudioFormatMPEG4AAC)
+		
+		RecordKit.recordStart()
 		
         self.updateUI(.recording)
     }
@@ -184,7 +184,7 @@ class RecorderViewController: UIViewController {
             d.didFinishRecording()
         }
 		
-		RecordKit.default.recordCancle()
+		RecordKit.recordCancle()
 
         self.updateUI(.stopped)
     }
@@ -214,7 +214,7 @@ class RecorderViewController: UIViewController {
     }
     
     private func isRecording() -> Bool {
-        return RecordKit.default.isRecording
+        return RecordKit.shouldBeRunning
     }
 	
 	deinit {
@@ -224,16 +224,11 @@ class RecorderViewController: UIViewController {
 }
 
 extension RecorderViewController: RKMicrophoneHandle {
-	func microphoneWorking(_ microphone: RKMicrophone, bufferList: UnsafePointer<AudioBufferList>, numberOfFrames: UInt32) {
+	func microphoneWorking(_ microphone: RKMicrophone, buffer: AVAudioPCMBuffer) {
 		let level: Float = -50
 		let length: UInt32 = 1024
 		
-		guard let floatBuffers: UnsafeMutablePointer<UnsafeMutablePointer<Float>?> = {
-			let floatConverter = EZAudioFloatConverter(inputFormat: microphone.inputFormat.asbd)
-			let floatBuffers = EZAudioUtilities.floatBuffers(withNumberOfFrames: numberOfFrames, numberOfChannels: microphone.inputFormat.channelCount)
-			floatConverter?.convertData(from: UnsafeMutablePointer<AudioBufferList>(mutating: bufferList), withNumberOfFrames: numberOfFrames, toFloatBuffers: floatBuffers)
-			return floatBuffers
-			}(), let floatData: UnsafePointer<Float> = UnsafePointer(floatBuffers[0]) else { return }
+		guard let floatData: UnsafePointer<Float> = UnsafePointer(buffer.floatChannelData?[0]) else { return }
 		
 		var value: Float = 0
 		vDSP_meamgv(floatData, 1, &value, vDSP_Length(length))
@@ -246,7 +241,7 @@ extension RecorderViewController: RKMicrophoneHandle {
 		let silent = average < level
 		let ts = NSDate().timeIntervalSince1970
 		if ts - self.renderTs > 0.1 {
-			let floats = UnsafeBufferPointer(start: floatData, count: Int(numberOfFrames))
+			let floats = UnsafeBufferPointer(start: floatData, count: Int(buffer.frameLength))
 			let frame = floats.map({ (f) -> Int in
 				return Int(f * Float(Int16.max))
 			})
@@ -269,12 +264,12 @@ extension RecorderViewController: RKMicrophoneHandle {
 
 extension RecorderViewController: RecordKitSessionHandle {
 	func handleRouteChange(notification: Notification) {
-		RecordKit.default.handleRouteChange(notification: notification)
+//		RecordKit.handleRouteChange(notification: notification)
 	}
 	
 	func handleInterruption(notification: Notification) {
 		stopRecording()
-		RecordKit.default.handleInterruption(notification: notification)
+//		RecordKit.handleInterruption(notification: notification)
 	}
 	
 	func sessionShouldBeInit() {

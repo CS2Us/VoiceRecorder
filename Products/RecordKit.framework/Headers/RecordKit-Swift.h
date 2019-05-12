@@ -313,6 +313,9 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL enableLogging;)
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSTimeInterval maxDuration;)
 + (NSTimeInterval)maxDuration SWIFT_WARN_UNUSED_RESULT;
 + (void)setMaxDuration:(NSTimeInterval)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSTimeInterval timeStamp;)
++ (NSTimeInterval)timeStamp SWIFT_WARN_UNUSED_RESULT;
++ (void)setTimeStamp:(NSTimeInterval)value;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSTimeInterval ASRLimitDuration;)
 + (NSTimeInterval)ASRLimitDuration SWIFT_WARN_UNUSED_RESULT;
 + (void)setASRLimitDuration:(NSTimeInterval)value;
@@ -683,6 +686,9 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL enableLogging;)
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSTimeInterval maxDuration;)
 + (NSTimeInterval)maxDuration SWIFT_WARN_UNUSED_RESULT;
 + (void)setMaxDuration:(NSTimeInterval)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSTimeInterval timeStamp;)
++ (NSTimeInterval)timeStamp SWIFT_WARN_UNUSED_RESULT;
++ (void)setTimeStamp:(NSTimeInterval)value;
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) NSTimeInterval ASRLimitDuration;)
 + (NSTimeInterval)ASRLimitDuration SWIFT_WARN_UNUSED_RESULT;
 + (void)setASRLimitDuration:(NSTimeInterval)value;

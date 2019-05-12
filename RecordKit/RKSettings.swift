@@ -9,7 +9,7 @@
 import Foundation
 import AVFoundation
 
-public class RKSettings: RKNode {
+public class RKSettings: RKObject {
 	@objc public enum BufferLength: Int {
 		case shortest = 5
 		case veryShort = 6
@@ -19,6 +19,14 @@ public class RKSettings: RKNode {
 		case veryLong = 10
 		case huge = 11
 		case longest = 12
+	}
+	
+	/// Constants for ramps used in AKParameterRamp.hpp, AKBooster, and others
+	@objc public enum RampType: Int {
+		case linear = 0
+		case exponential = 1
+		case logarithmic = 2
+		case sCurve = 3
 	}
 	
 	public struct IOFormat {
@@ -37,7 +45,7 @@ public class RKSettings: RKNode {
 		}
 		
 		public init(formatID: AudioFormatID, bitDepth: CommonFormat,
-					channelCount: UInt32 = 1, sampleRate: Double = RKSettings.sampleRate, isInterleaved: Bool = true) {
+					channelCount: UInt32 = 2, sampleRate: Double = RKSettings.sampleRate, isInterleaved: Bool = false) {
 			self.formatID = formatID
 			self.bitDepth = bitDepth
 			self.channelCount = channelCount
@@ -54,11 +62,23 @@ public class RKSettings: RKNode {
 			return Bundle.main
 		}
 	}
+	@objc public static var channelCount: UInt32 = 2
+	@objc public static var audioFormat: AVAudioFormat {
+		return AVAudioFormat(standardFormatWithSampleRate: sampleRate, channels: channelCount)!
+	}
+	/// If set to true, Recording will stop after some delay to compensate
+	/// latency between time recording is stopped and time it is written to file
+	/// If set to false (the default value) , stopping record will be immediate,
+	/// even if the last audio frames haven't been recorded to file yet.
+	@objc public static var fixTruncatedRecordings = false
+	/// Global default rampDuration value
+	@objc public static var rampDuration: Double = 0.000_2
 	@objc public static var sampleRate: Double = 44100
 	@objc public static var bufferLength: BufferLength = .veryLong
 	@objc public static var interleaved: Bool = false
 	@objc public static var enableLogging: Bool = true
 	@objc public static var maxDuration: TimeInterval = TimeInterval(2 * 60)
+	@objc public static var timeStamp: TimeInterval = 0
 	@objc public static var ASRLimitDuration: TimeInterval = TimeInterval(60)
 	@objc public static var ASRAppID: String = /** "15731062" **/ "15807927"
 	@objc public static var ASRApiKey: String = /** "rbKB6zVhL0fAc7fn0lKGYiPn" **/ "DavSgp7gxiBbbqxdWFQpvGO0"

@@ -53,7 +53,7 @@ public class RBRecdAsr {
 		moogLadder.cutoffFrequency = 20_000
 		moogLadder.resonance = 0.5
 		
-		mainMixer = RKMixer(moogLadder, micBooster)
+		mainMixer = RKMixer(player, micBooster)
 		
 		RecordKit.output = mainMixer
 		do {
@@ -87,7 +87,7 @@ extension RecordKit {
 	public static func recordCancle() {
 		RecordKit.shouldBeRunning = false
 		RBRecdAsr.default.tape = RBRecdAsr.default.recorder.audioFile!
-		RBRecdAsr.default.recorder?.stop()
+		RBRecdAsr.default.recorder.stop()
 		RBRecdAsr.default.asrer.endRecognition()
 		RBRecdAsr.default.player.load(audioFile: RBRecdAsr.default.tape)
 		RBRecdAsr.default.tape.exportAsynchronously(
@@ -103,9 +103,13 @@ extension RecordKit {
 	
 	public static func recordStop() {
 		RecordKit.shouldBeRunning = false
+		RBRecdAsr.default.recorder.stop()
+		RBRecdAsr.default.asrer.endRecognition()
 	}
 	
 	public static func recordResume() {
 		RecordKit.shouldBeRunning = true
+		RBRecdAsr.default.recorder.record()
+		RBRecdAsr.default.asrer.longSpeechRecognition()
 	}
 }

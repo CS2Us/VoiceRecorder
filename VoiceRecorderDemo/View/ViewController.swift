@@ -31,6 +31,7 @@ class ViewController: UIViewController {
 	@IBOutlet private weak var infoLabel: UILabel!
 	@IBOutlet private weak var resetButton: UIButton!
 	@IBOutlet private weak var mainButton: UIButton!
+	@IBOutlet private weak var tempButton: UIButton!
 	
 	private lazy var frequencySlider: RKSlider = {
 		let slider = RKSlider(property: "Frequency")
@@ -85,12 +86,25 @@ class ViewController: UIViewController {
             self.setupUIForPlaying ()
         }
     }
+	
+	@IBAction func tempButtonTouched(sender: UIButton) {
+		tempButton.isSelected = !tempButton.isSelected
+		if tempButton.isSelected {
+			tempButton.setTitle("Resume", for: .normal)
+			RecordKit.recordStop()
+		} else {
+			tempButton.setTitle("Stop", for: .normal)
+			RecordKit.recordResume()
+		}
+	}
 
     @IBAction func mainButtonTouched(sender: UIButton) {
         switch state {
         case .readyToRecord :
             infoLabel.text = "Recording"
-            mainButton.setTitle("Stop", for: .normal)
+            mainButton.setTitle("Endup", for: .normal)
+			tempButton.setTitle("Stop", for: .normal)
+			tempButton.isEnabled = true
             state = .recording
             RecordKit.recordStart()
         case .recording :
@@ -99,7 +113,9 @@ class ViewController: UIViewController {
         case .readyToPlay :
             player.play()
             infoLabel.text = "Playing..."
-            mainButton.setTitle("Stop", for: .normal)
+            mainButton.setTitle("Endup", for: .normal)
+			tempButton.setTitle("Not in Work", for: .normal)
+			tempButton.isEnabled = false
             state = .playing
             plot.node = player
 

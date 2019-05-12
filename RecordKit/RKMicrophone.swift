@@ -43,8 +43,8 @@ public class RKMicrophone: RKNode, RKToggleable {
 	/// Initialize the microphone
 	override public init() {
 		super.init()
-		
-		self.avAudioNode = AVAudioMixerNode()
+		self.avAudioNode = mixer
+		RKSettings.audioInputEnabled = true
 		
 		let format = getFormatForDevice()
 		// we have to connect the input at the original device sample rate, because once AVAudioEngine is initialized, it reports the wrong rate
@@ -78,7 +78,7 @@ public class RKMicrophone: RKNode, RKToggleable {
 	}
 	
 	deinit {
-		
+		RKSettings.audioInputEnabled = false
 	}
 }
 

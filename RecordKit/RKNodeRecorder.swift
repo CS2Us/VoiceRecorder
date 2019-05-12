@@ -104,7 +104,7 @@ public class RKNodeRecorder: RKObject {
 		node.avAudioUnitOrNode.installTap(
 			onBus: 0,
 			bufferSize: recordingBufferLength,
-			format: RKSettings.audioFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
+			format: internalAudioFile.processingFormat) { [weak self] (buffer: AVAudioPCMBuffer!, _) -> Void in
 				guard let strongSelf = self else {
 					RKLog("Error: self is nil")
 					return

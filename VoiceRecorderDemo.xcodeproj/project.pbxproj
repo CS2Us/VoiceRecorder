@@ -170,6 +170,24 @@
 		08B864932287445D007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B864902287445C007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift */; };
 		08B864942287445D007AA1B8 /* RKAudioFile+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B864912287445C007AA1B8 /* RKAudioFile+Utilities.swift */; };
 		08B86496228747CE007AA1B8 /* AVAudioBufferConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B86495228747CE007AA1B8 /* AVAudioBufferConvenience.swift */; };
+		08BB053E22882CBB00F8690A /* RecordKit+StartStop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB053D22882CBB00F8690A /* RecordKit+StartStop.swift */; };
+		08BB054022882D1D00F8690A /* RKNotifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB053F22882D1D00F8690A /* RKNotifications.swift */; };
+		08BB0542228835B400F8690A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08BB0541228835B400F8690A /* Main.storyboard */; };
+		08BB0544228835D000F8690A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB0543228835D000F8690A /* ViewController.swift */; };
+		08BB05472288384C00F8690A /* RKAudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB05462288384C00F8690A /* RKAudioPlayer.swift */; };
+		08BB05492288389F00F8690A /* RKScheduledAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB05482288389F00F8690A /* RKScheduledAction.swift */; };
+		08BB054C2288390400F8690A /* RKPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB054B2288390400F8690A /* RKPlayer.swift */; };
+		08BB054E2288391F00F8690A /* RKTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB054D2288391F00F8690A /* RKTiming.swift */; };
+		08BB05502288395B00F8690A /* AVAudioTimeShim.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB054F2288395B00F8690A /* AVAudioTimeShim.swift */; };
+		08BB05552288399400F8690A /* RKPlayer+Fader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB05512288399400F8690A /* RKPlayer+Fader.swift */; };
+		08BB05562288399400F8690A /* RKPlayer+Timing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB05522288399400F8690A /* RKPlayer+Timing.swift */; };
+		08BB05572288399400F8690A /* RKPlayer+Playback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB05532288399400F8690A /* RKPlayer+Playback.swift */; };
+		08BB05582288399400F8690A /* RKPlayer+Buffering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB05542288399400F8690A /* RKPlayer+Buffering.swift */; };
+		08BB056422883B5600F8690A /* RKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB055E22883B5600F8690A /* RKNodeOutputPlot.swift */; };
+		08BB056722883BE700F8690A /* RKSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056622883BE700F8690A /* RKSlider.swift */; };
+		08BB056922883C0600F8690A /* RKPropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056822883C0600F8690A /* RKPropertyControl.swift */; };
+		08BB056B22883C3500F8690A /* RKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056A22883C3500F8690A /* RKColor.swift */; };
+		08BB056D22883CBD00F8690A /* RKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056C22883CBD00F8690A /* RKView.swift */; };
 		08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112D2236A844009E91B4 /* libc++.tbd */; };
 		08C211302236A84F009E91B4 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */; };
 		08C211322236A870009E91B4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C211312236A870009E91B4 /* AudioToolbox.framework */; };
@@ -180,28 +198,16 @@
 		08C2113C2236A8B2009E91B4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2113B2236A8B2009E91B4 /* SystemConfiguration.framework */; };
 		08C2113E2236A8C2009E91B4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2113D2236A8C2009E91B4 /* GLKit.framework */; };
 		08C211732236AD08009E91B4 /* RKASRer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C211722236AD08009E91B4 /* RKASRer.swift */; };
-		08CDBA1E2264431A00121D7E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA172264431A00121D7E /* MainViewController.swift */; };
-		08CDBA1F2264431A00121D7E /* RecordingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA182264431A00121D7E /* RecordingsViewController.swift */; };
-		08CDBA202264431A00121D7E /* RecordButtonKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1B2264431A00121D7E /* RecordButtonKit.swift */; };
-		08CDBA212264431A00121D7E /* RecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1C2264431A00121D7E /* RecordButton.swift */; };
-		08CDBA222264431A00121D7E /* RecorderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA1D2264431A00121D7E /* RecorderViewController.swift */; };
-		08CDBA26226462E500121D7E /* NoiseSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CDBA25226462E500121D7E /* NoiseSViewController.swift */; };
 		08CDBA2C22647E1E00121D7E /* DSPKit_Ns.h in Headers */ = {isa = PBXBuildFile; fileRef = 086D4A382261E68900ADF988 /* DSPKit_Ns.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08CDBA2D22647E2400121D7E /* DSPKit_AEC.h in Headers */ = {isa = PBXBuildFile; fileRef = 08D9107A226337BD0041530E /* DSPKit_AEC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08CDE6EF225AE4EB0092D12A /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
 		08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */; };
 		08D910792263379D0041530E /* DSPKit_AEC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 08D910782263379D0041530E /* DSPKit_AEC.mm */; };
 		08D9107C22633ACB0041530E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
-		08DA86C022641A8000CB7A04 /* AudioVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86BF22641A8000CB7A04 /* AudioVisualizerView.swift */; };
 		08DA86D622641AC000CB7A04 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86D522641AC000CB7A04 /* Extensions.swift */; };
-		08DA86D722641E1900CB7A04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 087879092215121100A8662E /* Main.storyboard */; };
 		08DA86D822641E1900CB7A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0878790E2215121200A8662E /* LaunchScreen.storyboard */; };
 		08DA86DD226421D100CB7A04 /* Pods_RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E566557B02FDB54202C269DB /* Pods_RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08DA86DE226421D100CB7A04 /* Pods_VoiceRecorderDemo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07DAFEB0539B26A9D0B43607 /* Pods_VoiceRecorderDemo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		08DA86E42264251100CB7A04 /* PRTweenTimingFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 08DA86E02264251100CB7A04 /* PRTweenTimingFunctions.h */; };
-		08DA86E52264251100CB7A04 /* PRTween.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86E12264251100CB7A04 /* PRTween.m */; };
-		08DA86E62264251100CB7A04 /* PRTween.h in Headers */ = {isa = PBXBuildFile; fileRef = 08DA86E22264251100CB7A04 /* PRTween.h */; };
-		08DA86E72264251100CB7A04 /* PRTweenTimingFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86E32264251100CB7A04 /* PRTweenTimingFunctions.m */; };
 		08DA86EB22642CA000CB7A04 /* StartRecording.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 08DA86E922642C9F00CB7A04 /* StartRecording.aiff */; };
 		08DA86EC22642CA000CB7A04 /* StopRecording.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 08DA86EA22642C9F00CB7A04 /* StopRecording.aiff */; };
 		08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DB4F782230162500267ACD /* RecordKitHelpers.swift */; };
@@ -213,7 +219,7 @@
 		08DFE64822255D2F0077E66A /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DFE64722255D2F0077E66A /* UIColor+Extension.swift */; };
 		08DFE64A222560790077E66A /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DFE649222560790077E66A /* UIFont+Extension.swift */; };
 		08DFE64E222560E40077E66A /* UIView+Doable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DFE64D222560E40077E66A /* UIView+Doable.swift */; };
-		08E5D33D2282A5AF00F355CB /* RecordKit+StarUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E5D33C2282A5AF00F355CB /* RecordKit+StarUp.swift */; };
+		08E5D33D2282A5AF00F355CB /* RecordKit+RBRecdAsr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E5D33C2282A5AF00F355CB /* RecordKit+RBRecdAsr.swift */; };
 		08E5D3402282ADAC00F355CB /* RKMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E5D33F2282ADAC00F355CB /* RKMixer.swift */; };
 		08E5D3422282AEB600F355CB /* RKConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08E5D3412282AEB600F355CB /* RKConnection.swift */; };
 		08FCFA8C2265BFC500E2B3DF /* DSPKit_Ns.mm in Sources */ = {isa = PBXBuildFile; fileRef = 081E4F1A2261704F007F9E1B /* DSPKit_Ns.mm */; };
@@ -373,7 +379,6 @@
 		08779C2A222F7EEF0055CCB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		087879022215121100A8662E /* VoiceRecorderDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoiceRecorderDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		087879052215121100A8662E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0878790A2215121100A8662E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0878790C2215121200A8662E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0878790F2215121200A8662E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		087879112215121200A8662E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -442,6 +447,24 @@
 		08B864902287445C007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKAudioFile+ProcessingAsynchronously.swift"; sourceTree = "<group>"; };
 		08B864912287445C007AA1B8 /* RKAudioFile+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKAudioFile+Utilities.swift"; sourceTree = "<group>"; };
 		08B86495228747CE007AA1B8 /* AVAudioBufferConvenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioBufferConvenience.swift; sourceTree = "<group>"; };
+		08BB053D22882CBB00F8690A /* RecordKit+StartStop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordKit+StartStop.swift"; sourceTree = "<group>"; };
+		08BB053F22882D1D00F8690A /* RKNotifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKNotifications.swift; sourceTree = "<group>"; };
+		08BB0541228835B400F8690A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		08BB0543228835D000F8690A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		08BB05462288384C00F8690A /* RKAudioPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKAudioPlayer.swift; sourceTree = "<group>"; };
+		08BB05482288389F00F8690A /* RKScheduledAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKScheduledAction.swift; sourceTree = "<group>"; };
+		08BB054B2288390400F8690A /* RKPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKPlayer.swift; sourceTree = "<group>"; };
+		08BB054D2288391F00F8690A /* RKTiming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKTiming.swift; sourceTree = "<group>"; };
+		08BB054F2288395B00F8690A /* AVAudioTimeShim.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVAudioTimeShim.swift; sourceTree = "<group>"; };
+		08BB05512288399400F8690A /* RKPlayer+Fader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKPlayer+Fader.swift"; sourceTree = "<group>"; };
+		08BB05522288399400F8690A /* RKPlayer+Timing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKPlayer+Timing.swift"; sourceTree = "<group>"; };
+		08BB05532288399400F8690A /* RKPlayer+Playback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKPlayer+Playback.swift"; sourceTree = "<group>"; };
+		08BB05542288399400F8690A /* RKPlayer+Buffering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKPlayer+Buffering.swift"; sourceTree = "<group>"; };
+		08BB055E22883B5600F8690A /* RKNodeOutputPlot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKNodeOutputPlot.swift; sourceTree = "<group>"; };
+		08BB056622883BE700F8690A /* RKSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKSlider.swift; sourceTree = "<group>"; };
+		08BB056822883C0600F8690A /* RKPropertyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKPropertyControl.swift; sourceTree = "<group>"; };
+		08BB056A22883C3500F8690A /* RKColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKColor.swift; sourceTree = "<group>"; };
+		08BB056C22883CBD00F8690A /* RKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKView.swift; sourceTree = "<group>"; };
 		08C2112D2236A844009E91B4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		08C211312236A870009E91B4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -473,24 +496,13 @@
 		08C2115B2236AAD2009E91B4 /* BDSTTSEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSTTSEventManager.h; sourceTree = "<group>"; };
 		08C2115C2236AAD2009E91B4 /* BDSSpeechSynthesizerErrors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDSSpeechSynthesizerErrors.h; sourceTree = "<group>"; };
 		08C211722236AD08009E91B4 /* RKASRer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKASRer.swift; sourceTree = "<group>"; };
-		08CDBA172264431A00121D7E /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		08CDBA182264431A00121D7E /* RecordingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordingsViewController.swift; sourceTree = "<group>"; };
-		08CDBA1B2264431A00121D7E /* RecordButtonKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButtonKit.swift; sourceTree = "<group>"; };
-		08CDBA1C2264431A00121D7E /* RecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordButton.swift; sourceTree = "<group>"; };
-		08CDBA1D2264431A00121D7E /* RecorderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecorderViewController.swift; sourceTree = "<group>"; };
-		08CDBA25226462E500121D7E /* NoiseSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoiseSViewController.swift; sourceTree = "<group>"; };
 		08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBaiduSpeechSDK.a; sourceTree = "<group>"; };
 		08CE6B4722341DB900AE08E4 /* RKAudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioConverter.swift; sourceTree = "<group>"; };
 		08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = HappyBirthdaySong.mp3; sourceTree = "<group>"; };
 		08D6CC8E2248BCF000574485 /* RKFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKFileManager.swift; sourceTree = "<group>"; };
 		08D910782263379D0041530E /* DSPKit_AEC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKit_AEC.mm; sourceTree = "<group>"; };
 		08D9107A226337BD0041530E /* DSPKit_AEC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSPKit_AEC.h; sourceTree = "<group>"; };
-		08DA86BF22641A8000CB7A04 /* AudioVisualizerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizerView.swift; sourceTree = "<group>"; };
 		08DA86D522641AC000CB7A04 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		08DA86E02264251100CB7A04 /* PRTweenTimingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRTweenTimingFunctions.h; sourceTree = "<group>"; };
-		08DA86E12264251100CB7A04 /* PRTween.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTween.m; sourceTree = "<group>"; };
-		08DA86E22264251100CB7A04 /* PRTween.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRTween.h; sourceTree = "<group>"; };
-		08DA86E32264251100CB7A04 /* PRTweenTimingFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRTweenTimingFunctions.m; sourceTree = "<group>"; };
 		08DA86E922642C9F00CB7A04 /* StartRecording.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = StartRecording.aiff; sourceTree = "<group>"; };
 		08DA86EA22642C9F00CB7A04 /* StopRecording.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = StopRecording.aiff; sourceTree = "<group>"; };
 		08DB4F782230162500267ACD /* RecordKitHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordKitHelpers.swift; sourceTree = "<group>"; };
@@ -502,7 +514,7 @@
 		08DFE64722255D2F0077E66A /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		08DFE649222560790077E66A /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		08DFE64D222560E40077E66A /* UIView+Doable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Doable.swift"; sourceTree = "<group>"; };
-		08E5D33C2282A5AF00F355CB /* RecordKit+StarUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordKit+StarUp.swift"; sourceTree = "<group>"; };
+		08E5D33C2282A5AF00F355CB /* RecordKit+RBRecdAsr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RecordKit+RBRecdAsr.swift"; sourceTree = "<group>"; };
 		08E5D33F2282ADAC00F355CB /* RKMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKMixer.swift; sourceTree = "<group>"; };
 		08E5D3412282AEB600F355CB /* RKConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKConnection.swift; sourceTree = "<group>"; };
 		08FF549C225ED84B000251AE /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -757,6 +769,7 @@
 		08779C28222F7EEF0055CCB9 /* RecordKit */ = {
 			isa = PBXGroup;
 			children = (
+				08BB054A228838F500F8690A /* Player */,
 				083DBD7122871CD6003E2A16 /* Abadoned */,
 				08221D6A22855AF5000454D1 /* Soundpipe */,
 				08221D5222855223000454D1 /* Moog Ladder */,
@@ -775,7 +788,9 @@
 				082C29B1223183A500710E15 /* RKAudioFile.swift */,
 				08098EE8223258C000B0FA81 /* RKNode.swift */,
 				08C211722236AD08009E91B4 /* RKASRer.swift */,
-				08E5D33C2282A5AF00F355CB /* RecordKit+StarUp.swift */,
+				08BB054D2288391F00F8690A /* RKTiming.swift */,
+				08BB054F2288395B00F8690A /* AVAudioTimeShim.swift */,
+				08E5D33C2282A5AF00F355CB /* RecordKit+RBRecdAsr.swift */,
 				08E5D33F2282ADAC00F355CB /* RKMixer.swift */,
 				08E5D3412282AEB600F355CB /* RKConnection.swift */,
 				089398DB2282BCF400508D9C /* RecordKit+SafeConnections.swift */,
@@ -791,6 +806,10 @@
 				08B864912287445C007AA1B8 /* RKAudioFile+Utilities.swift */,
 				083DBD742287358F003E2A16 /* RKAudioFile+AudioInfo.swift */,
 				083DBD7822873A4A003E2A16 /* RKMicrophone.swift */,
+				08BB053D22882CBB00F8690A /* RecordKit+StartStop.swift */,
+				08BB05482288389F00F8690A /* RKScheduledAction.swift */,
+				08BB05462288384C00F8690A /* RKAudioPlayer.swift */,
+				08BB053F22882D1D00F8690A /* RKNotifications.swift */,
 			);
 			path = RecordKit;
 			sourceTree = "<group>";
@@ -822,10 +841,8 @@
 		087879042215121100A8662E /* VoiceRecorderDemo */ = {
 			isa = PBXGroup;
 			children = (
-				08DA86DF2264250300CB7A04 /* Objective-C Bridger */,
+				08BB055922883B5600F8690A /* User Interface */,
 				08DA86CE22641A9300CB7A04 /* View */,
-				08CDBA162264431A00121D7E /* Controllers */,
-				08DA86BE22641A7F00CB7A04 /* Custom Views */,
 				0854842E22262EAC00BEF7AD /* Extension */,
 				087879052215121100A8662E /* AppDelegate.swift */,
 				0878790C2215121200A8662E /* Assets.xcassets */,
@@ -956,6 +973,30 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		08BB054A228838F500F8690A /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				08BB054B2288390400F8690A /* RKPlayer.swift */,
+				08BB05542288399400F8690A /* RKPlayer+Buffering.swift */,
+				08BB05512288399400F8690A /* RKPlayer+Fader.swift */,
+				08BB05532288399400F8690A /* RKPlayer+Playback.swift */,
+				08BB05522288399400F8690A /* RKPlayer+Timing.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		08BB055922883B5600F8690A /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				08BB055E22883B5600F8690A /* RKNodeOutputPlot.swift */,
+				08BB056622883BE700F8690A /* RKSlider.swift */,
+				08BB056822883C0600F8690A /* RKPropertyControl.swift */,
+				08BB056A22883C3500F8690A /* RKColor.swift */,
+				08BB056C22883CBD00F8690A /* RKView.swift */,
+			);
+			path = "User Interface";
+			sourceTree = "<group>";
+		};
 		08C211442236AAD2009E91B4 /* BDSClientHeaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -1008,61 +1049,14 @@
 			path = TTS;
 			sourceTree = "<group>";
 		};
-		08CDBA162264431A00121D7E /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				08CDBA172264431A00121D7E /* MainViewController.swift */,
-				08CDBA182264431A00121D7E /* RecordingsViewController.swift */,
-				08CDBA25226462E500121D7E /* NoiseSViewController.swift */,
-				08CDBA192264431A00121D7E /* RecorderView */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		08CDBA192264431A00121D7E /* RecorderView */ = {
-			isa = PBXGroup;
-			children = (
-				08CDBA1A2264431A00121D7E /* RecordingButton */,
-				08CDBA1D2264431A00121D7E /* RecorderViewController.swift */,
-			);
-			path = RecorderView;
-			sourceTree = "<group>";
-		};
-		08CDBA1A2264431A00121D7E /* RecordingButton */ = {
-			isa = PBXGroup;
-			children = (
-				08CDBA1B2264431A00121D7E /* RecordButtonKit.swift */,
-				08CDBA1C2264431A00121D7E /* RecordButton.swift */,
-			);
-			path = RecordingButton;
-			sourceTree = "<group>";
-		};
-		08DA86BE22641A7F00CB7A04 /* Custom Views */ = {
-			isa = PBXGroup;
-			children = (
-				08DA86BF22641A8000CB7A04 /* AudioVisualizerView.swift */,
-			);
-			path = "Custom Views";
-			sourceTree = "<group>";
-		};
 		08DA86CE22641A9300CB7A04 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				087879092215121100A8662E /* Main.storyboard */,
+				08BB0541228835B400F8690A /* Main.storyboard */,
+				08BB0543228835D000F8690A /* ViewController.swift */,
 				0878790E2215121200A8662E /* LaunchScreen.storyboard */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		08DA86DF2264250300CB7A04 /* Objective-C Bridger */ = {
-			isa = PBXGroup;
-			children = (
-				08DA86E22264251100CB7A04 /* PRTween.h */,
-				08DA86E12264251100CB7A04 /* PRTween.m */,
-				08DA86E02264251100CB7A04 /* PRTweenTimingFunctions.h */,
-				08DA86E32264251100CB7A04 /* PRTweenTimingFunctions.m */,
-			);
-			path = "Objective-C Bridger";
 			sourceTree = "<group>";
 		};
 		08FF5D11225EEA29000251AE /* ns */ = {
@@ -1180,8 +1174,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08DA86E62264251100CB7A04 /* PRTween.h in Headers */,
-				08DA86E42264251100CB7A04 /* PRTweenTimingFunctions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1396,9 +1388,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				083B638C226596DA00674C6A /* NoiseSpeech.wav in Resources */,
-				08DA86D722641E1900CB7A04 /* Main.storyboard in Resources */,
 				08DA86D822641E1900CB7A04 /* LaunchScreen.storyboard in Resources */,
 				08DA86EB22642CA000CB7A04 /* StartRecording.aiff in Resources */,
+				08BB0542228835B400F8690A /* Main.storyboard in Resources */,
 				0822ACDF2249371B00F10A18 /* Resources.bundle in Resources */,
 				085022B122433E1F001F31E2 /* ASRTempFile_1553139209.wav in Resources */,
 				0897DA9F22606CC2002310DF /* NoisySpeech-16k_16bit_stereo.wav in Resources */,
@@ -1564,9 +1556,11 @@
 				083DBD752287358F003E2A16 /* RKAudioFile+AudioInfo.swift in Sources */,
 				089398942282B30900508D9C /* RKBooster.swift in Sources */,
 				089398C92282BAB200508D9C /* AKAudioUnitBase.mm in Sources */,
+				08BB05472288384C00F8690A /* RKAudioPlayer.swift in Sources */,
 				089398E02282BD9500508D9C /* RecordKit+Status.swift in Sources */,
 				08E5D3402282ADAC00F355CB /* RKMixer.swift in Sources */,
 				083F8C902285640900D125E9 /* base.c in Sources */,
+				08BB054E2288391F00F8690A /* RKTiming.swift in Sources */,
 				083F8C8E228563D200D125E9 /* moogladder.c in Sources */,
 				08B864922287445D007AA1B8 /* RKAudioFile+Processing.swift in Sources */,
 				08E5D3422282AEB600F355CB /* RKConnection.swift in Sources */,
@@ -1574,7 +1568,7 @@
 				08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */,
 				083DBD7322871F1D003E2A16 /* RecordKit+StarUp_Abadoned.swift in Sources */,
 				089398DC2282BCF400508D9C /* RecordKit+SafeConnections.swift in Sources */,
-				08E5D33D2282A5AF00F355CB /* RecordKit+StarUp.swift in Sources */,
+				08E5D33D2282A5AF00F355CB /* RecordKit+RBRecdAsr.swift in Sources */,
 				089398CE2282BAB200508D9C /* AKAudioUnit.mm in Sources */,
 				083DBD7022871812003E2A16 /* RKNodeRecorder.swift in Sources */,
 				084A84A3225DC7C600F5629B /* EZAudioPlotGL.m in Sources */,
@@ -1582,7 +1576,9 @@
 				08221D5B22855223000454D1 /* AKMoogLadderDSP.mm in Sources */,
 				08221D6922855631000454D1 /* dr_wav.c in Sources */,
 				088EB894228525F20011883C /* RKStereoFieldLimiterAudioUnit.swift in Sources */,
+				08BB05502288395B00F8690A /* AVAudioTimeShim.swift in Sources */,
 				08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */,
+				08BB05582288399400F8690A /* RKPlayer+Buffering.swift in Sources */,
 				08098EE9223258C000B0FA81 /* RKNode.swift in Sources */,
 				08B864932287445D007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift in Sources */,
 				089398D12282BAB200508D9C /* CheckError.swift in Sources */,
@@ -1592,27 +1588,34 @@
 				08DB4F7D2230189B00267ACD /* ExceptionTracker.swift in Sources */,
 				089398C82282BAB200508D9C /* AKDSPBase.mm in Sources */,
 				08DB4F8422301CAA00267ACD /* RecordKit.swift in Sources */,
+				08BB05562288399400F8690A /* RKPlayer+Timing.swift in Sources */,
 				089398D82282BAB200508D9C /* AudioUnit+Helpers.swift in Sources */,
 				08DB4F7F223018CD00267ACD /* ExceptionCatcher.m in Sources */,
 				083F8C8C2285639C00D125E9 /* voc.c in Sources */,
 				089398E22282C04200508D9C /* RKComponent.swift in Sources */,
 				084A84A2225DC7C600F5629B /* EZAudioDisplayLink.m in Sources */,
+				08BB05492288389F00F8690A /* RKScheduledAction.swift in Sources */,
 				083DBD7B22873B84003E2A16 /* RKAudioFile+ConvenienceInitializers.swift in Sources */,
 				08B864942287445D007AA1B8 /* RKAudioFile+Utilities.swift in Sources */,
 				089398D22282BAB200508D9C /* AKDSPKernel.mm in Sources */,
 				084A849B225DC7C600F5629B /* EZPlot.m in Sources */,
 				089398CD2282BAB200508D9C /* BufferedAudioUnit.m in Sources */,
 				088EB892228525C10011883C /* RKStereoFieldLimiter.swift in Sources */,
+				08BB053E22882CBB00F8690A /* RecordKit+StartStop.swift in Sources */,
 				082C29B2223183A500710E15 /* RKAudioFile.swift in Sources */,
 				089398E82282D46200508D9C /* AKGeneratorAudioUnitBase.mm in Sources */,
+				08BB05552288399400F8690A /* RKPlayer+Fader.swift in Sources */,
 				084A8495225DC7C600F5629B /* EZAudioFloatData.m in Sources */,
 				08221D5A22855223000454D1 /* RKMoogLadder.swift in Sources */,
 				084A84A1225DC7C600F5629B /* EZAudioFloatConverter.m in Sources */,
 				0893989A2282B3F800508D9C /* AKBoosterDSP.mm in Sources */,
 				084A84A0225DC7C600F5629B /* EZAudioUtilities.m in Sources */,
 				089398DE2282BD4800508D9C /* AVAudioEngine+Extensions.swift in Sources */,
+				08BB054022882D1D00F8690A /* RKNotifications.swift in Sources */,
 				08221D5C22855223000454D1 /* RKMoogLadderAudioUnit.swift in Sources */,
+				08BB05572288399400F8690A /* RKPlayer+Playback.swift in Sources */,
 				089398EA2282D57600508D9C /* RKObject.swift in Sources */,
+				08BB054C2288390400F8690A /* RKPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1620,20 +1623,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08BB056722883BE700F8690A /* RKSlider.swift in Sources */,
+				08BB056922883C0600F8690A /* RKPropertyControl.swift in Sources */,
+				08BB056422883B5600F8690A /* RKNodeOutputPlot.swift in Sources */,
 				08DFE64822255D2F0077E66A /* UIColor+Extension.swift in Sources */,
-				08CDBA202264431A00121D7E /* RecordButtonKit.swift in Sources */,
-				08DA86C022641A8000CB7A04 /* AudioVisualizerView.swift in Sources */,
+				08BB056D22883CBD00F8690A /* RKView.swift in Sources */,
 				087879062215121100A8662E /* AppDelegate.swift in Sources */,
-				08DA86E72264251100CB7A04 /* PRTweenTimingFunctions.m in Sources */,
-				08CDBA1F2264431A00121D7E /* RecordingsViewController.swift in Sources */,
+				08BB056B22883C3500F8690A /* RKColor.swift in Sources */,
 				08DFE64A222560790077E66A /* UIFont+Extension.swift in Sources */,
 				08DA86D622641AC000CB7A04 /* Extensions.swift in Sources */,
-				08CDBA222264431A00121D7E /* RecorderViewController.swift in Sources */,
-				08CDBA212264431A00121D7E /* RecordButton.swift in Sources */,
-				08CDBA26226462E500121D7E /* NoiseSViewController.swift in Sources */,
-				08CDBA1E2264431A00121D7E /* MainViewController.swift in Sources */,
 				08DFE64E222560E40077E66A /* UIView+Doable.swift in Sources */,
-				08DA86E52264251100CB7A04 /* PRTween.m in Sources */,
+				08BB0544228835D000F8690A /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1660,14 +1660,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		087879092215121100A8662E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0878790A2215121100A8662E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0878790E2215121200A8662E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

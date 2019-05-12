@@ -173,3 +173,75 @@ extension RangeReplaceableCollection where Iterator.Element: ExpressibleByIntege
 		self.init(repeating: 0, count: count)
 	}
 }
+
+extension ClosedRange {
+	/// Clamp value to the range
+	///
+	/// - parameter value: Value to clamp
+	///
+	public func clamp(_ value: Bound) -> Bound {
+		return Swift.min(Swift.max(value, lowerBound), upperBound)
+	}
+}
+
+/// Extension to calculate scaling factors, useful for UI controls
+extension Double {
+	
+	/// Return a value on [minimum, maximum] to a [0, 1] range, according to a taper
+	///
+	/// - Parameters:
+	///   - to: Source range (cannot include zero if taper is not positive)
+	///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+	///
+	public func normalized(from range: ClosedRange<Double>, taper: Double = 1) -> Double {
+		assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
+		
+		if taper > 0 {
+			// algebraic taper
+			return pow(((self - range.lowerBound ) / (range.upperBound - range.lowerBound)), (1.0 / taper))
+		} else {
+			// exponential taper
+			return range.lowerBound * exp(log(range.upperBound / range.lowerBound) * self)
+		}
+	}
+	
+	/// Return a value on [0, 1] to a [minimum, maximum] range, according to a taper
+	///
+	/// - Parameters:
+	///   - to: Target range (cannot contain zero if taper is not positive)
+	///   - taper: For taper > 0, there is an algebraic curve, taper = 1 is linear, and taper < 0 is exponential
+	///
+	public func denormalized(to range: ClosedRange<Double>, taper: Double = 1) -> Double {
+		
+		assert(!(range.contains(0.0) && taper < 0), "Cannot have negative taper with a range containing zero.")
+		
+		// Avoiding division by zero in this trivial case
+		if range.upperBound - range.lowerBound < 0.000_01 {
+			return range.lowerBound
+		}
+		
+		if taper > 0 {
+			// algebraic taper
+			return range.lowerBound + (range.upperBound - range.lowerBound) * pow(self, taper)
+		} else {
+			// exponential taper
+			var adjustedMinimum: Double = 0.0
+			var adjustedMaximum: Double = 0.0
+			if range.lowerBound == 0 { adjustedMinimum = 0.000_000_000_01 }
+			if range.upperBound == 0 { adjustedMaximum = 0.000_000_000_01 }
+			
+			return log(self / adjustedMinimum) / log(adjustedMaximum / adjustedMinimum)
+		}
+	}
+}
+
+/// Random double in range
+///
+/// - parameter in: Range of randomization
+///
+public func random(in range: ClosedRange<Double>) -> Double {
+	let precision = 1_000_000
+	let width = range.upperBound - range.lowerBound
+	
+	return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + range.lowerBound
+}

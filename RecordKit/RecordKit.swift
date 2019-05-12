@@ -9,47 +9,56 @@
 import Foundation
 import AVFoundation
 
+public typealias RKCallback = () -> Void
+
 public class RecordKit: RKObject {
-	internal static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
+	#if !os(macOS)
+	static let deviceSampleRate = AVAudioSession.sharedInstance().sampleRate
+	#else
+	static let deviceSampleRate: Double = 44_100
+	#endif
 	
 	/// Observers about components
 	public internal(set) static var microphoneObservers = NSPointerArray.weakObjects()
 	public internal(set) static var asrerObservers = NSPointerArray.weakObjects()
 	public internal(set) static var converterObservers = NSPointerArray.weakObjects()
 	/// Reference to the AV Audio Engine
-	public internal(set) static var engine = AVAudioEngine()
+	public static var engine: AVAudioEngine {
+		get {
+			_ = RecordKit.deviceSampleRate // read the original sample rate before any reference to AVAudioEngine happens, so value is retained
+			return _engine
+		}
+		set {
+			_engine = newValue
+		}
+	}
+	
+	private static var _engine = AVAudioEngine()
 	
 	public static var finalMixer: RKMixer?
 	public static var output: RKNode? {
 		didSet {
-			// if the assigned output is already a mixer, avoid creating an additional mixer and just use
-			// that input as the finalMixer
-			if let mixerInput = output as? RKMixer {
-				finalMixer = mixerInput
-			} else {
-				// otherwise at this point create the finalMixer and add the input to it
-				let mixer = RKMixer()
-				output?.connect(to: mixer)
-				finalMixer = mixer
+			do {
+				try updateSessionCategoryAndOptions()
+				
+				// if the assigned output is already a mixer, avoid creating an additional mixer and just use
+				// that input as the finalMixer
+				if let mixerInput = output as? RKMixer {
+					finalMixer = mixerInput
+				} else {
+					// otherwise at this point create the finalMixer and add the input to it
+					let mixer = RKMixer()
+					output?.connect(to: mixer)
+					finalMixer = mixer
+				}
+				guard let finalMixer = finalMixer else { return }
+				engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: RKSettings.audioFormat)
+				
+			} catch {
+				RKLog("Could not set output: \(error)")
 			}
-			guard let finalMixer = finalMixer else { return }
-			engine.connect(finalMixer.avAudioNode, to: engine.outputNode, format: RKSettings.audioFormat)
 		}
 	}
-}
-
-@objc
-public protocol RecordKitSessionHandle {
-	// MARK:- Handle interruption
-	@objc(handleInterruption:)
-	optional func handleInterruption(notification: Notification)
-	// MARK: - Handle RouteChange
-	@objc(handleRouteChange:)
-	optional func handleRouteChange(notification: Notification)
-	@objc(sessionShouldBeInit)
-	optional func sessionShouldBeInit()
-	@objc(sessionShouldBeDeinit)
-	optional func sessionShouldBeDeinit()
 }
 
 public extension NSPointerArray {

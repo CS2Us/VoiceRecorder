@@ -245,3 +245,27 @@ public func random(in range: ClosedRange<Double>) -> Double {
 	
 	return Double(arc4random_uniform(UInt32(precision))) / Double(precision) * width + range.lowerBound
 }
+
+// Anything that can hold a value (strings, arrays, etc)
+public protocol Occupiable {
+	var isEmpty: Bool { get }
+	var isNotEmpty: Bool { get }
+}
+
+// Give a default implementation of isNotEmpty, so conformance only requires one implementation
+extension Occupiable {
+	public var isNotEmpty: Bool {
+		return !isEmpty
+	}
+}
+
+extension String: Occupiable { }
+
+// I can't think of a way to combine these collection types. Suggestions welcome.
+extension Array: Occupiable { }
+extension Dictionary: Occupiable { }
+extension Set: Occupiable { }
+
+#if !os(macOS)
+extension AVAudioSession.CategoryOptions: Occupiable { }
+#endif

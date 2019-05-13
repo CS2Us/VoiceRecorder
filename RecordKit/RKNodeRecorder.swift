@@ -8,8 +8,17 @@
 
 import Foundation
 
+@objc
+public protocol RKNodeRecHandle {
+	@objc(nodeRecStart:)
+	optional func nodeRecStart(_ node: RKNodeRecorder)
+	@objc(nodeRecStop:)
+	optional func nodeRecStop(_ node: RKNodeRecorder)
+	@objc(nodeRecWorking:buffer:)
+	optional func nodeRecWorking(_ node: RKNodeRecorder, buffer: AVAudioPCMBuffer)
+}
+
 public class RKNodeRecorder: RKObject {
-	public var engine = RecordKit.engine
 	
 	// The node we record from
 	open var node: RKNode?
@@ -36,7 +45,7 @@ public class RKNodeRecorder: RKObject {
 	@objc public private(set) dynamic var isRecording = false
 	
 	/// An optional duration for the recording to auto-stop when reached
-	open var durationToRecord: Double = 0
+	open var durationToRecord: Double = RKSettings.maxDuration
 	
 	/// Duration of recording
 	open var recordedDuration: Double {
@@ -86,7 +95,7 @@ public class RKNodeRecorder: RKObject {
 	// MARK: - Methods
 	
 	/// Start recording
-	@objc open func record() {
+	@objc open func record(_ ctx: RBContextPt) {
 		if isRecording == true {
 			RKLog("RKNodeRecorder Warning: already recording")
 			return
@@ -113,21 +122,34 @@ public class RKNodeRecorder: RKObject {
 				do {
 					strongSelf.recordBufferDuration = Double(buffer.frameLength) / RKSettings.sampleRate
 					try strongSelf.internalAudioFile.write(from: buffer)
-					//RKLog("RKNodeRecorder writing (file duration: \(strongSelf.internalAudioFile.duration) seconds)")
+					//RKLog("RKNodeRecorder writing (file duration: \(strongSelf.internalAudioFile.duration) seconds)"
 					
 					// allow an optional timed stop
 					if strongSelf.durationToRecord != 0 && strongSelf.internalAudioFile.duration >= strongSelf.durationToRecord {
-						strongSelf.stop()
+						strongSelf.stop(ctx)
 					}
+					
+					// update record duration
+					RKSettings.timeStamp = strongSelf.recordedDuration
 					
 				} catch let error as NSError {
 					RKLog("Write failed: error -> \(error.localizedDescription)")
 				}
+				
+				RecordKit.recObservers.allObjects
+					.map{$0 as? RKNodeRecHandle}.filter{$0 != nil}.forEach { observer in
+						observer?.nodeRecWorking?(strongSelf, buffer: buffer)
+				}
+		}
+		
+		RecordKit.recObservers.allObjects
+			.map{$0 as? RKNodeRecHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.nodeRecStart?(self)
 		}
 	}
 	
 	/// Stop recording
-	@objc open func stop() {
+	@objc open func stop(_ ctx: RBContextPt) {
 		if isRecording == false {
 			RKLog("RKNodeRecorder Warning: Cannot stop recording, already stopped")
 			return
@@ -141,14 +163,26 @@ public class RKNodeRecorder: RKObject {
 			usleep(delay)
 		}
 		node?.avAudioUnitOrNode.removeTap(onBus: 0)
+
+		if durationToRecord != 0 && internalAudioFile.duration >= durationToRecord {
+			RecordKit.rbObservers.allObjects
+				.map{$0 as? RBSessionHandle}.filter{$0 != nil}.forEach { observer in
+					observer?.rbTimesOut?(context: ctx)
+			}
+		} else {
+			RecordKit.recObservers.allObjects
+				.map{$0 as? RKNodeRecHandle}.filter{$0 != nil}.forEach { observer in
+					observer?.nodeRecStop?(self)
+			}
+		}
 	}
 	
 	/// Reset the RKAudioFile to clear previous recordings
-	open func reset() throws {
+	open func reset(_ ctx: RBContextPt) throws {
 		
 		// Stop recording
 		if isRecording == true {
-			stop()
+			stop(ctx)
 		}
 		
 		// Delete the physical recording file

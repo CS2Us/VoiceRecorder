@@ -9,6 +9,10 @@
 import UIKit
 import RecordKit
 
+class RBContext: RBContextPt {
+	var wrapper: RBWrapper = RBWrapper()
+}
+
 class ViewController: UIViewController {
 
     var state = State.readyToRecord
@@ -23,6 +27,10 @@ class ViewController: UIViewController {
 	}()
 	private lazy var moogLadder: RKMoogLadder = {
 		return RecordKit.rb.moogLadder
+	}()
+	
+	private lazy var context: RBContext = {
+		return RBContext()
 	}()
 
 	private var plot: RKNodeOutputPlot = RKNodeOutputPlot()
@@ -91,10 +99,10 @@ class ViewController: UIViewController {
 		tempButton.isSelected = !tempButton.isSelected
 		if tempButton.isSelected {
 			tempButton.setTitle("Resume", for: .normal)
-			RecordKit.recordStop()
+			RecordKit.recordStop(context)
 		} else {
 			tempButton.setTitle("Stop", for: .normal)
-			RecordKit.recordResume()
+			RecordKit.recordResume(context)
 		}
 	}
 
@@ -106,9 +114,9 @@ class ViewController: UIViewController {
 			tempButton.setTitle("Stop", for: .normal)
 			tempButton.isEnabled = true
             state = .recording
-            RecordKit.recordStart()
+            RecordKit.recordStart(context)
         case .recording :
-			RecordKit.recordCancle()
+			RecordKit.recordEndUp(context)
 			setupUIForPlaying()
         case .readyToPlay :
             player.play()
@@ -186,7 +194,7 @@ class ViewController: UIViewController {
         player.stop()
         plot.node = mic
         do {
-            try recorder.reset()
+            try recorder.reset(context)
         } catch { print("Errored resetting.") }
 
         //try? player.replaceFile((recorder.audioFile)!)

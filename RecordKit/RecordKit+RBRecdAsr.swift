@@ -8,6 +8,38 @@
 
 import Foundation
 
+public class RBWrapper: NSObject {
+	public var dst: Destination
+	public internal(set) var asrResult: String
+	
+	public override init() {
+		dst = .documents(name: "RK", type: "m4a")
+		asrResult = ""
+		super.init()
+	}
+}
+
+@objc
+public protocol RBContextPt {
+	var wrapper: RBWrapper { get set }
+}
+
+@objc
+public protocol RBSessionHandle {
+	@objc(rbStartContext:)
+	optional func rbStart(context: RBContextPt)
+	@objc(rbEndupContext:)
+	optional func rbEndUp(context: RBContextPt)
+	@objc(rbStopContext:)
+	optional func rbStop(context: RBContextPt)
+	@objc(rbResumeContext:)
+	optional func rbResume(context: RBContextPt)
+	@objc(rbExportContext:)
+	optional func rbFinish(context: RBContextPt)
+	@objc(rbTimesOutContext:)
+	optional func rbTimesOut(context: RBContextPt)
+}
+
 /** RB: Record Business **/
 public class RBRecdAsr {
 	fileprivate var asrer: RKASRer = RKASRer()
@@ -20,7 +52,6 @@ public class RBRecdAsr {
 	public var mic: RKMicrophone = RKMicrophone()
 	public var player: RKPlayer!
 	public var recorder: RKNodeRecorder!
-	public var dst: Destination = .documents(name: "RK", type: "m4a")
 
 	static var `default` = RBRecdAsr()
 	
@@ -73,43 +104,72 @@ extension RecordKit {
 		return RBRecdAsr.default
 	}
 	
-	public static func recordStart() {
+	public static func recordStart(_ ctx: RBContextPt) {
 		RecordKit.shouldBeRunning = true
-		let dst: Destination = RBRecdAsr.default.dst
-		RBRecdAsr.default.asrer.dst = dst
+		RBRecdAsr.default.asrer.dst = ctx.wrapper.dst
 		RBRecdAsr.default.asrer.longSpeechRecognition()
 		if RKSettings.headPhonesPlugged {
 			RBRecdAsr.default.micBooster.gain = 0
 		}
-		RBRecdAsr.default.recorder.record()
+		RBRecdAsr.default.recorder.record(ctx)
+		
+		RecordKit.rbObservers.allObjects
+			.map{$0 as? RBSessionHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.rbStart?(context: ctx)
+		}
 	}
 	
-	public static func recordCancle() {
+	public static func recordEndUp(_ ctx: RBContextPt) {
 		RecordKit.shouldBeRunning = false
 		RBRecdAsr.default.tape = RBRecdAsr.default.recorder.audioFile!
-		RBRecdAsr.default.recorder.stop()
+		RBRecdAsr.default.recorder.stop(ctx)
 		RBRecdAsr.default.asrer.endRecognition()
+		ctx.wrapper.asrResult = RBRecdAsr.default.asrer.finalResult ?? ""
 		RBRecdAsr.default.player.load(audioFile: RBRecdAsr.default.tape)
 		RBRecdAsr.default.tape.exportAsynchronously(
-								  dst: RBRecdAsr.default.dst,
-								  exportFormat: .m4a) {_, exportError in
+								  dst: ctx.wrapper.dst,
+								  exportFormat: .m4a) { [weak ctx] _, exportError in
+									guard let strongCtx = ctx else {
+										RKLog("Export Ctx memory has been free")
+										return
+									}
 									if let error = exportError {
 										RKLog("Export Failed \(error)")
 									} else {
 										RKLog("Export succeeded")
+										
+										RecordKit.rbObservers.allObjects
+											.map{$0 as? RBSessionHandle}.filter{$0 != nil}.forEach { observer in
+												observer?.rbFinish?(context: strongCtx)
+										}
 									}
+		}
+		
+		RecordKit.rbObservers.allObjects
+			.map{$0 as? RBSessionHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.rbEndUp?(context: ctx)
 		}
 	}
 	
-	public static func recordStop() {
+	public static func recordStop(_ ctx: RBContextPt) {
 		RecordKit.shouldBeRunning = false
-		RBRecdAsr.default.recorder.stop()
+		RBRecdAsr.default.recorder.stop(ctx)
 		RBRecdAsr.default.asrer.endRecognition()
+		
+		RecordKit.rbObservers.allObjects
+			.map{$0 as? RBSessionHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.rbStop?(context: ctx)
+		}
 	}
 	
-	public static func recordResume() {
+	public static func recordResume(_ ctx: RBContextPt) {
 		RecordKit.shouldBeRunning = true
-		RBRecdAsr.default.recorder.record()
+		RBRecdAsr.default.recorder.record(ctx)
 		RBRecdAsr.default.asrer.longSpeechRecognition()
+		
+		RecordKit.rbObservers.allObjects
+			.map{$0 as? RBSessionHandle}.filter{$0 != nil}.forEach { observer in
+				observer?.rbResume?(context: ctx)
+		}
 	}
 }

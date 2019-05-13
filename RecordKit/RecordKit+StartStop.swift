@@ -142,6 +142,13 @@ extension RecordKit {
 		// Notifications aren't guaranteed to come in on the main thread
 		
 		let attemptRestart = {
+//			do {
+//				try engine.start()
+//			} catch let ex {
+//				RKLog("RecordKit engine start error: \(ex)")
+//			}
+			
+			
 			if RKSettings.enableRouteChangeHandling && shouldBeRunning && !engine.isRunning {
 				do {
 					#if !os(macOS)

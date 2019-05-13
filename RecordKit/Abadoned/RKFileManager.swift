@@ -11,7 +11,7 @@ import Foundation
 public class RKFileManager: RKObject {
 	public static let `default` = RKFileManager()
 	public var allFilesSize: Int64 {
-		return sizeOfFolder(Destination.documents(url: "Temp.m4a"))
+		return sizeOfFolder(Destination.documents(name: "Temp" , type:"m4a"))
 	}
 	
 	public func clearFile(url: URL) {
@@ -20,14 +20,14 @@ public class RKFileManager: RKObject {
 	
 	public func clearAllFiles() {
 		do {
-			let folderPath = Destination.documents(url: "Temp.m4a").directoryPath
-			let contents = try FileManager.default.contentsOfDirectory(atPath: folderPath.absoluteString)
+			let folderPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, false).first! + "/" + Destination._Folder.audio
+			let contents = try FileManager.default.contentsOfDirectory(atPath: folderPath)
 			for content in contents {
 				do {
-					let fullContentPath = folderPath.absoluteString + "/" + content
+					let fullContentPath = folderPath + "/" + content
 					try FileManager.default.removeItem(atPath: fullContentPath)
 				} catch let ex {
-					RKLog("clearAllFiles progress -> clear file: \(folderPath.absoluteString + "/" + content) error: \(ex)")
+					RKLog("clearAllFiles progress -> clear file: \(folderPath + "/" + content) error: \(ex)")
 					continue
 				}
 			}

@@ -10,7 +10,7 @@ import Foundation
 import AVFoundation
 
 public struct Destination {
-	private struct _Folder {
+	internal struct _Folder {
 		static let audio: String = "RecordKit_AudioFiles"
 		static let video: String = "RecordKit_VideoFiles"
 	}
@@ -22,6 +22,26 @@ public struct Destination {
 		case main(name: String, type: String)
 		case resource(name: String, type: String)
 		case none
+	}
+	public enum MimeType: CustomStringConvertible {
+		case wav, caf, aif, m4r, m4a, mp4, m2a, aac, mp3
+		case unknown
+		
+		public var description: String {
+			switch self {
+			case .wav: return "audio/wav"
+			case .caf: return "audio/x-caf"
+			case .aif: return "audio/aiff"
+			case .m4r: return "audio/x-m4r"
+			case .m4a: return "audio/x-m4a"
+			case .mp4: return "audio/mp4"
+			case .m2a: return "audio/mpeg"
+			case .aac: return "audio/aac"
+			case .mp3: return "audio/mpeg3"
+			default:
+				return "unknown"
+			}
+		}
 	}
 	private let timeSuffix = Int(Date().timeIntervalSince1970).description
 	private let type: _Type
@@ -129,6 +149,28 @@ public struct Destination {
 		let audioAsset = AVURLAsset(url: fileUrl, options: options)
 		let audioDuration: CMTime = audioAsset.duration
 		return audioDuration.seconds
+	}
+	
+	public var mimeType: MimeType {
+		switch fileExt.lowercased() {
+		case "wav": return .wav
+		case "caf": return .caf
+		case "aif", "aiff", "aifc":
+			return .aif
+		case "m4r": return .m4r
+		case "m4a": return .m4a
+		case "mp4": return .mp4
+		case "m2a", "mp2":
+			return .m2a
+		case "aac": return .aac
+		case "mp3": return .mp3
+		default:
+			return .unknown
+		}
+	}
+	
+	public var audioSize: Int64 {
+		return RKFileManager.default.sizeOfFile(self)
 	}
 }
 

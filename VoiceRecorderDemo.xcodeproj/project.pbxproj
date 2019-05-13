@@ -166,6 +166,8 @@
 		08AB782E223ADF2C001E4E8C /* RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08779C27222F7EEF0055CCB9 /* RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08ABEC5F22609311004F18E6 /* audio_util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 08ABEC5E22609310004F18E6 /* audio_util.cc */; };
 		08ABEC6122609373004F18E6 /* audio_util.h in Headers */ = {isa = PBXBuildFile; fileRef = 08ABEC6022609373004F18E6 /* audio_util.h */; };
+		08B399442289729100F81A2A /* RKFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6CC8E2248BCF000574485 /* RKFileManager.swift */; };
+		08B399562289892F00F81A2A /* RKNodeOutputPlot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B399552289892F00F81A2A /* RKNodeOutputPlot.swift */; };
 		08B864922287445D007AA1B8 /* RKAudioFile+Processing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B8648F2287445C007AA1B8 /* RKAudioFile+Processing.swift */; };
 		08B864932287445D007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B864902287445C007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift */; };
 		08B864942287445D007AA1B8 /* RKAudioFile+Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B864912287445C007AA1B8 /* RKAudioFile+Utilities.swift */; };
@@ -188,6 +190,7 @@
 		08BB056922883C0600F8690A /* RKPropertyControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056822883C0600F8690A /* RKPropertyControl.swift */; };
 		08BB056B22883C3500F8690A /* RKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056A22883C3500F8690A /* RKColor.swift */; };
 		08BB056D22883CBD00F8690A /* RKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056C22883CBD00F8690A /* RKView.swift */; };
+		08BB056F2288804E00F8690A /* RKAudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BB056E2288804E00F8690A /* RKAudioConverter.swift */; };
 		08C2112E2236A844009E91B4 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112D2236A844009E91B4 /* libc++.tbd */; };
 		08C211302236A84F009E91B4 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */; };
 		08C211322236A870009E91B4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08C211312236A870009E91B4 /* AudioToolbox.framework */; };
@@ -204,6 +207,7 @@
 		08CE6B52223606F800AE08E4 /* HappyBirthdaySong.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08CE6B51223606F800AE08E4 /* HappyBirthdaySong.mp3 */; };
 		08D910792263379D0041530E /* DSPKit_AEC.mm in Sources */ = {isa = PBXBuildFile; fileRef = 08D910782263379D0041530E /* DSPKit_AEC.mm */; };
 		08D9107C22633ACB0041530E /* libBaiduSpeechSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CDE6EE225AE4EB0092D12A /* libBaiduSpeechSDK.a */; };
+		08D9EFF222893857001640F1 /* RKDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D9EFF122893857001640F1 /* RKDevice.swift */; };
 		08DA86D622641AC000CB7A04 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DA86D522641AC000CB7A04 /* Extensions.swift */; };
 		08DA86D822641E1900CB7A04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0878790E2215121200A8662E /* LaunchScreen.storyboard */; };
 		08DA86DD226421D100CB7A04 /* Pods_RecordKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E566557B02FDB54202C269DB /* Pods_RecordKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -443,6 +447,7 @@
 		08AB7829223A2E69001E4E8C /* RKAudioInputStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioInputStream.swift; sourceTree = "<group>"; };
 		08ABEC5E22609310004F18E6 /* audio_util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = audio_util.cc; sourceTree = "<group>"; };
 		08ABEC6022609373004F18E6 /* audio_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = audio_util.h; sourceTree = "<group>"; };
+		08B399552289892F00F81A2A /* RKNodeOutputPlot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKNodeOutputPlot.swift; sourceTree = "<group>"; };
 		08B8648F2287445C007AA1B8 /* RKAudioFile+Processing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKAudioFile+Processing.swift"; sourceTree = "<group>"; };
 		08B864902287445C007AA1B8 /* RKAudioFile+ProcessingAsynchronously.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKAudioFile+ProcessingAsynchronously.swift"; sourceTree = "<group>"; };
 		08B864912287445C007AA1B8 /* RKAudioFile+Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RKAudioFile+Utilities.swift"; sourceTree = "<group>"; };
@@ -465,6 +470,7 @@
 		08BB056822883C0600F8690A /* RKPropertyControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKPropertyControl.swift; sourceTree = "<group>"; };
 		08BB056A22883C3500F8690A /* RKColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKColor.swift; sourceTree = "<group>"; };
 		08BB056C22883CBD00F8690A /* RKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKView.swift; sourceTree = "<group>"; };
+		08BB056E2288804E00F8690A /* RKAudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKAudioConverter.swift; sourceTree = "<group>"; };
 		08C2112D2236A844009E91B4 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		08C2112F2236A84F009E91B4 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		08C211312236A870009E91B4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -502,6 +508,7 @@
 		08D6CC8E2248BCF000574485 /* RKFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RKFileManager.swift; sourceTree = "<group>"; };
 		08D910782263379D0041530E /* DSPKit_AEC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DSPKit_AEC.mm; sourceTree = "<group>"; };
 		08D9107A226337BD0041530E /* DSPKit_AEC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DSPKit_AEC.h; sourceTree = "<group>"; };
+		08D9EFF122893857001640F1 /* RKDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKDevice.swift; sourceTree = "<group>"; };
 		08DA86D522641AC000CB7A04 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		08DA86E922642C9F00CB7A04 /* StartRecording.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = StartRecording.aiff; sourceTree = "<group>"; };
 		08DA86EA22642C9F00CB7A04 /* StopRecording.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = StopRecording.aiff; sourceTree = "<group>"; };
@@ -810,6 +817,9 @@
 				08BB05482288389F00F8690A /* RKScheduledAction.swift */,
 				08BB05462288384C00F8690A /* RKAudioPlayer.swift */,
 				08BB053F22882D1D00F8690A /* RKNotifications.swift */,
+				08BB056E2288804E00F8690A /* RKAudioConverter.swift */,
+				08D9EFF122893857001640F1 /* RKDevice.swift */,
+				08B399552289892F00F81A2A /* RKNodeOutputPlot.swift */,
 			);
 			path = RecordKit;
 			sourceTree = "<group>";
@@ -1554,6 +1564,7 @@
 				089398CF2282BAB200508D9C /* AudioEngineUnit.m in Sources */,
 				08C211732236AD08009E91B4 /* RKASRer.swift in Sources */,
 				083DBD752287358F003E2A16 /* RKAudioFile+AudioInfo.swift in Sources */,
+				08D9EFF222893857001640F1 /* RKDevice.swift in Sources */,
 				089398942282B30900508D9C /* RKBooster.swift in Sources */,
 				089398C92282BAB200508D9C /* AKAudioUnitBase.mm in Sources */,
 				08BB05472288384C00F8690A /* RKAudioPlayer.swift in Sources */,
@@ -1564,6 +1575,7 @@
 				083F8C8E228563D200D125E9 /* moogladder.c in Sources */,
 				08B864922287445D007AA1B8 /* RKAudioFile+Processing.swift in Sources */,
 				08E5D3422282AEB600F355CB /* RKConnection.swift in Sources */,
+				08B399562289892F00F81A2A /* RKNodeOutputPlot.swift in Sources */,
 				08B86496228747CE007AA1B8 /* AVAudioBufferConvenience.swift in Sources */,
 				08DB4F792230162500267ACD /* RecordKitHelpers.swift in Sources */,
 				083DBD7322871F1D003E2A16 /* RecordKit+StarUp_Abadoned.swift in Sources */,
@@ -1576,7 +1588,9 @@
 				08221D5B22855223000454D1 /* AKMoogLadderDSP.mm in Sources */,
 				08221D6922855631000454D1 /* dr_wav.c in Sources */,
 				088EB894228525F20011883C /* RKStereoFieldLimiterAudioUnit.swift in Sources */,
+				08B399442289729100F81A2A /* RKFileManager.swift in Sources */,
 				08BB05502288395B00F8690A /* AVAudioTimeShim.swift in Sources */,
+				08BB056F2288804E00F8690A /* RKAudioConverter.swift in Sources */,
 				08DB4F7B2230166C00267ACD /* RKSettings.swift in Sources */,
 				08BB05582288399400F8690A /* RKPlayer+Buffering.swift in Sources */,
 				08098EE9223258C000B0FA81 /* RKNode.swift in Sources */,

@@ -8,18 +8,6 @@
 
 import Foundation
 
-@objc
-public protocol RKMicrophoneHandle {
-	@objc(microphoneWorking:buffer:)
-	optional func microphoneWorking(_ microphone: RKMicrophone, buffer: AVAudioPCMBuffer)
-	@objc(microphoneStop:)
-	optional func microphoneStop(_ microphone: RKMicrophone)
-	@objc(microphoneClose:)
-	optional func microphoneEndup(_ microphone: RKMicrophone)
-	@objc(microphoneStart:)
-	optional func microphoneStart(_ microphone: RKMicrophone)
-}
-
 /// Audio from the standard input
 public class RKMicrophone: RKNode, RKToggleable {
 	
@@ -34,6 +22,15 @@ public class RKMicrophone: RKNode, RKToggleable {
 	}
 	
 	fileprivate var lastKnownVolume: Double = 1.0
+	
+	/// Set the actual microphone device
+	public func setDevice(_ device: RKDevice) throws {
+		do {
+			try RecordKit.setInputDevice(device)
+		} catch {
+			RKLog("Could not set input device")
+		}
+	}
 	
 	/// Determine if the microphone is currently on.
 	public var isStarted: Bool {
@@ -59,10 +56,6 @@ public class RKMicrophone: RKNode, RKToggleable {
 		if isStopped {
 			volume = lastKnownVolume
 		}
-		RecordKit.microphoneObservers.allObjects
-			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
-				observer?.microphoneStart?(self)
-		}
 	}
 	
 	/// Function to stop or bypass the node, both are equivalent
@@ -70,10 +63,6 @@ public class RKMicrophone: RKNode, RKToggleable {
 		if isPlaying {
 			lastKnownVolume = volume
 			volume = 0
-		}
-		RecordKit.microphoneObservers.allObjects
-			.map{$0 as? RKMicrophoneHandle}.filter{$0 != nil}.forEach { observer in
-				observer?.microphoneEndup?(self)
 		}
 	}
 	
